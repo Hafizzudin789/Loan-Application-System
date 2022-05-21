@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/font_size.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -10,19 +12,22 @@ class Footer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("© 2021 Digibanc"),
+          _textWidget("© 2021 Digibanc"),
           Wrap(
             spacing: 20,
             runSpacing: 10,
-            children: const [
-              Text("Terms"),
-              Text("Privacy"),
-              Text("Supports"),
+            children: [
+              _textWidget("Terms"),
+              _textWidget("Privacy"),
+              _textWidget("Supports"),
             ],
           )
-
         ],
       ),
     );
+  }
+
+  Widget _textWidget(String value) {
+    return Text(value, style: const TextStyle(color: darkGreyColor, fontSize: s),);
   }
 }

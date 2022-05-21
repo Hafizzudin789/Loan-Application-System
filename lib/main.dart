@@ -10,13 +10,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Loan Application System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Loan Application System',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: "Avenir"
+        ),
+        home: const SplashView(),
       ),
-      home: const SplashView(),
     );
   }
 }
