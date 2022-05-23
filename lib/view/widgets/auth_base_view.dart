@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/view/widgets/footer.dart';
 
 class AuthBaseView extends StatelessWidget {
   final Widget child;
@@ -15,7 +16,23 @@ class AuthBaseView extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: child,
+      child: Stack(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              child: Center(
+                child: child,
+              ),
+            ),
+          ),
+          const Positioned(
+            right: 0,
+            left: 0,
+            bottom: 0,
+            child: Footer(),
+          ),
+        ],
+      ),
     );
   }
 }
