@@ -81,11 +81,12 @@ flutter:
    - family: Avenir
      fonts:
        - asset: fonts/AvenirFont/AvenirLTStd-Book.otf
-       - asset: fonts/AvenirFont/AvenirLTStd-Black.otf
-         weight: 700
-       - asset: fonts/AvenirFont/AvenirLTStd-Roman.otf
+       - asset: fonts/AvenirFont/AvenirLTStd-65-Medium.otf
          weight: 500
-         style: italic
+       - asset: fonts/AvenirFont/AvenirLTStd-85-Heavy.otf
+         weight: 600
+       - asset: fonts/AvenirFont/AvenirLTStd-Black.otf
+         weight: 800
 #       - asset: fonts/Schyler-Italic.ttf
 #         style: italic
   #   - family: Trajan Pro

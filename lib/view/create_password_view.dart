@@ -77,13 +77,14 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                         onChanged: (value) {
                           setState((){});
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "example@test.com",
-                          hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
+                          hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
                           isDense: true,
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _passwordController.text.isNotEmpty?pinkColor:greyColor)),
-                          focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
-                          suffixIcon: const InkWell(child: Icon(Icons.remove_red_eye_outlined)),
+                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
+                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                          suffixIcon: InkWell(child: Icon(Icons.remove_red_eye_outlined)),
                         ),
                       ),
 
@@ -97,13 +98,14 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                         },
                         style: const TextStyle(fontWeight: FontWeight.w700),
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "case-sensitive",
-                          hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
+                          hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
                           isDense: true,
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _passwordController.text.isNotEmpty?pinkColor:greyColor)),
-                          focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
-                          suffixIcon: const InkWell(child: Icon(Icons.remove_red_eye_outlined)),
+                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
+                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                          suffixIcon: InkWell(child: Icon(Icons.remove_red_eye_outlined)),
                         ),
                       ),
 

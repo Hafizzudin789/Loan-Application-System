@@ -18,6 +18,46 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String _hintTextEmail = "example@test.com";
+  String _hintTextPassword = "case-sensitive";
+
+
+  late FocusNode myFocusNodeEmail;
+  late FocusNode myFocusNodePassword;
+
+  @override
+  initState() {
+    super.initState();
+    myFocusNodeEmail = FocusNode();
+    myFocusNodePassword = FocusNode();
+
+    myFocusNodeEmail.addListener(() {
+      if (myFocusNodeEmail.hasFocus) {
+        _hintTextEmail = '';
+      } else {
+        _hintTextEmail = 'example@test.com';
+      }
+      setState(() {});
+    });
+
+    myFocusNodePassword.addListener(() {
+      if (myFocusNodePassword.hasFocus) {
+        _hintTextPassword = '';
+      } else {
+        _hintTextPassword = 'case-sensitive';
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    myFocusNodeEmail.dispose();
+    myFocusNodePassword.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,22 +83,25 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 Image.asset("assets/appLogo.png", height: 32,),
                 const SizedBox(height: 10),
-                const Text("Log in to your account", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w600, fontSize: l),),
+                const Text("Log in to your account", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w700, fontSize: l),),
                 const SizedBox(height: 60),
 
-                const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
+                const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w600),),
                 TextFormField(
                   controller: _emailController,
+                  focusNode: myFocusNodeEmail,
                   style: const TextStyle(fontWeight: FontWeight.w700),
                   onChanged: (value) {
                     setState((){});
                   },
                   decoration: InputDecoration(
-                    hintText: "example@test.com",
-                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
+                    hintText: _hintTextEmail,
+                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _emailController.text.isNotEmpty?pinkColor:greyColor)),
-                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
+                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                 ),
 
@@ -67,17 +110,19 @@ class _LoginViewState extends State<LoginView> {
                 const Text("Password", style: TextStyle(fontSize: s, color: darkGreyColor),),
                 TextFormField(
                   controller: _passwordController,
+                  focusNode: myFocusNodePassword,
                   onChanged: (value) {
                     setState((){});
                   },
                   style: const TextStyle(fontWeight: FontWeight.w700),
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: "case-sensitive",
-                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
+                    hintText: _hintTextPassword,
+                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _passwordController.text.isNotEmpty?pinkColor:greyColor)),
-                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
+                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
                   ),
                 ),
 
@@ -100,32 +145,50 @@ class _LoginViewState extends State<LoginView> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return AlertDialog(
+                            return Dialog(
                               backgroundColor: pinkColor,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                              title: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
+                              alignment: Alignment.bottomLeft,
+                              insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                        ),
+                                        child: const Icon(Icons.close, color: pinkColor, size: 18,),
+                                      ),
                                     ),
-                                    child: const Icon(Icons.close, color: pinkColor, size: 18,),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const [
-                                      Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
-                                      SizedBox(height: 10),
-                                      Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const Icon(Icons.close, color: Colors.white, size: 18),
-                                ],
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
+                                        SizedBox(height: 10),
+                                        Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 10),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Icon(Icons.close,
+                                          color: Colors.white, size: 18),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },

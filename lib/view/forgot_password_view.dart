@@ -78,7 +78,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                           hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
                           isDense: true,
                           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
+                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
                         ),
                       ),
 
@@ -93,48 +94,50 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               builder: (context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SvgPicture.asset("assets/icon.svg", color: Colors.red,),
-                                      const SizedBox(height: 20),
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset("assets/icon.svg", color: Colors.red,),
+                                        const SizedBox(height: 20),
 
-                                      Text("Almost there, enter 6-digit OTP"),
-                                      const SizedBox(height: 10),
-                                      Text("Please enter the verification code sent to your email"),
-                                      const SizedBox(height: 5),
-                                      Text("dian@digibanc.com"),
-                                      const SizedBox(height: 30),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: "Enter 6-digit code",
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 30),
-
-                                      Row(
-                                        children: [
-                                          Expanded(child: const Text("Resend code 04:57")),
-                                          ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all(greyColor),
-                                              foregroundColor: MaterialStateProperty.all(Colors.white),
-                                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
-                                              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20),),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreatePasswordView(),),);
-                                            },
-                                            child:
-                                            Text("Verify email"),
+                                        Text("Almost there, enter 6-digit OTP"),
+                                        const SizedBox(height: 10),
+                                        Text("Please enter the verification code sent to your email"),
+                                        const SizedBox(height: 5),
+                                        Text("dian@digibanc.com"),
+                                        const SizedBox(height: 30),
+                                        TextField(
+                                          decoration: InputDecoration(
+                                            hintText: "Enter 6-digit code",
                                           ),
-                                        ],
-                                      )
+                                        ),
 
-                                    ],
+                                        const SizedBox(height: 30),
+
+                                        Row(
+                                          children: [
+                                            Expanded(child: const Text("Resend code 04:57")),
+                                            ElevatedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor: MaterialStateProperty.all(greyColor),
+                                                foregroundColor: MaterialStateProperty.all(Colors.white),
+                                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
+                                                padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20),),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreatePasswordView(),),);
+                                              },
+                                              child:
+                                              Text("Verify email"),
+                                            ),
+                                          ],
+                                        )
+
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
