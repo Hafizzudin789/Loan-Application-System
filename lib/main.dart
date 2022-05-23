@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
         title: 'Loan Application System',
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily: "Avenir"
+          fontFamily: "Avenir",
+          // textTheme: TextTheme(
+          //
+          // ),
         ),
         home: const SplashView(),
       ),

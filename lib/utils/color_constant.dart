@@ -13,5 +13,7 @@ const pinkColor = Color(0XFF9B1B7F);
 
 const buttonColor = Color(0XFFD64951);
 
+const greenColor = Color(0XFF0F7170);
+
 
 

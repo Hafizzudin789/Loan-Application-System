@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/forgot_password_view.dart';
+import 'package:loan_application_system/view/widgets/auth_base_view.dart';
 import 'package:loan_application_system/view/widgets/footer.dart';
 
 class LoginView extends StatefulWidget {
@@ -22,15 +22,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: AuthBaseView(
         child: Stack(
           children: [
             Center(
@@ -101,7 +93,9 @@ class _LoginViewState extends State<LoginView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPasswordView()));
+                                },
                                 child: const Text(
                                   "Forgot Login?",
                                   style: TextStyle(color: primaryColor, fontWeight: FontWeight.w700),
