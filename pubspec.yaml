@@ -38,6 +38,7 @@ dependencies:
   stacked: ^2.3.6
   shared_preferences: ^2.0.15
   flutter_svg: ^1.0.3
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
@@ -80,13 +81,14 @@ flutter:
   fonts:
    - family: Avenir
      fonts:
-       - asset: fonts/AvenirFont/AvenirLTStd-Book.otf
-       - asset: fonts/AvenirFont/AvenirLTStd-65-Medium.otf
-         weight: 500
-       - asset: fonts/AvenirFont/AvenirLTStd-85-Heavy.otf
+       - asset: fonts/AvenirFont/Avenir-Regular.ttf
+         weight: 400
+       - asset: fonts/AvenirFont/AvenirLTStd-Medium.otf
          weight: 600
-       - asset: fonts/AvenirFont/AvenirLTStd-Black.otf
-         weight: 800
+       - asset: fonts/AvenirFont/AvenirLTStd-Heavy.otf
+         weight: 700
+       - asset: fonts/AvenirFont/Avenir-Black.ttf
+         weight: 900
 #       - asset: fonts/Schyler-Italic.ttf
 #         style: italic
   #   - family: Trajan Pro

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/create_password_view.dart';
 import 'package:loan_application_system/view/widgets/auth_base_view.dart';
@@ -17,6 +19,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _otpController = TextEditingController();
+
+  String? _otpError;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
-                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w600, fontSize: xxl),)),
+                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w600, fontSize: xxl,),),),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -69,14 +75,28 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
                       TextFormField(
                         controller: _emailController,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                         onChanged: (value) {
                           setState((){});
                         },
+                        validator: (value) {
+                          if(value == null || value.isEmpty) {
+                            return "An email is required";
+                          }
+                          if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                            return "Please enter a valid email address";
+                          }
+                          if(value != Data.emailId) {
+                            return "Something wrong, You must contact your administrator to reset your password.";
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                           hintText: "example@test.com",
-                          hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w700),
+                          hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
                           isDense: true,
+                          errorStyle: TextStyle(color: pinkColor),
+                          errorMaxLines: 2,
                           enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
                           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
                           errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
@@ -89,59 +109,99 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SvgPicture.asset("assets/icon.svg", color: Colors.red,),
-                                        const SizedBox(height: 20),
-
-                                        Text("Almost there, enter 6-digit OTP"),
-                                        const SizedBox(height: 10),
-                                        Text("Please enter the verification code sent to your email"),
-                                        const SizedBox(height: 5),
-                                        Text("dian@digibanc.com"),
-                                        const SizedBox(height: 30),
-                                        TextField(
-                                          decoration: InputDecoration(
-                                            hintText: "Enter 6-digit code",
-                                          ),
-                                        ),
-
-                                        const SizedBox(height: 30),
-
-                                        Row(
-                                          children: [
-                                            Expanded(child: const Text("Resend code 04:57")),
-                                            ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor: MaterialStateProperty.all(greyColor),
-                                                foregroundColor: MaterialStateProperty.all(Colors.white),
-                                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
-                                                padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20),),
+                            if(_formKey.currentState!.validate()) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                    content: StatefulBuilder(
+                                      builder: (BuildContext context, StateSetter setState) {
+                                        return SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.centerRight,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                    "assets/closeIcon.svg",
+                                                    height: 15,
+                                                    width: 15,
+                                                  ),
+                                                ),
                                               ),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreatePasswordView(),),);
-                                              },
-                                              child:
-                                              Text("Verify email"),
-                                            ),
-                                          ],
-                                        )
+                                              const SizedBox(height: 20),
+                                              Image.asset("assets/icon.png", scale: 1.3,),
+                                              const SizedBox(height: 20),
 
-                                      ],
+                                              const Text("Almost there, enter 6-digit OTP", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: monochromeBlackColor),),
+                                              const SizedBox(height: 10),
+                                              const Text("Please enter the verification code sent to your email", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
+                                              const SizedBox(height: 5),
+                                              const Text("digibanc@gmail.com", style: TextStyle(color: buttonColor, fontSize: m, fontWeight: FontWeight.w500,),),
+                                              const SizedBox(height: 30),
+                                              TextField(
+                                                controller: _otpController,
+                                                obscureText: true,
+                                                keyboardType: TextInputType.number,
+                                                onChanged: (value) {
+                                                  setState(() {});
+                                                },
+                                                inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6),],
+                                                decoration: InputDecoration(
+                                                  hintText: "Enter 6-digit code",
+                                                  hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600, fontSize: xl),
+                                                  border: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
+                                                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
+                                                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
+                                                  errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor,),),
+                                                  errorText: _otpError,
+                                                  errorStyle: const TextStyle(color: pinkColor),
+                                                ),
+                                              ),
+
+                                              const SizedBox(height: 30),
+
+                                              Row(
+                                                children: [
+                                                  Expanded(child: Text(_otpController.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: _otpController.text.length==6 ?buttonColor:monochromeBlackColor,),)),
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all(_otpController.text.length==6 ? buttonColor: greyColor),
+                                                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
+                                                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
+                                                    ),
+                                                    onPressed: () {
+                                                      if(_otpController.text == Data.otpCode) {
+                                                        Navigator.pop(context);
+                                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreatePasswordView(),),);
+                                                      } else {
+                                                        setState((){
+                                                          _otpError = "Incorrect verification code";
+                                                        });
+                                                      }
+                                                    },
+                                                    child: const Text("Verify email", style: TextStyle(color: Colors.white, fontSize: m, fontWeight: FontWeight.w700),),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  ),
-                                );
-                              },
-                            );
+                                  );
+                                },
+                              );
+                            }
                           },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
@@ -166,5 +226,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ),
       ),
     );
+  }
+
+
+  @override
+  dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _otpController.dispose();
   }
 }

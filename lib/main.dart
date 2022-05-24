@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/view/splash_view.dart';
 
 void main() {
@@ -20,9 +21,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: "Avenir",
-          // textTheme: TextTheme(
-          //
-          // ),
+          textTheme: const TextTheme(
+            // bodyText1: TextStyle(
+            //   color: Colors.red,
+            // ),
+            bodyText2: TextStyle(
+              color: monochromeBlackColor,
+            ),
+
+          )
         ),
         home: const SplashView(),
       ),

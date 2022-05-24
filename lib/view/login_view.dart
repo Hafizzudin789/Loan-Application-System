@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/services/toast_message.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/forgot_password_view.dart';
@@ -24,6 +26,9 @@ class _LoginViewState extends State<LoginView> {
 
   late FocusNode myFocusNodeEmail;
   late FocusNode myFocusNodePassword;
+
+  bool obscurePassValue = true;
+  bool _hasError = false;
 
   @override
   initState() {
@@ -55,6 +60,10 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
     myFocusNodeEmail.dispose();
     myFocusNodePassword.dispose();
+
+    _emailController.dispose();
+    _passwordController.dispose();
+
   }
 
 
@@ -83,14 +92,14 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 Image.asset("assets/appLogo.png", height: 32,),
                 const SizedBox(height: 10),
-                const Text("Log in to your account", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w700, fontSize: l),),
+                const Text("Log in to your account", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w700, fontSize: xl),),
                 const SizedBox(height: 60),
 
                 const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w600),),
                 TextFormField(
                   controller: _emailController,
                   focusNode: myFocusNodeEmail,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                   onChanged: (value) {
                     setState((){});
                   },
@@ -98,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                     hintText: _hintTextEmail,
                     hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?pinkColor:greyColor)),
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
                     errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -114,15 +123,26 @@ class _LoginViewState extends State<LoginView> {
                   onChanged: (value) {
                     setState((){});
                   },
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                  obscureText: true,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  obscureText: obscurePassValue,
                   decoration: InputDecoration(
                     hintText: _hintTextPassword,
                     hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?pinkColor:greyColor)),
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
                     errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    suffix: InkWell(
+                      onTap: () {
+                        setState(() {
+                          obscurePassValue = !obscurePassValue;
+                        });
+                      },
+                      child: const Icon(
+                        Icons.remove_red_eye_outlined,
+                        size: 18,
+                      ),
+                    ),
                   ),
                 ),
 
@@ -141,58 +161,70 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              backgroundColor: pinkColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                              alignment: Alignment.bottomLeft,
-                              insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white,
-                                        ),
-                                        child: const Icon(Icons.close, color: pinkColor, size: 18,),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Column(
+                      onPressed: !_emailController.text.isNotEmpty && !_passwordController.text.isNotEmpty? null: () {
+                        if(_formKey.currentState!.validate()) {
+                          setState((){
+                            _hasError = false;
+                          });
+                          if(_emailController.text == Data.emailId && _passwordController.text == Data.password) {
+                            toastMessage(message: "Log in success");
+                          } else {
+                            setState((){
+                              _hasError = true;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  backgroundColor: pinkColor,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                  alignment: Alignment.bottomLeft,
+                                  insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
-                                        SizedBox(height: 10),
-                                        Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(2),
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                            ),
+                                            child: const Icon(Icons.close, color: pinkColor, size: 18,),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
+                                            SizedBox(height: 10),
+                                            Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 10),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Icon(Icons.close,
+                                              color: Colors.white, size: 18),
+                                        ),
                                       ],
                                     ),
-                                    const SizedBox(width: 10),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Icon(Icons.close,
-                                          color: Colors.white, size: 18),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             );
-                          },
-                        );
+                          }
+                        }
                       },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
