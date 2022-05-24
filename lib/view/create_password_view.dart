@@ -98,6 +98,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                           enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
                           focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
                           errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                          errorStyle: const TextStyle(color: pinkColor),
                           suffix: InkWell(
                             onTap: () {
                               setState(() {
@@ -137,6 +138,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                           enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
                           focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
                           errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                          errorStyle: const TextStyle(color: pinkColor),
                           suffix: InkWell(
                             onTap: () {
                               setState(() {
