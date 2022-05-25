@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/splash_view.dart';
 
 void main() {
@@ -26,8 +27,13 @@ class MyApp extends StatelessWidget {
             //   color: Colors.red,
             // ),
             bodyText2: TextStyle(
-              color: monochromeBlackColor,
+              color: blackColor,
             ),
+            headline1: TextStyle(
+              color: blackColor,
+              fontSize: xxxxl,
+              fontWeight: FontWeight.w700,
+            )
 
           )
         ),

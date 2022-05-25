@@ -48,7 +48,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                   padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
-                      const Expanded(child: Text("Create new password", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w600, fontSize: xxl),)),
+                      const Expanded(child: Text("Create new password", style: TextStyle(color: blackColor, fontWeight: FontWeight.w600, fontSize: xxl),)),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -93,12 +93,12 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                         },
                         decoration: InputDecoration(
                           hintText: "case-sensitive",
-                          hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
+                          hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                           isDense: true,
-                          enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                           focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
-                          errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
-                          errorStyle: const TextStyle(color: pinkColor),
+                          errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
+                          errorStyle: const TextStyle(color: errorColor),
                           suffix: InkWell(
                             onTap: () {
                               setState(() {
@@ -133,12 +133,12 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                         },
                         decoration: InputDecoration(
                           hintText: "case-sensitive",
-                          hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
+                          hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                           isDense: true,
-                          enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                           focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
-                          errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
-                          errorStyle: const TextStyle(color: pinkColor),
+                          errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
+                          errorStyle: const TextStyle(color: errorColor),
                           suffix: InkWell(
                             onTap: () {
                               setState(() {
@@ -181,7 +181,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                                               },
                                               child: SvgPicture.asset(
                                                 "assets/closeIcon.svg",
-                                                color: monochromeBlackColor,
+                                                color: blackColor,
                                               ),
                                             ),
                                           ),
@@ -189,14 +189,14 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                                         Container(
                                           padding: const EdgeInsets.all(15),
                                           decoration: const BoxDecoration(
-                                            color: greenColor,
+                                            color: successColor,
                                             shape: BoxShape.circle,
                                           ),
                                           child: const Icon(
                                             Icons.done_rounded, color: Colors.white,),
                                         ),
                                         const SizedBox(height: 20),
-                                        const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: monochromeBlackColor, fontWeight: FontWeight.w600),),
+                                        const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColor, fontWeight: FontWeight.w600),),
                                         const SizedBox(height: 6),
                                         const Text("Please login with your new password.", style: TextStyle(color: darkGreyColor, fontSize: m),),
 
@@ -204,7 +204,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
 
                                         ElevatedButton(
                                           style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all(buttonColor),
+                                            backgroundColor: MaterialStateProperty.all(primaryColor),
                                             foregroundColor: MaterialStateProperty.all(Colors.white),
                                             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
                                             padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
@@ -228,8 +228,8 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                               ),
                             ),
                             backgroundColor: MaterialStateProperty.all(_passwordController.text.isNotEmpty && _confirmPasswordController.text.isNotEmpty
-                                ? buttonColor
-                                : greyColor),
+                                ? primaryColor
+                                : idleGreyColor),
                             padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25,)),
                           ),
                           child: const Text("Next", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
