@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.loan_application_system">
+    package="digibanc.loan_application_system">
    <application
         android:label="loan_application_system"
         android:name="${applicationName}"

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/data.dart';
-import 'package:loan_application_system/services/toast_message.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/dashboard_view.dart';
 import 'package:loan_application_system/view/forgot_password_view.dart';
 import 'package:loan_application_system/view/widgets/auth_base_view.dart';
 
@@ -92,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 Image.asset("assets/appLogo.png", height: 32,),
                 const SizedBox(height: 10),
-                const Text("Log in to your account", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w700, fontSize: xl),),
+                const Text("Log in to your account", style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: xl),),
                 const SizedBox(height: 60),
 
                 const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w600),),
@@ -105,11 +105,11 @@ class _LoginViewState extends State<LoginView> {
                   },
                   decoration: InputDecoration(
                     hintText: _hintTextEmail,
-                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
+                    hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?pinkColor:greyColor)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?errorColor:idleGreyColor)),
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
-                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
                 ),
@@ -127,11 +127,11 @@ class _LoginViewState extends State<LoginView> {
                   obscureText: obscurePassValue,
                   decoration: InputDecoration(
                     hintText: _hintTextPassword,
-                    hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
+                    hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                     isDense: true,
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?pinkColor:greyColor)),
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: _hasError?errorColor:idleGreyColor)),
                     focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
-                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                    errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
                     suffix: InkWell(
                       onTap: () {
                         setState(() {
@@ -167,7 +167,7 @@ class _LoginViewState extends State<LoginView> {
                             _hasError = false;
                           });
                           if(_emailController.text == Data.emailId && _passwordController.text == Data.password) {
-                            toastMessage(message: "Log in success");
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const DashboardView()));
                           } else {
                             setState((){
                               _hasError = true;
@@ -176,7 +176,7 @@ class _LoginViewState extends State<LoginView> {
                               context: context,
                               builder: (context) {
                                 return Dialog(
-                                  backgroundColor: pinkColor,
+                                  backgroundColor: errorColor,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                                   alignment: Alignment.bottomLeft,
                                   insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
@@ -196,7 +196,7 @@ class _LoginViewState extends State<LoginView> {
                                               shape: BoxShape.circle,
                                               color: Colors.white,
                                             ),
-                                            child: const Icon(Icons.close, color: pinkColor, size: 18,),
+                                            child: const Icon(Icons.close, color: errorColor, size: 18,),
                                           ),
                                         ),
                                         const SizedBox(width: 10),
@@ -233,8 +233,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                         backgroundColor: MaterialStateProperty.all(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty
-                            ? buttonColor
-                            : greyColor),
+                            ? primaryColor
+                            : idleGreyColor),
                         padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25,)),
                       ),
                       child: const Text("Log in", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),

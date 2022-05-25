@@ -51,7 +51,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
-                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: monochromeBlackColor, fontWeight: FontWeight.w600, fontSize: xxl,),),),
+                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: blackColor, fontWeight: FontWeight.w600, fontSize: xxl,),),),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -69,7 +69,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("To recover your account, begin by entering your email address.", style: TextStyle(fontSize: m, color: monochromeBlackColor, fontWeight: FontWeight.w500),),
+                      const Text("To recover your account, begin by entering your email address.", style: TextStyle(fontSize: m, color: blackColor, fontWeight: FontWeight.w500),),
                       SizedBox(height: MediaQuery.of(context).size.height*0.08),
 
                       const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
@@ -93,13 +93,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         },
                         decoration: const InputDecoration(
                           hintText: "example@test.com",
-                          hintStyle: TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600),
+                          hintStyle: TextStyle(color: greyColor, fontWeight: FontWeight.w600),
                           isDense: true,
-                          errorStyle: TextStyle(color: pinkColor),
+                          errorStyle: TextStyle(color: errorColor),
                           errorMaxLines: 2,
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: greyColor)),
+                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: darkGreyColor)),
-                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: pinkColor)),
+                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: errorColor)),
                         ),
                       ),
 
@@ -141,11 +141,11 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                               Image.asset("assets/icon.png", scale: 1.3,),
                                               const SizedBox(height: 20),
 
-                                              const Text("Almost there, enter 6-digit OTP", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: monochromeBlackColor),),
+                                              const Text("Almost there, enter 6-digit OTP", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColor),),
                                               const SizedBox(height: 10),
                                               const Text("Please enter the verification code sent to your email", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
                                               const SizedBox(height: 5),
-                                              const Text("digibanc@gmail.com", style: TextStyle(color: buttonColor, fontSize: m, fontWeight: FontWeight.w500,),),
+                                              const Text("digibanc@gmail.com", style: TextStyle(color: primaryColor, fontSize: m, fontWeight: FontWeight.w500,),),
                                               const SizedBox(height: 30),
                                               TextField(
                                                 controller: _otpController,
@@ -157,13 +157,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                                 inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6),],
                                                 decoration: InputDecoration(
                                                   hintText: "Enter 6-digit code",
-                                                  hintStyle: const TextStyle(color: lightGreyColor, fontWeight: FontWeight.w600, fontSize: xl),
-                                                  border: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
-                                                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
-                                                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: greyColor,),),
-                                                  errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: pinkColor,),),
+                                                  hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600, fontSize: xl),
+                                                  border: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                                  focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                                  enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                                  errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor,),),
                                                   errorText: _otpError,
-                                                  errorStyle: const TextStyle(color: pinkColor),
+                                                  errorStyle: const TextStyle(color: errorColor),
                                                 ),
                                               ),
 
@@ -171,10 +171,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
                                               Row(
                                                 children: [
-                                                  Expanded(child: Text(_otpController.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: _otpController.text.length==6 ?buttonColor:monochromeBlackColor,),)),
+                                                  Expanded(child: Text(_otpController.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: _otpController.text.length==6 ?primaryColor:blackColor,),)),
                                                   ElevatedButton(
                                                     style: ButtonStyle(
-                                                      backgroundColor: MaterialStateProperty.all(_otpController.text.length==6 ? buttonColor: greyColor),
+                                                      backgroundColor: MaterialStateProperty.all(_otpController.text.length==6 ? primaryColor: idleGreyColor),
                                                       foregroundColor: MaterialStateProperty.all(Colors.white),
                                                       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
                                                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
@@ -210,8 +210,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               ),
                             ),
                             backgroundColor: MaterialStateProperty.all(_emailController.text.isNotEmpty
-                                ? buttonColor
-                                : greyColor),
+                                ? primaryColor
+                                : idleGreyColor),
                             padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25,)),
                           ),
                           child: const Text("Next", style : TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
