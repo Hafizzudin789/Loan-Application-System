@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/login_view.dart';
+import 'package:loan_application_system/view/auth_view/login_view.dart';
 import 'package:loan_application_system/view/widgets/auth_base_view.dart';
 
 class CreatePasswordView extends StatefulWidget {

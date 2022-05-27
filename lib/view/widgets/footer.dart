@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 
 class Footer extends StatelessWidget {
@@ -28,6 +27,6 @@ class Footer extends StatelessWidget {
   }
 
   Widget _textWidget(String value) {
-    return Text(value, style: const TextStyle(color: darkGreyColor, fontSize: s),);
+    return Text(value, style: const TextStyle(fontSize: s),);
   }
 }

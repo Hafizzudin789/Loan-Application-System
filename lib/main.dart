@@ -20,22 +20,27 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Loan Application System',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: primaryGrey,
+          primaryColor: blackColor,
           fontFamily: "Avenir",
           textTheme: const TextTheme(
             // bodyText1: TextStyle(
             //   color: Colors.red,
             // ),
             bodyText2: TextStyle(
-              color: blackColor,
+              color: darkGreyColor,
             ),
             headline1: TextStyle(
               color: blackColor,
               fontSize: xxxxl,
               fontWeight: FontWeight.w700,
-            )
-
-          )
+            ),
+            headline2: TextStyle(
+              color: blackColor,
+              fontSize: l,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         home: const SplashView(),
       ),

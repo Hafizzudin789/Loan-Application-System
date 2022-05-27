@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/dashboard_view.dart';
-import 'package:loan_application_system/view/forgot_password_view.dart';
+import 'package:loan_application_system/view/auth_view/forgot_password_view.dart';
+import 'package:loan_application_system/view/layout_view.dart';
 import 'package:loan_application_system/view/widgets/auth_base_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -161,71 +161,74 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: !_emailController.text.isNotEmpty && !_passwordController.text.isNotEmpty? null: () {
-                        if(_formKey.currentState!.validate()) {
-                          setState((){
-                            _hasError = false;
-                          });
-                          if(_emailController.text == Data.emailId && _passwordController.text == Data.password) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const DashboardView()));
-                          } else {
-                            setState((){
-                              _hasError = true;
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return Dialog(
-                                  backgroundColor: errorColor,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                  alignment: Alignment.bottomLeft,
-                                  insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2),
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white,
-                                            ),
-                                            child: const Icon(Icons.close, color: errorColor, size: 18,),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: const [
-                                            Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
-                                            SizedBox(height: 10),
-                                            Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 10),
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Icon(Icons.close,
-                                              color: Colors.white, size: 18),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        }
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const LayoutView()));
                       },
+                      // onPressed: !_emailController.text.isNotEmpty && !_passwordController.text.isNotEmpty? null: () {
+                      //   if(_formKey.currentState!.validate()) {
+                      //     setState((){
+                      //       _hasError = false;
+                      //     });
+                      //     if(_emailController.text == Data.emailId && _passwordController.text == Data.password) {
+                      //       Navigator.push(context, MaterialPageRoute(builder: (context)=>const LayoutView()));
+                      //     } else {
+                      //       setState((){
+                      //         _hasError = true;
+                      //       });
+                      //       showDialog(
+                      //         context: context,
+                      //         builder: (context) {
+                      //           return Dialog(
+                      //             backgroundColor: errorColor,
+                      //             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      //             alignment: Alignment.bottomLeft,
+                      //             insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(16.0),
+                      //               child: Row(
+                      //                 crossAxisAlignment: CrossAxisAlignment.start,
+                      //                 mainAxisSize: MainAxisSize.min,
+                      //                 children: [
+                      //                   InkWell(
+                      //                     onTap: () {
+                      //                       Navigator.pop(context);
+                      //                     },
+                      //                     child: Container(
+                      //                       padding: const EdgeInsets.all(2),
+                      //                       decoration: const BoxDecoration(
+                      //                         shape: BoxShape.circle,
+                      //                         color: Colors.white,
+                      //                       ),
+                      //                       child: const Icon(Icons.close, color: errorColor, size: 18,),
+                      //                     ),
+                      //                   ),
+                      //                   const SizedBox(width: 10),
+                      //                   Column(
+                      //                     crossAxisAlignment: CrossAxisAlignment.start,
+                      //                     mainAxisSize: MainAxisSize.min,
+                      //                     children: const [
+                      //                       Text("Invalid email address or password.", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
+                      //                       SizedBox(height: 10),
+                      //                       Text("Click on ‘Forgot Login?' to reset your login details.", style: TextStyle(color: Colors.white, fontSize: m),),
+                      //                     ],
+                      //                   ),
+                      //                   const SizedBox(width: 10),
+                      //                   InkWell(
+                      //                     onTap: () {
+                      //                       Navigator.pop(context);
+                      //                     },
+                      //                     child: const Icon(Icons.close,
+                      //                         color: Colors.white, size: 18),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           );
+                      //         },
+                      //       );
+                      //     }
+                      //   }
+                      // },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
