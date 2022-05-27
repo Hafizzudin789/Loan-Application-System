@@ -21,6 +21,8 @@ const secondaryDarkGrey = Color(0XFF6F7C89);
 
 
 const greenColor = Color(0XFF20D1A0);
+const lightYellowColor = Color(0XFFFFD900);
+const yellowColor = Color(0XFFFFB800);
 
 
 

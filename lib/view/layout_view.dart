@@ -22,7 +22,7 @@ class _LayoutViewState extends State<LayoutView> {
   initState() {
     super.initState();
     Future.delayed(
-      const Duration(seconds: 3), () {
+      const Duration(seconds: 10), () {
         showDialog(
           context: context,
           builder: (context) {
@@ -235,7 +235,7 @@ class _LayoutViewState extends State<LayoutView> {
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
               backgroundColor: MaterialStateProperty.all(Colors.white),
               foregroundColor: MaterialStateProperty.all(blackColor),
             ),

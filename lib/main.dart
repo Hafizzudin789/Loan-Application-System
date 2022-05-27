@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/layout_view.dart';
 import 'package:loan_application_system/view/splash_view.dart';
 
 void main() {
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
           primaryColor: blackColor,
           fontFamily: "Avenir",
           textTheme: const TextTheme(
-            // bodyText1: TextStyle(
-            //   color: Colors.red,
-            // ),
+            bodyText1: TextStyle(
+              color: darkGreyColor,
+              fontSize: s,
+            ),
             bodyText2: TextStyle(
               color: darkGreyColor,
             ),
@@ -42,7 +44,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const SplashView(),
+        // home: const SplashView(),
+        home: const LayoutView(),
       ),
     );
   }
