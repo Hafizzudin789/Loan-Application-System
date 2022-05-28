@@ -504,7 +504,12 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                           title: Row(
                                             children: [
                                               const Expanded(child: Text("Re-enter password", style: TextStyle(fontSize: xxl, color: blackColor, fontWeight: FontWeight.w700),)),
-                                              SvgPicture.asset("assets/closeIcon.svg"),
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: SvgPicture.asset("assets/closeIcon.svg"),
+                                              ),
                                             ],
                                           ),
                                           content: Form(
