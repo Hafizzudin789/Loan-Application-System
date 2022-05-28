@@ -167,54 +167,57 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                                   return AlertDialog  (
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                                     contentPadding: const EdgeInsets.symmetric(vertical: 35, horizontal: 30),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10.0, bottom: 10),
+                                    content: SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.35,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
                                             child: InkWell(
                                               onTap: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: SvgPicture.asset(
-                                                "assets/closeIcon.svg",
-                                                color: blackColor,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: SvgPicture.asset(
+                                                  "assets/closeIcon.svg",
+                                                  color: blackColor,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(15),
-                                          decoration: const BoxDecoration(
-                                            color: successColor,
-                                            shape: BoxShape.circle,
+                                          Container(
+                                            padding: const EdgeInsets.all(15),
+                                            decoration: const BoxDecoration(
+                                              color: successColor,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.done_rounded, color: Colors.white,),
                                           ),
-                                          child: const Icon(
-                                            Icons.done_rounded, color: Colors.white,),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColor, fontWeight: FontWeight.w600),),
-                                        const SizedBox(height: 6),
-                                        const Text("Please login with your new password.", style: TextStyle(color: darkGreyColor, fontSize: m),),
+                                          const SizedBox(height: 20),
+                                          const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColor, fontWeight: FontWeight.w600),),
+                                          const SizedBox(height: 6),
+                                          const Text("Please login with your new password.", style: TextStyle(color: darkGreyColor, fontSize: m),),
 
-                                        const SizedBox(height: 30),
+                                          const SizedBox(height: 30),
 
-                                        ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all(primaryColor),
-                                            foregroundColor: MaterialStateProperty.all(Colors.white),
-                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
-                                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
+                                          ElevatedButton(
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(primaryColor),
+                                              foregroundColor: MaterialStateProperty.all(Colors.white),
+                                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
+                                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LoginView()), (route) => false);
+                                            },
+                                            child: const Text("Back to Log in", style: TextStyle(fontSize: m, fontWeight: FontWeight.w700),),
                                           ),
-                                          onPressed: () {
-                                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LoginView()), (route) => false);
-                                          },
-                                          child: const Text("Back to Log in", style: TextStyle(fontSize: m, fontWeight: FontWeight.w700),),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },

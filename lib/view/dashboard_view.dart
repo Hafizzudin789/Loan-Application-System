@@ -21,23 +21,20 @@ class _DashboardViewState extends State<DashboardView> {
     ApplicationData(2, "Rejected"),
   ];
 
-  List<TypesCountData> typesCountData = <TypesCountData>[
-    TypesCountData(value: 45, label: "Credit Card"),
-    TypesCountData(value: 23, label: "Personal Load Card"),
-    TypesCountData(value: 8, label: "Auto Loan"),
+  // List<TypesCountData> typesCountData = <TypesCountData>[
+  //   TypesCountData(value: 45, label: "Credit\nCard"),
+  //   TypesCountData(value: 23, label: "Personal\nLoan"),
+  //   TypesCountData(value: 15, label: "Auto\nLoan"),
+  // ];
+  List<TypesCountData> typesCountCrData = <TypesCountData>[
+    TypesCountData(value: 45, label: "Credit\nCard"),
   ];
-
-  // int totalTypesCountData = 0;
-  //
-  // @override
-  // initState() {
-  //   super.initState();
-  //   // print("hello bidhan");
-  //   // for (var count in typesCountData) {
-  //   //   totalTypesCountData += count.value;
-  //   // }
-  //   // print(totalTypesCountData);
-  // }
+  List<TypesCountData> typesCountPData = <TypesCountData>[
+    TypesCountData(value: 23, label: "Personal\nLoan"),
+  ];
+  List<TypesCountData> typesCountLoanData = <TypesCountData>[
+    TypesCountData(value: 15, label: "Auto\nLoan"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +71,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   Widget _monthlySummaryWidget() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -253,64 +250,67 @@ class _DashboardViewState extends State<DashboardView> {
           const Divider(),
           Expanded(
             flex: 4,
-            child: SfCartesianChart(
-              palette: const [errorColor, yellowColor, greenColor],
-              plotAreaBorderWidth: 0,
-              primaryXAxis: CategoryAxis(
-                // isVisible: false,
-                majorGridLines: const MajorGridLines(width: 0),
-                axisLine: const AxisLine(width: 0, color: Colors.red),
-              ),
-              primaryYAxis: NumericAxis(
-                isVisible: false,
-                // //Hide the gridlines of y-axis
-                // majorGridLines: const MajorGridLines(width: 0),
-                // //Hide the axis line of y-axis
-                // axisLine: const AxisLine(width: 0),
-              ),
-              enableSideBySideSeriesPlacement: true,
-              series: <ColumnSeries<TypesCountData,String>>[
-                ColumnSeries<TypesCountData, String>(
-                  dataSource: typesCountData,
-                  xValueMapper: (TypesCountData data, _) => data.label,
-                  yValueMapper: (TypesCountData data, _) => data.value,
-                  // borderRadius: const BorderRadius.vertical(top: Radius.circular(100)),
-                  // isTrackVisible: false,
-                  width: 0.15,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ],
-
-            ),
-            // child: Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     _barWidget(errorColor, "Credit Card", 45),
-            //     _barWidget(yellowColor, "Personal Loan Card", 23),
-            //     _barWidget(greenColor, "Auto Loan", 3),
+            // child: SfCartesianChart(
+            //   palette: const [errorColor, yellowColor, greenColor],
+            //   plotAreaBorderWidth: 0,
+            //   primaryXAxis: CategoryAxis(
+            //     majorGridLines: const MajorGridLines(width: 0),
+            //     axisLine: const AxisLine(width: 0),
+            //     majorTickLines: const MajorTickLines(
+            //       // width: 0,
+            //       // size: 0,
+            //       color: Colors.transparent
+            //     ),
+            //     labelsExtent: 100,
+            //     labelAlignment: LabelAlignment.center,
+            //     // maximumLabelWidth: 100
+            //   ),
+            //   primaryYAxis: NumericAxis(
+            //     isVisible: false,
+            //   ),
+            //   enableSideBySideSeriesPlacement: true,
+            //   series: <ColumnSeries<TypesCountData,String>>[
+            //     ColumnSeries<TypesCountData, String>(
+            //       dataSource: typesCountCrData,
+            //       xValueMapper: (TypesCountData data, _) => data.label,
+            //       yValueMapper: (TypesCountData data, _) => data.value,
+            //       dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m+1)),
+            //       width: 0.4,
+            //       borderRadius: BorderRadius.circular(100),
+            //     ),
+            //     ColumnSeries<TypesCountData, String>(
+            //       dataSource: typesCountPData,
+            //       xValueMapper: (TypesCountData data, _) => data.label,
+            //       yValueMapper: (TypesCountData data, _) => data.value,
+            //       dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m+1)),
+            //       width: 0.4,
+            //       borderRadius: BorderRadius.circular(100),
+            //     ),
+            //     ColumnSeries<TypesCountData, String>(
+            //       dataSource: typesCountLoanData,
+            //       xValueMapper: (TypesCountData data, _) => data.label,
+            //       yValueMapper: (TypesCountData data, _) => data.value,
+            //       dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m+1)),
+            //       width: 0.4,
+            //       borderRadius: BorderRadius.circular(100),
+            //     ),
             //   ],
+            //
             // ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _barWidget(errorColor, "Credit\nCard", 45),
+                  _barWidget(yellowColor, "Personal\nLoan", 23),
+                  _barWidget(greenColor, "Auto\nLoan", 15),
+                ],
+              ),
+            ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _barWidget(Color color, String label, int value) {
-    return Column(
-      children: [
-        Text(value.toString(), style: const TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m+1),),
-        Expanded(
-          child: Container(
-            width: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: color,
-            ),
-          ),
-        ),
-        Text(label, style: Theme.of(context).textTheme.bodyText1,),
-      ],
     );
   }
 
@@ -440,6 +440,35 @@ class _DashboardViewState extends State<DashboardView> {
           Text("Lorem Ipsum Sit Dolor Amet ", style: Theme.of(context).textTheme.bodyText1,),
         ],
       ),
+    );
+  }
+
+  Widget _barWidget(Color color, String label, int value) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(
+          value.toString(),
+          style: const TextStyle(
+            color: blackColor,
+            fontWeight: FontWeight.w700,
+            fontSize: m + 1,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Flexible(
+          child: Container(
+            width: 20,
+            height: value.toDouble()*3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: color,
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(label, style: Theme.of(context).textTheme.bodyText1, textAlign: TextAlign.center,),
+      ],
     );
   }
 }

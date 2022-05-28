@@ -141,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                               Image.asset("assets/icon.png", scale: 1.3,),
                                               const SizedBox(height: 20),
 
-                                              const Text("Almost there, enter 6-digit OTP", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColor),),
+                                              const Text("Almost there, enter verification code", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColor),),
                                               const SizedBox(height: 10),
                                               const Text("Please enter the verification code sent to your email", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
                                               const SizedBox(height: 5),
