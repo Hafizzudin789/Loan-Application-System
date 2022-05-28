@@ -19,6 +19,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
       onWillPop: () async =>
       !await locator<NavigationService>().navigatorKeys[locator<NavigationService>().layoutIndex.name]!.currentState!.maybePop(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body : StatefulWrapper(
           child: SafeArea(
             child: Row(
@@ -27,11 +28,13 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                 Expanded(
                   child: Column(
                     children: [
-                      viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
-                          ? _customAppBar(viewModel)
-                          : const SizedBox(height: 20),
+                      viewModel.layoutViewIndex == LayoutViewIndex.profileView
+                          ? const SizedBox()
+                          : _customAppBar(viewModel),
                       _body(viewModel),
-                      const Footer(),
+                      viewModel.layoutViewIndex == LayoutViewIndex.profileView
+                          ? const SizedBox()
+                          : const Footer(),
                     ],
                   ),
                 ),
