@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/create_password_view.dart';
-import 'package:loan_application_system/view/widgets/auth_base_view.dart';
+import 'package:loan_application_system/view/auth_view/auth_base_view.dart';
 
 import '../../utils/color_constant.dart';
 

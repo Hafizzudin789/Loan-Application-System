@@ -3,8 +3,8 @@ import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/forgot_password_view.dart';
-import 'package:loan_application_system/view/layout_view.dart';
-import 'package:loan_application_system/view/widgets/auth_base_view.dart';
+import 'package:loan_application_system/view/auth_view/auth_base_view.dart';
+import 'package:loan_application_system/view/layout_view/layout_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);

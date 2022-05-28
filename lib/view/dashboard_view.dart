@@ -163,6 +163,7 @@ class _DashboardViewState extends State<DashboardView> {
                         endAngle: 270,
                         innerRadius: "82%",
                         radius: "85%",
+                        animationDuration: 1000,
                       ),
                     ],
                   ),

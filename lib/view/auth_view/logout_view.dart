@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/login_view.dart';
-import 'package:loan_application_system/view/widgets/auth_base_view.dart';
+import 'package:loan_application_system/view/auth_view/auth_base_view.dart';
 
 class LogoutView extends StatefulWidget {
   final bool isSessionExpired;

@@ -40,6 +40,7 @@ dependencies:
   flutter_svg: ^1.0.3
   fluttertoast: ^8.0.8
   syncfusion_flutter_charts: ^20.1.57
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
