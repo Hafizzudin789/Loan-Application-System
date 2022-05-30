@@ -33,6 +33,11 @@ class LayoutViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  justChangeLayoutViewIndex(LayoutViewIndex value) {
+    _layoutViewIndex = value;
+    locator<NavigationService>().layoutIndex = value;
+  }
+
   buildOffstageNavigator(LayoutViewIndex layoutIndex) {
     return Offstage(
       offstage: _layoutViewIndex != layoutIndex,

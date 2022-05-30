@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/services/toast_message.dart';
 import 'package:stacked/stacked.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,6 +23,10 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  justChangeState(ProfileViewState value) {
+    profileViewState = value;
+  }
+
 
   final formKey = GlobalKey<FormState>();
   final reenterFormKey = GlobalKey<FormState>();
@@ -37,16 +42,20 @@ class ProfileViewModel extends BaseViewModel {
 
   String? profileImagePath;
   pickAndUpload() async{
-    if(profileImagePath != null) {
-      profileImagePath = null;
-      notifyListeners();
-      return;
-    }
-    ImagePicker picker = ImagePicker();
-    XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
-    if(imageFile!=null) {
-      profileImagePath = imageFile.path;
-      notifyListeners();
+    try {
+      if(profileImagePath != null) {
+        profileImagePath = null;
+        notifyListeners();
+        return;
+      }
+      ImagePicker picker = ImagePicker();
+      XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
+      if(imageFile!=null) {
+        profileImagePath = imageFile.path;
+        notifyListeners();
+      }
+    } catch(e) {
+      toastMessage(message: e.toString());
     }
   }
 

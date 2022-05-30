@@ -594,6 +594,8 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                                                   padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
                                                                 ),
                                                                 onPressed: () {
+                                                                  viewModel.justChangeLayoutViewIndex(LayoutViewIndex.dashboardView);
+                                                                  profileViewModel.justChangeState(ProfileViewState.profile);
                                                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LoginView()), (route) => false);
                                                                 },
                                                                 child: const Text("Back to Log in", style: TextStyle(fontSize: m, fontWeight: FontWeight.w700),),
