@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/services/routing_service.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 
 class TabNavigator extends StatelessWidget {

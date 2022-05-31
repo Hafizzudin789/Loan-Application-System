@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:loan_application_system/view_model/profile_view_model.dart';
 import 'package:stacked/stacked.dart';

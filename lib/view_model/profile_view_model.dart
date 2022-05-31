@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/services/toast_message.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:stacked/stacked.dart';
 import 'package:image_picker/image_picker.dart';
 
-enum ProfileViewState{
-  profile,
-  security;
-}
 
 class ProfileViewModel extends BaseViewModel {
   final firstNameTEC = TextEditingController(text: "Phillip");

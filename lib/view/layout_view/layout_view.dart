@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/widgets/footer.dart';

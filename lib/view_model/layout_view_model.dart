@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/layout_view/tab_navigator_Widget.dart';
 import 'package:stacked/stacked.dart';
-
-enum LayoutViewIndex {
-  dashboardView,
-  applicationsView,
-  third,
-  fourth,
-  profileView;
-}
-
-enum PopupMenuState {
-  account,
-  logout,
-}
 
 class LayoutViewModel extends BaseViewModel {
 
