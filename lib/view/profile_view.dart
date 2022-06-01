@@ -207,7 +207,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                 const SizedBox(width: 20),
                                 ElevatedButton(
                                   onPressed: () {
-                                    profileViewModel.pickAndUpload();
+                                    profileViewModel.pickAndUpload(context);
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(

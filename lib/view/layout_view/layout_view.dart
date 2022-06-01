@@ -158,7 +158,9 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                 ),
                 alignment: Alignment.center,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   tooltip: "Request application",
                   icon: const Icon(
                     Icons.add,
