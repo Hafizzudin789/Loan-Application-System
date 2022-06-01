@@ -159,7 +159,54 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                 alignment: Alignment.center,
                 child: IconButton(
                   onPressed: () {
-
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          contentPadding: EdgeInsets.zero,
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Expanded(child: Text("Which one would you like to create?", style: TextStyle(color: blackColor, fontSize: xxl, fontWeight: FontWeight.w700),)),
+                                    const SizedBox(width: 10),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Icon(Icons.close,
+                                          color: blackColor, size: 30),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Divider(height: 0),
+                              Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _cardTypeWidget("Credit Card", "assets/discountIcon.svg", const Color(0XFF5CD2D0), const Color(0XFF5CD2D0).withOpacity(0.1), _showCardOptionsDetail),
+                                    const SizedBox(width: 15),
+                                    _cardTypeWidget("Auto Finance", "assets/carIcon.svg", yellowColor, const Color(0XFFFFFBED), _showFinanceDetail),
+                                    const SizedBox(width: 15),
+                                    _cardTypeWidget("Personal Finance", "assets/financeIcon.svg", const Color(0XFF0590FF), const Color(0XFF0590FF).withOpacity(0.1), _showPersonalFinanceDetail),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   },
                   tooltip: "Request application",
                   icon: const Icon(
@@ -200,6 +247,47 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                 child: SvgPicture.asset("assets/messageIcon.svg"),
               ),
             ],
+          ),
+        );
+      }
+    );
+  }
+
+  Widget _cardTypeWidget(String label, String imagePath, Color iconBackgroundColor,Color cardColor, Function onTap) {
+    return Builder(
+      builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            onTap(context);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            height: 170,
+            width: 170,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: cardColor,
+              border: Border.all(color: borderGreyColor, width: 1),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: iconBackgroundColor,
+                    border: Border.all(color: borderGreyColor, width: 1),
+                  ),
+                  child: SvgPicture.asset(
+                    imagePath,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(label, style: Theme.of(context).textTheme.headline2,),
+              ],
+            ),
           ),
         );
       }
@@ -354,6 +442,22 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
       ],
     ));
   }
+
+  void _showCardOptionsDetail(BuildContext context) {
+    Navigator.pop(context);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text("dkjsbafds"),
+        );
+      },
+    );
+  }
+
+  void _showFinanceDetail(BuildContext context) {}
+
+  void _showPersonalFinanceDetail(BuildContext context) {}
 }
 
 

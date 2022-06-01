@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            home: const SplashView(),
-            // home: const LayoutView(),
+            // home: const SplashView(),
+            home: const LayoutView(),
           ),
         );
       },
