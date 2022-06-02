@@ -4,6 +4,13 @@ import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/layout_view/tab_navigator_Widget.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
+
+
+enum CustomerType {
+  existing,
+  newCustomer,
+}
 
 class LayoutViewModel extends BaseViewModel {
 
@@ -38,6 +45,49 @@ class LayoutViewModel extends BaseViewModel {
 
 
   ///////card credit view state//////////
+  final monthlyIncomeTEC = TextEditingController();
+  final minimumSettlementTEC = TextEditingController();
+
+  CustomerType? customerType;
+  selectCustomerType(CustomerType? value) {
+    if(value == null) {
+      return;
+    }
+    customerType = value;
+    // notifyListeners();
+  }
+
+  bool allCardPrefSelected = false;
+  selectAllCardPref(bool? value) {
+    if(value == null) {
+      return;
+    }
+    if(value) {
+      cardPrefList = cardPrefList.map((e) => true).toList();
+    } else {
+      cardPrefList = cardPrefList.map((e) => false).toList();
+    }
+    allCardPrefSelected = value;
+  }
+
+  List<bool> cardPrefList = [false, false, false, false, false, false, false];
+  selectCardPref(int index) {
+    if(cardPrefList[index]){
+      allCardPrefSelected = false;
+    }
+    cardPrefList[index] = !cardPrefList[index];
+    if(!cardPrefList.contains(false)) {
+      allCardPrefSelected = true;
+    }
+  }
+
+  disposeCardResource() {
+    customerType = null;
+    selectAllCardPref(false);
+    monthlyIncomeTEC.clear();
+    minimumSettlementTEC.clear();
+  }
+
 
   ///////////////////////////////////////
 }
