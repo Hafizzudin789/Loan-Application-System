@@ -6,6 +6,7 @@ import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/application_view.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
@@ -614,7 +615,9 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ApplicationView()));
+                                  },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
                                     backgroundColor: MaterialStateProperty.all(Colors.white),
