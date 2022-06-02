@@ -449,7 +449,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
     Navigator.pop(context);
     showDialog(
       context: context,
-      // barrierDismissible: false,
+      barrierDismissible: false,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
