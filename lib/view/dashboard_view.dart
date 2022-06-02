@@ -92,7 +92,7 @@ class _DashboardViewState extends State<DashboardView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Monthly summary", style: Theme.of(context).textTheme.headline2,),
+                          Text("Monthly summary", style: Theme.of(context).textTheme.headline3,),
                           Text("Last updated 16 May 2022", style: Theme.of(context).textTheme.bodyText1,),
                         ],
                       ),
@@ -338,7 +338,7 @@ class _DashboardViewState extends State<DashboardView> {
                 const SizedBox(width: 8),
                 Text(
                   "Notifications summary",
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               ],
             ),
@@ -407,7 +407,7 @@ class _DashboardViewState extends State<DashboardView> {
             ),
             child: SvgPicture.asset("assets/discountIcon.svg"),
           ),
-          Text("Enjoy 50% Cashback Deal for Petrol Credit Card", style: Theme.of(context).textTheme.headline2,),
+          Text("Enjoy 50% Cashback Deal for Petrol Credit Card", style: Theme.of(context).textTheme.headline3,),
 
           Text("Lorem Ipsum Sit Dolor Amet ", style: Theme.of(context).textTheme.bodyText1,),
         ],
@@ -436,7 +436,7 @@ class _DashboardViewState extends State<DashboardView> {
             ),
             child: SvgPicture.asset("assets/carIcon.svg"),
           ),
-          Text("Auto Finance Rate 2% with 1 year free service", style: Theme.of(context).textTheme.headline2,),
+          Text("Auto Finance Rate 2% with 1 year free service", style: Theme.of(context).textTheme.headline3,),
 
           Text("Lorem Ipsum Sit Dolor Amet ", style: Theme.of(context).textTheme.bodyText1,),
         ],

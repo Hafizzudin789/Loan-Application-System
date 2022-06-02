@@ -285,7 +285,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                     color: Colors.white,
                   ),
                 ),
-                Text(label, style: Theme.of(context).textTheme.headline2,),
+                Text(label, style: Theme.of(context).textTheme.headline3,),
               ],
             ),
           ),
@@ -447,11 +447,203 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
     Navigator.pop(context);
     showDialog(
       context: context,
+      // barrierDismissible: false,
       builder: (context) {
-        return const AlertDialog(
-          title: Text("dkjsbafds"),
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),),
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.55,
+                minWidth: MediaQuery.of(context).size.width * 0.5,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+                    child: Row(
+                      children: [
+                        Expanded(child: Text("Let’s find the right card for you", style: Theme.of(context).textTheme.headline2,)),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: SvgPicture.asset("assets/closeIcon.svg"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(height: 0,),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Monthly Income", style: Theme.of(context).textTheme.bodyText1,),
+                                  const TextField(
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      hintText: "0.00 BHD",
+                                      hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Minimum Settlement Due", style: Theme.of(context).textTheme.bodyText1,),
+                                  const TextField(
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      hintText: "Please select",
+                                      hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+
+                        Text("Type of Customer", style: Theme.of(context).textTheme.bodyText1,),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RadioListTile(
+                                value: true,
+                                groupValue: 1,
+                                contentPadding: EdgeInsets.zero,
+                                dense: true,
+                                onChanged: (value) {},
+                                title: Text("Existing", style: Theme.of(context).textTheme.headline3,),
+                              ),
+                            ),
+                            Expanded(
+                              child: RadioListTile(
+                                value: false,
+                                contentPadding: EdgeInsets.zero,
+                                dense: true,
+                                groupValue: 1,
+                                onChanged: (value) {},
+                                title: Text("New Customer", style: Theme.of(context).textTheme.headline3,),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 30),
+
+                        Text("Card Preferences", style: Theme.of(context).textTheme.bodyText1,),
+                        RadioListTile(
+                          value: false,
+                          groupValue: 1,
+                          contentPadding: EdgeInsets.zero,
+                          dense: true,
+                          onChanged: (value) {},
+                          title: Text("Select all", style: Theme.of(context).textTheme.headline3,),
+                        ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 15,
+                          runSpacing: 20,
+                          // alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            _cardPreferenceWidget("Travel Insurance", "assets/aeroplaneIcon.svg"),
+                            _cardPreferenceWidget("Medical Insurance", "assets/medicalIcon.svg"),
+                            _cardPreferenceWidget("Lifestyle Dining / Hotels", "assets/carIcon.svg"),
+                            _cardPreferenceWidget("Golf", "assets/golfIcon.svg"),
+                            _cardPreferenceWidget("Loyalty Rewards", "assets/giftIcon.svg"),
+                            _cardPreferenceWidget("Airport Lounge Access", "assets/flowerIcon.svg"),
+                            _cardPreferenceWidget("Sharia Compliant", "assets/moonIcon.svg"),
+                          ],
+                        ),
+                        const SizedBox(height: 50),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
+                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                foregroundColor: MaterialStateProperty.all(blackColor),
+                                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+                              ),
+                              child: const Text("View all card", style: TextStyle(fontWeight: FontWeight.w700),),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
+                                backgroundColor: MaterialStateProperty.all(idleGreyColor),
+                                foregroundColor: MaterialStateProperty.all(Colors.white),
+                                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+                              ),
+                              child: const Text("Show Card", style: TextStyle(fontWeight: FontWeight.w700),),
+                            ),
+
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
+    );
+  }
+
+  Widget _cardPreferenceWidget(String label, String imagePath) {
+    return Builder(
+      builder: (context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              decoration: BoxDecoration(
+                border: Border.all(color: primaryGrey, width: 1,),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: darkGreyColor,
+                  border: Border.all(color: borderGreyColor)
+                ),
+                child: SvgPicture.asset(imagePath, color: Colors.white,),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(label, style: const TextStyle(color: Color(0XFF455666), fontSize: s-1,),)
+          ],
+        );
+      }
     );
   }
 

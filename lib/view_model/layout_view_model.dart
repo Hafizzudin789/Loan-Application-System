@@ -35,4 +35,9 @@ class LayoutViewModel extends BaseViewModel {
       ),
     );
   }
+
+
+  ///////card credit view state//////////
+
+  ///////////////////////////////////////
 }
