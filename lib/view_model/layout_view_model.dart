@@ -4,7 +4,6 @@ import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/layout_view/tab_navigator_Widget.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter/material.dart';
 
 
 enum CustomerType {
@@ -44,7 +43,7 @@ class LayoutViewModel extends BaseViewModel {
   }
 
 
-  ///////card credit view state//////////
+  ///////add application pop up view state/////////////////////
   final monthlyIncomeTEC = TextEditingController();
   final minimumSettlementTEC = TextEditingController();
 
@@ -89,5 +88,5 @@ class LayoutViewModel extends BaseViewModel {
   }
 
 
-  ///////////////////////////////////////
+  //add application pop up view state end/////////////////////////////////////
 }

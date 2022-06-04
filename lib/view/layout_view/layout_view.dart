@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
+import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/application_view.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
@@ -29,18 +29,21 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
             child: Row(
               children: [
                 _customSideNavBar(viewModel),
+                // Expanded(
+                //   child: Column(
+                //     children: [
+                //       // viewModel.layoutViewIndex == LayoutViewIndex.profileView
+                //       //     ? const SizedBox()
+                //       //     : _customAppBar(viewModel),
+                //       _body(viewModel),
+                //       viewModel.layoutViewIndex == LayoutViewIndex.profileView
+                //           ? const SizedBox()
+                //           : const Footer(),
+                //     ],
+                //   ),
+                // ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      viewModel.layoutViewIndex == LayoutViewIndex.profileView
-                          ? const SizedBox()
-                          : _customAppBar(viewModel),
-                      _body(viewModel),
-                      viewModel.layoutViewIndex == LayoutViewIndex.profileView
-                          ? const SizedBox()
-                          : const Footer(),
-                    ],
-                  ),
+                  child: _body(viewModel),
                 ),
               ],
             ),
@@ -179,14 +182,14 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Expanded(child: Text("Which one would you like to create?", style: TextStyle(color: blackColor, fontSize: xxl, fontWeight: FontWeight.w700),)),
+                                    const Expanded(child: Text("Which one would you like to create?", style: TextStyle(color: blackColorMono, fontSize: xxl, fontWeight: FontWeight.w700),)),
                                     const SizedBox(width: 10),
                                     InkWell(
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
                                       child: const Icon(Icons.close,
-                                          color: blackColor, size: 30),
+                                          color: blackColorMono, size: 30),
                                     ),
                                   ],
                                 ),
@@ -321,121 +324,121 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
     );
   }
 
-  Widget _customAppBar(LayoutViewModel viewModel) {
-    return Builder(
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          child: Row(
-            children: [
-              Text("Dashboard", style: Theme.of(context).textTheme.headline1,),
-              const SizedBox(width: 40),
-              ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  foregroundColor: MaterialStateProperty.all(blackColor),
-                ),
-                child: Row(
-                  children: const [
-                    Text("All Product", style: TextStyle(fontWeight: FontWeight.w700),),
-                    SizedBox(width: 10),
-                    Icon(Icons.keyboard_arrow_down_rounded, size: 20,)
-                  ],
-                ),
-              ),
-
-              const Expanded(child: SizedBox()),
-
-              const Text("14 December 2021", style: TextStyle(fontSize: s),),
-              const SizedBox(width: 25),
-              SvgPicture.asset("assets/settingsIcon.svg", height: 20),
-              const SizedBox(width: 25),
-              SvgPicture.asset("assets/notificationIcon.svg", height: 20),
-              const SizedBox(width: 25),
-              PopupMenuButton<PopupMenuState>(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                position: PopupMenuPosition.under,
-                onSelected: (value) {
-                  if(value == PopupMenuState.logout) {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView()), (route) => false);
-                  } else {
-                    viewModel.changeLayoutViewIndex(LayoutViewIndex.profileView);
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: secondaryDarkGrey,
-                  ),
-                  child: const Text("PD", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
-                ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    enabled: false,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24,),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text("PHILLIP DIAS", style: TextStyle(color: darkGreyColor, fontSize: s, fontWeight: FontWeight.w700, letterSpacing: 1.5),),
-                        const SizedBox(height: 4),
-                        Wrap(
-                          spacing: 5,
-                          runSpacing: 2,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: greenColor,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: const Text("Active", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: greyColor,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: const Text("Sales Officer", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: PopupMenuState.account,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text("Account Settings", style: TextStyle(color: blackColor, fontSize: m, fontWeight: FontWeight.w700),),
-                        Text("Manage your account", style: TextStyle(color: darkGreyColor, fontSize: s),),
-                      ],
-                    ),
-                  ),
-                  const PopupMenuDivider(),
-                  const PopupMenuItem(
-                    value: PopupMenuState.logout,
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                    child: Text("Log out", style: TextStyle(fontSize: m, color: errorColor, fontWeight: FontWeight.w700),),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }
-    );
-  }
+  // Widget _customAppBar(LayoutViewModel viewModel) {
+  //   return Builder(
+  //     builder: (context) {
+  //       return Container(
+  //         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+  //         child: Row(
+  //           children: [
+  //             Text("Dashboard", style: Theme.of(context).textTheme.headline1,),
+  //             const SizedBox(width: 40),
+  //             ElevatedButton(
+  //               onPressed: () {},
+  //               style: ButtonStyle(
+  //                 shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
+  //                 backgroundColor: MaterialStateProperty.all(Colors.white),
+  //                 foregroundColor: MaterialStateProperty.all(blackColor),
+  //               ),
+  //               child: Row(
+  //                 children: const [
+  //                   Text("All Product", style: TextStyle(fontWeight: FontWeight.w700),),
+  //                   SizedBox(width: 10),
+  //                   Icon(Icons.keyboard_arrow_down_rounded, size: 20,)
+  //                 ],
+  //               ),
+  //             ),
+  //
+  //             const Expanded(child: SizedBox()),
+  //
+  //             const Text("14 December 2021", style: TextStyle(fontSize: s),),
+  //             const SizedBox(width: 25),
+  //             SvgPicture.asset("assets/settingsIcon.svg", height: 20),
+  //             const SizedBox(width: 25),
+  //             SvgPicture.asset("assets/notificationIcon.svg", height: 20),
+  //             const SizedBox(width: 25),
+  //             PopupMenuButton<PopupMenuState>(
+  //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+  //               position: PopupMenuPosition.under,
+  //               onSelected: (value) {
+  //                 if(value == PopupMenuState.logout) {
+  //                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView()), (route) => false);
+  //                 } else {
+  //                   viewModel.changeLayoutViewIndex(LayoutViewIndex.profileView);
+  //                 }
+  //               },
+  //               child: Container(
+  //                 padding: const EdgeInsets.all(8),
+  //                 decoration: const BoxDecoration(
+  //                   shape: BoxShape.circle,
+  //                   color: secondaryDarkGrey,
+  //                 ),
+  //                 child: const Text("PD", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
+  //               ),
+  //               itemBuilder: (context) => [
+  //                 PopupMenuItem(
+  //                   enabled: false,
+  //                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24,),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: [
+  //                       const Text("PHILLIP DIAS", style: TextStyle(color: darkGreyColor, fontSize: s, fontWeight: FontWeight.w700, letterSpacing: 1.5),),
+  //                       const SizedBox(height: 4),
+  //                       Wrap(
+  //                         spacing: 5,
+  //                         runSpacing: 2,
+  //                         children: [
+  //                           Container(
+  //                             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+  //                             decoration: BoxDecoration(
+  //                               color: greenColor,
+  //                               borderRadius: BorderRadius.circular(100),
+  //                             ),
+  //                             child: const Text("Active", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
+  //                           ),
+  //                           Container(
+  //                             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+  //                             decoration: BoxDecoration(
+  //                               color: greyColor,
+  //                               borderRadius: BorderRadius.circular(100),
+  //                             ),
+  //                             child: const Text("Sales Officer", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 PopupMenuItem(
+  //                   value: PopupMenuState.account,
+  //                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: const [
+  //                       Text("Account Settings", style: TextStyle(color: blackColor, fontSize: m, fontWeight: FontWeight.w700),),
+  //                       Text("Manage your account", style: TextStyle(color: darkGreyColor, fontSize: s),),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 const PopupMenuDivider(),
+  //                 const PopupMenuItem(
+  //                   value: PopupMenuState.logout,
+  //                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+  //                   child: Text("Log out", style: TextStyle(fontSize: m, color: errorColor, fontWeight: FontWeight.w700),),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }
+  //   );
+  // }
 
   Widget _body(LayoutViewModel viewModel) {
-    return Expanded(child: Stack(
+    return Stack(
       children: [
         viewModel.buildOffstageNavigator(LayoutViewIndex.dashboardView),
         viewModel.buildOffstageNavigator(LayoutViewIndex.applicationsView),
@@ -443,7 +446,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
         viewModel.buildOffstageNavigator(LayoutViewIndex.fourth),
         viewModel.buildOffstageNavigator(LayoutViewIndex.profileView),
       ],
-    ));
+    );
   }
 
   void _showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
@@ -466,7 +469,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+                        padding: const EdgeInsets.only(left: 20.0, bottom: 30, top: 30),
                         child: Row(
                           children: [
                             Expanded(child: Text("Let’s find the right card for you", style: Theme.of(context).textTheme.headline2,)),
@@ -476,7 +479,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                 viewModel.disposeCardResource();
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(2.0),
+                                padding: const EdgeInsets.only(left: 2.0, right: 20),
                                 child: SvgPicture.asset("assets/closeIcon.svg"),
                               ),
                             ),
@@ -616,12 +619,13 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ApplicationView()));
+                                    Navigator.pop(context);
+                                    locator<NavigationService>().navigateToAndBack(applicationFormView);
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
                                     backgroundColor: MaterialStateProperty.all(Colors.white),
-                                    foregroundColor: MaterialStateProperty.all(blackColor),
+                                    foregroundColor: MaterialStateProperty.all(blackColorMono),
                                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                                   ),
                                   child: const Text("View all card", style: TextStyle(fontWeight: FontWeight.w700),),

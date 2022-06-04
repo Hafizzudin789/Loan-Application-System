@@ -106,7 +106,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
             fontWeight: FontWeight.w700,
             fontSize: m,
             color: profileViewState == profileViewModel.profileViewState
-                ? blackColor
+                ? blackColorMono
                 : Colors.white,
           ),
         ),
@@ -128,7 +128,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                   const Text(
                     "Profile Details",
                     style: TextStyle(
-                        color: blackColor,
+                        color: blackColorMono,
                         fontSize: xxl,
                         fontWeight: FontWeight.w700),
                   ),
@@ -214,7 +214,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                         borderRadius: BorderRadius.circular(25),
                                         side: BorderSide(color: profileViewModel.profileImagePath != null?errorColor:borderGreyColor))),
                                     backgroundColor: MaterialStateProperty.all(Colors.white),
-                                    foregroundColor: MaterialStateProperty.all(profileViewModel.profileImagePath != null?errorColor:blackColor),
+                                    foregroundColor: MaterialStateProperty.all(profileViewModel.profileImagePath != null?errorColor:blackColorMono),
                                   ),
                                   child: Row(
                                     children: [
@@ -244,7 +244,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                               controller: profileViewModel.firstNameTEC,
                               enabled: false,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               decoration: const InputDecoration(
                                 labelText: "First Name",
                                 disabledBorder:
@@ -261,7 +261,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                               controller: profileViewModel.lastNameTEC,
                               enabled: false,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               //style: const TextStyle(fontSize: 14, color: blackColor, fontWeight: FontWeight.w700),
                               decoration: const InputDecoration(
                                 labelText: "Last Name",
@@ -283,7 +283,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                             child: TextField(
                               controller: profileViewModel.emailTEC,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               enabled: false,
                               decoration: const InputDecoration(
                                 labelText: "Email",
@@ -300,7 +300,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                             child: TextField(
                               controller: profileViewModel.birthDateTEC,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               enabled: false,
                               decoration: const InputDecoration(
                                 labelText: "Date of birth",
@@ -321,7 +321,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                             child: TextField(
                               controller: profileViewModel.statusTEC,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               enabled: false,
                               decoration: const InputDecoration(
                                 labelText: "Status",
@@ -338,7 +338,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                             child: TextField(
                               controller: profileViewModel.joinDateTEC,
                               style: const TextStyle(
-                                  color: blackColor),
+                                  color: blackColorMono),
                               enabled: false,
                               decoration: const InputDecoration(
                                 labelText: "Date joining",
@@ -377,7 +377,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                   const Text(
                     "Security Details",
                     style: TextStyle(
-                        color: blackColor,
+                        color: blackColorMono,
                         fontSize: xxl,
                         fontWeight: FontWeight.w700),
                   ),
@@ -413,7 +413,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 20),
-                        const Text("Change your password", style: TextStyle(fontWeight: FontWeight.w700, color: blackColor),),
+                        const Text("Change your password", style: TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),),
                         const SizedBox(height: 10),
                         const Text("Lorem ipsum dolor sit amet, contetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
 
@@ -429,7 +429,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                   TextFormField(
                                     obscureText: true,
                                     controller: profileViewModel.passwordTEC,
-                                    style: const TextStyle(color: blackColor),
+                                    style: const TextStyle(color: blackColorMono),
                                     onChanged: (value) {
                                       profileViewModel.updateState();
                                     },
@@ -461,7 +461,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                   TextFormField(
                                     controller: profileViewModel.confirmPasswordTEC,
                                     obscureText: true,
-                                    style: const TextStyle(color: blackColor),
+                                    style: const TextStyle(color: blackColorMono),
                                     onChanged: (value) {
                                       profileViewModel.updateState();
                                     },
@@ -504,7 +504,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                                           title: Row(
                                             children: [
-                                              const Expanded(child: Text("Re-enter password", style: TextStyle(fontSize: xxl, color: blackColor, fontWeight: FontWeight.w700),)),
+                                              const Expanded(child: Text("Re-enter password", style: TextStyle(fontSize: xxl, color: blackColorMono, fontWeight: FontWeight.w700),)),
                                               InkWell(
                                                 onTap: () {
                                                   Navigator.pop(context);
@@ -566,7 +566,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                                                     padding: const EdgeInsets.all(10),
                                                                     child: SvgPicture.asset(
                                                                       "assets/closeIcon.svg",
-                                                                      color: blackColor,
+                                                                      color: blackColorMono,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -581,7 +581,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                                                   Icons.done_rounded, color: Colors.white,),
                                                               ),
                                                               const SizedBox(height: 20),
-                                                              const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColor, fontWeight: FontWeight.w600),),
+                                                              const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColorMono, fontWeight: FontWeight.w600),),
                                                               const SizedBox(height: 6),
                                                               const Text("Please login with your new password.", style: TextStyle(color: darkGreyColor, fontSize: m),),
 
@@ -631,7 +631,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                                   ? primaryColor
                                   : idleGreyColor
                               ),
-                              foregroundColor: MaterialStateProperty.all(blackColor),
+                              foregroundColor: MaterialStateProperty.all(blackColorMono),
                               padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                             ),
                             child: const Text(

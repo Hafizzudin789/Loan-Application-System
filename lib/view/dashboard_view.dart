@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/widgets/custom_app_bar.dart';
+import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DashboardView extends StatefulWidget {
@@ -21,11 +23,7 @@ class _DashboardViewState extends State<DashboardView> {
     ApplicationData(2, "Rejected"),
   ];
 
-  // List<TypesCountData> typesCountData = <TypesCountData>[
-  //   TypesCountData(value: 45, label: "Credit\nCard"),
-  //   TypesCountData(value: 23, label: "Personal\nLoan"),
-  //   TypesCountData(value: 15, label: "Auto\nLoan"),
-  // ];
+
   List<TypesCountData> typesCountCrData = <TypesCountData>[
     TypesCountData(value: 45, label: "Credit\nCard"),
   ];
@@ -38,34 +36,42 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: _monthlySummaryWidget(),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Column(
+      children: [
+        const CustomAppBar(),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Row(
               children: [
                 Expanded(
-                  child: _notificationWidget(),
+                  child: _monthlySummaryWidget(),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(width: 20),
                 Expanded(
-                  child: _discountWidget(),
-                ),
-                const SizedBox(height: 20),
-                Expanded(
-                  child: _financeWidget(),
-                ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: _notificationWidget(),
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: _discountWidget(),
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: _financeWidget(),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        const Footer(),
+      ],
     );
   }
 
@@ -102,7 +108,7 @@ class _DashboardViewState extends State<DashboardView> {
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
                         backgroundColor: MaterialStateProperty.all(Colors.white),
-                        foregroundColor: MaterialStateProperty.all(blackColor),
+                        foregroundColor: MaterialStateProperty.all(blackColorMono),
                       ),
                       child: Row(
                         children: const [
@@ -144,7 +150,7 @@ class _DashboardViewState extends State<DashboardView> {
                         widget: RichText(
                           text: TextSpan(
                               text: "40",
-                              style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                              style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                               children: [
                                 TextSpan(text: "  \nApplications", style: Theme.of(context).textTheme.bodyText1)
                               ]
@@ -187,7 +193,7 @@ class _DashboardViewState extends State<DashboardView> {
                             child: RichText(
                               text: TextSpan(
                                   text: "23",
-                                  style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                                  style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                                   children: [
                                     TextSpan(text: "  Completed", style: Theme.of(context).textTheme.bodyText1)
                                   ]
@@ -210,7 +216,7 @@ class _DashboardViewState extends State<DashboardView> {
                             child: RichText(
                               text: TextSpan(
                                   text: "15",
-                                  style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                                  style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                                   children: [
                                     TextSpan(text: "  In Progress", style: Theme.of(context).textTheme.bodyText1)
                                   ]
@@ -233,7 +239,7 @@ class _DashboardViewState extends State<DashboardView> {
                             child: RichText(
                               text: TextSpan(
                                   text: "2",
-                                  style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                                  style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                                   children: [
                                     TextSpan(text: "  Rejected", style: Theme.of(context).textTheme.bodyText1)
                                   ]
@@ -353,7 +359,7 @@ class _DashboardViewState extends State<DashboardView> {
                   RichText(
                     text: TextSpan(
                       text: "13",
-                      style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                      style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                       children: [
                         TextSpan(text: "  Application is not complete", style: Theme.of(context).textTheme.bodyText1)
                       ]
@@ -362,7 +368,7 @@ class _DashboardViewState extends State<DashboardView> {
                   RichText(
                     text: TextSpan(
                         text: "11",
-                        style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                        style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                         children: [
                           TextSpan(text: "  Customer has expiry ID", style: Theme.of(context).textTheme.bodyText1)
                         ]
@@ -371,7 +377,7 @@ class _DashboardViewState extends State<DashboardView> {
                   RichText(
                     text: TextSpan(
                         text: "21",
-                        style: const TextStyle(fontSize: m+1, color: blackColor, fontWeight: FontWeight.w500),
+                        style: const TextStyle(fontSize: m+1, color: blackColorMono, fontWeight: FontWeight.w500),
                         children: [
                           TextSpan(text: "  Customer expiry ID is next month", style: Theme.of(context).textTheme.bodyText1)
                         ]
@@ -451,7 +457,7 @@ class _DashboardViewState extends State<DashboardView> {
         Text(
           value.toString(),
           style: const TextStyle(
-            color: blackColor,
+            color: blackColorMono,
             fontWeight: FontWeight.w700,
             fontSize: m + 1,
           ),

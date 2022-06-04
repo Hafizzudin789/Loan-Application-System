@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: 'Loan Application System',
             theme: ThemeData(
               scaffoldBackgroundColor: primaryGrey,
-              primaryColor: blackColor,
+              primaryColor: blackColorMono,
               fontFamily: "Avenir",
               textTheme: const TextTheme(
                 bodyText1: TextStyle(
@@ -40,17 +40,17 @@ class MyApp extends StatelessWidget {
                   color: darkGreyColor,
                 ),
                 headline1: TextStyle(
-                  color: blackColor,
+                  color: blackColorMono,
                   fontSize: xxxxl,
                   fontWeight: FontWeight.w700,
                 ),
                 headline2: TextStyle(
-                  color: blackColor,
+                  color: blackColorMono,
                   fontSize: xxl,
                   fontWeight: FontWeight.w700,
                 ),
                 headline3: TextStyle(
-                  color: blackColor,
+                  color: blackColorMono,
                   fontSize: l,
                   fontWeight: FontWeight.w700,
                 ),

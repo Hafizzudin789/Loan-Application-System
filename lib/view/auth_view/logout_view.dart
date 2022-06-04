@@ -49,7 +49,7 @@ class _LogoutViewState extends State<LogoutView> {
                     ? "You session has expired! Your browser was idle for more than 20 minutes. Please log in again to continue"
                     : "You have successfully logged out!",
                 style: const TextStyle(
-                    color: blackColor,
+                    color: blackColorMono,
                     fontWeight: FontWeight.w700,
                     fontSize: xl),
               ),
@@ -66,7 +66,7 @@ class _LogoutViewState extends State<LogoutView> {
                 rows: const [
                   DataRow(
                     cells: [
-                      DataCell(Text("Lorem Ipsum sit dolor amet", style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m),)),
+                      DataCell(Text("Lorem Ipsum sit dolor amet", style: TextStyle(color: blackColorMono, fontWeight: FontWeight.w700, fontSize: m),)),
                       DataCell(Text("3434353535", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),
                       DataCell(Text("13 : 30 ", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),
                       DataCell(Text("21 Jan 22", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),
@@ -74,7 +74,7 @@ class _LogoutViewState extends State<LogoutView> {
                   ),
                   DataRow(
                     cells: [
-                      DataCell(Text("Lorem Ipsum sit dolor amet", style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: m),)),
+                      DataCell(Text("Lorem Ipsum sit dolor amet", style: TextStyle(color: blackColorMono, fontWeight: FontWeight.w700, fontSize: m),)),
                       DataCell(Text("3434353535", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),
                       DataCell(Text("13 : 30 ", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),
                       DataCell(Text("21 Jan 22", style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w700),)),

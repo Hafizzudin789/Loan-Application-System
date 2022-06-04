@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/view/application_form_view/application_form_view.dart';
 import 'package:loan_application_system/view/applications_view.dart';
 import 'package:loan_application_system/view/dashboard_view.dart';
 import 'package:loan_application_system/view/layout_view/layout_view.dart';
@@ -12,6 +13,7 @@ const String thirdView = "third-view";
 const String fourthView = "fourth-view";
 const String layoutView = "layout-view";
 const String profileView = "profile-view";
+const String applicationFormView = "application-form-view";
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -27,6 +29,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const Center(child: Text("World"),));
     case profileView:
       return MaterialPageRoute(builder: (context) => const ProfileView());
+    case applicationFormView:
+      return MaterialPageRoute(builder: (context) => const ApplicationFormView());
     default:
       return MaterialPageRoute(builder: (context) => Material(child: Center(child: Text("No Such Route ${settings.name}"),)));
   }

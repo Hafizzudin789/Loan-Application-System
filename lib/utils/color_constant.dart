@@ -8,7 +8,8 @@ const warningColor = Color(0XFFBE1C1C);
 const errorColor = Color(0XFF9B1B7F);
 
 
-const blackColor = Color(0XFF030A0F);
+const blackColorMono = Color(0XFF030A0F);
+const blackColorPrimary = Color(0XFF1B0A0B);
 
 const lightGreyColor = Color(0XFFF6F7F8);
 const idleGreyColor = Color(0XFFCBD1D7);
@@ -23,6 +24,7 @@ const secondaryDarkGrey = Color(0XFF6F7C89);
 const greenColor = Color(0XFF20D1A0);
 const lightYellowColor = Color(0XFFFFD900);
 const yellowColor = Color(0XFFFFB800);
+const orangeColor = Color(0XFFEB7E40);
 
 
 

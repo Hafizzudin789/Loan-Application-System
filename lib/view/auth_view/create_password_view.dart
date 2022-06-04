@@ -48,7 +48,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                   padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
-                      const Expanded(child: Text("Create new password", style: TextStyle(color: blackColor, fontWeight: FontWeight.w600, fontSize: xxl),)),
+                      const Expanded(child: Text("Create new password", style: TextStyle(color: blackColorMono, fontWeight: FontWeight.w600, fontSize: xxl),)),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -183,7 +183,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                                                 padding: const EdgeInsets.all(10),
                                                 child: SvgPicture.asset(
                                                   "assets/closeIcon.svg",
-                                                  color: blackColor,
+                                                  color: blackColorMono,
                                                 ),
                                               ),
                                             ),
@@ -198,7 +198,7 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
                                               Icons.done_rounded, color: Colors.white,),
                                           ),
                                           const SizedBox(height: 20),
-                                          const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColor, fontWeight: FontWeight.w600),),
+                                          const Text("Your password reset is successful.", style: TextStyle(fontSize: xl, color: blackColorMono, fontWeight: FontWeight.w600),),
                                           const SizedBox(height: 6),
                                           const Text("Please login with your new password.", style: TextStyle(color: darkGreyColor, fontSize: m),),
 

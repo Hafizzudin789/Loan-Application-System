@@ -92,7 +92,7 @@ class _LoginViewState extends State<LoginView> {
               children: [
                 Image.asset("assets/appLogo.png", height: 32,),
                 const SizedBox(height: 10),
-                const Text("Log in to your account", style: TextStyle(color: blackColor, fontWeight: FontWeight.w700, fontSize: xl),),
+                const Text("Log in to your account", style: TextStyle(color: blackColorMono, fontWeight: FontWeight.w700, fontSize: xl),),
                 const SizedBox(height: 60),
 
                 const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w600),),

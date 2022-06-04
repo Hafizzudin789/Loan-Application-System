@@ -51,7 +51,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   padding: const EdgeInsets.all(24),
                   child: Row(
                     children: [
-                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: blackColor, fontWeight: FontWeight.w600, fontSize: xxl,),),),
+                      const Expanded(child: Text("Forgot Login?", style: TextStyle(color: blackColorMono, fontWeight: FontWeight.w600, fontSize: xxl,),),),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
@@ -69,7 +69,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("To recover your account, begin by entering your email address.", style: TextStyle(fontSize: m, color: blackColor, fontWeight: FontWeight.w500),),
+                      const Text("To recover your account, begin by entering your email address.", style: TextStyle(fontSize: m, color: blackColorMono, fontWeight: FontWeight.w500),),
                       SizedBox(height: MediaQuery.of(context).size.height*0.08),
 
                       const Text("Email Address", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
@@ -141,7 +141,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                                               Image.asset("assets/icon.png", scale: 1.3,),
                                               const SizedBox(height: 20),
 
-                                              const Text("Almost there, enter verification code", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColor),),
+                                              const Text("Almost there, enter verification code", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColorMono),),
                                               const SizedBox(height: 10),
                                               const Text("Please enter the verification code sent to your email", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
                                               const SizedBox(height: 5),
@@ -171,7 +171,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
                                               Row(
                                                 children: [
-                                                  Expanded(child: Text(_otpController.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: _otpController.text.length==6 ?primaryColor:blackColor,),)),
+                                                  Expanded(child: Text(_otpController.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: _otpController.text.length==6 ?primaryColor:blackColorMono,),)),
                                                   ElevatedButton(
                                                     style: ButtonStyle(
                                                       backgroundColor: MaterialStateProperty.all(_otpController.text.length==6 ? primaryColor: idleGreyColor),
