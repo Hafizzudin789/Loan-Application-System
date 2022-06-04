@@ -444,7 +444,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
         viewModel.buildOffstageNavigator(LayoutViewIndex.applicationsView),
         viewModel.buildOffstageNavigator(LayoutViewIndex.third),
         viewModel.buildOffstageNavigator(LayoutViewIndex.fourth),
-        viewModel.buildOffstageNavigator(LayoutViewIndex.profileView),
+        // viewModel.buildOffstageNavigator(LayoutViewIndex.profileView),
       ],
     );
   }

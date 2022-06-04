@@ -18,9 +18,11 @@ class TabNavigator extends StatelessWidget {
       childRoute = applicationView;
     } else if(bottomIndex == LayoutViewIndex.third) {
       childRoute = thirdView;
-    } else if(bottomIndex == LayoutViewIndex.profileView) {
-      childRoute = profileView;
-    } else {
+    }
+    // else if(bottomIndex == LayoutViewIndex.profileView) {
+    //   childRoute = profileView;
+    // }
+    else {
       childRoute = fourthView;
     }
     return Navigator(
