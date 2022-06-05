@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
@@ -7,11 +5,6 @@ import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/layout_view/tab_navigator_Widget.dart';
 import 'package:stacked/stacked.dart';
 
-
-enum CustomerType {
-  existing,
-  newCustomer,
-}
 
 class LayoutViewModel extends BaseViewModel {
 
@@ -47,7 +40,7 @@ class LayoutViewModel extends BaseViewModel {
 
   ///////add application pop up view state/////////////////////
   final monthlyIncomeTEC = TextEditingController();
-  final minimumSettlementTEC = TextEditingController();
+  // final minimumSettlementTEC = TextEditingController();
 
   CustomerType? customerType;
   selectCustomerType(CustomerType? value) {
@@ -55,7 +48,6 @@ class LayoutViewModel extends BaseViewModel {
       return;
     }
     customerType = value;
-    // notifyListeners();
   }
 
   bool allCardPrefSelected = false;
@@ -86,9 +78,18 @@ class LayoutViewModel extends BaseViewModel {
     customerType = null;
     selectAllCardPref(false);
     monthlyIncomeTEC.clear();
-    minimumSettlementTEC.clear();
+    // minimumSettlementTEC.clear();
   }
 
   //add application pop up view state end/////////////////////////////////////
 
+
+  String dropdownValue = 'Lorem Ipsum';
+  var items = [
+    'Lorem Ipsum',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
 }

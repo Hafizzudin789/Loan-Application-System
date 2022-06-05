@@ -9,6 +9,7 @@ import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
+import 'package:loan_application_system/view/widgets/selected_widget.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
 import 'package:loan_application_system/view/widgets/timer_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
@@ -30,19 +31,6 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
             child: Row(
               children: [
                 _customSideNavBar(viewModel),
-                // Expanded(
-                //   child: Column(
-                //     children: [
-                //       // viewModel.layoutViewIndex == LayoutViewIndex.profileView
-                //       //     ? const SizedBox()
-                //       //     : _customAppBar(viewModel),
-                //       _body(viewModel),
-                //       viewModel.layoutViewIndex == LayoutViewIndex.profileView
-                //           ? const SizedBox()
-                //           : const Footer(),
-                //     ],
-                //   ),
-                // ),
                 Expanded(
                   child: _body(viewModel),
                 ),
@@ -86,7 +74,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                     color: warningColor),
                               ),
                               const SizedBox(height: 30),
-                              TimerWidget(),
+                              const TimerWidget(),
                               const SizedBox(height: 5),
                               const Text("Tap ‘Okay’ to stay logged in or click ‘Log out’ to log out.", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
                               const SizedBox(height: 50),
@@ -325,118 +313,6 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
     );
   }
 
-  // Widget _customAppBar(LayoutViewModel viewModel) {
-  //   return Builder(
-  //     builder: (context) {
-  //       return Container(
-  //         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-  //         child: Row(
-  //           children: [
-  //             Text("Dashboard", style: Theme.of(context).textTheme.headline1,),
-  //             const SizedBox(width: 40),
-  //             ElevatedButton(
-  //               onPressed: () {},
-  //               style: ButtonStyle(
-  //                 shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
-  //                 backgroundColor: MaterialStateProperty.all(Colors.white),
-  //                 foregroundColor: MaterialStateProperty.all(blackColor),
-  //               ),
-  //               child: Row(
-  //                 children: const [
-  //                   Text("All Product", style: TextStyle(fontWeight: FontWeight.w700),),
-  //                   SizedBox(width: 10),
-  //                   Icon(Icons.keyboard_arrow_down_rounded, size: 20,)
-  //                 ],
-  //               ),
-  //             ),
-  //
-  //             const Expanded(child: SizedBox()),
-  //
-  //             const Text("14 December 2021", style: TextStyle(fontSize: s),),
-  //             const SizedBox(width: 25),
-  //             SvgPicture.asset("assets/settingsIcon.svg", height: 20),
-  //             const SizedBox(width: 25),
-  //             SvgPicture.asset("assets/notificationIcon.svg", height: 20),
-  //             const SizedBox(width: 25),
-  //             PopupMenuButton<PopupMenuState>(
-  //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-  //               position: PopupMenuPosition.under,
-  //               onSelected: (value) {
-  //                 if(value == PopupMenuState.logout) {
-  //                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView()), (route) => false);
-  //                 } else {
-  //                   viewModel.changeLayoutViewIndex(LayoutViewIndex.profileView);
-  //                 }
-  //               },
-  //               child: Container(
-  //                 padding: const EdgeInsets.all(8),
-  //                 decoration: const BoxDecoration(
-  //                   shape: BoxShape.circle,
-  //                   color: secondaryDarkGrey,
-  //                 ),
-  //                 child: const Text("PD", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
-  //               ),
-  //               itemBuilder: (context) => [
-  //                 PopupMenuItem(
-  //                   enabled: false,
-  //                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24,),
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     mainAxisSize: MainAxisSize.min,
-  //                     children: [
-  //                       const Text("PHILLIP DIAS", style: TextStyle(color: darkGreyColor, fontSize: s, fontWeight: FontWeight.w700, letterSpacing: 1.5),),
-  //                       const SizedBox(height: 4),
-  //                       Wrap(
-  //                         spacing: 5,
-  //                         runSpacing: 2,
-  //                         children: [
-  //                           Container(
-  //                             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-  //                             decoration: BoxDecoration(
-  //                               color: greenColor,
-  //                               borderRadius: BorderRadius.circular(100),
-  //                             ),
-  //                             child: const Text("Active", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
-  //                           ),
-  //                           Container(
-  //                             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-  //                             decoration: BoxDecoration(
-  //                               color: greyColor,
-  //                               borderRadius: BorderRadius.circular(100),
-  //                             ),
-  //                             child: const Text("Sales Officer", style: TextStyle(fontSize: s, color: Colors.white, fontWeight: FontWeight.w700),),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 PopupMenuItem(
-  //                   value: PopupMenuState.account,
-  //                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     mainAxisSize: MainAxisSize.min,
-  //                     children: const [
-  //                       Text("Account Settings", style: TextStyle(color: blackColor, fontSize: m, fontWeight: FontWeight.w700),),
-  //                       Text("Manage your account", style: TextStyle(color: darkGreyColor, fontSize: s),),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 const PopupMenuDivider(),
-  //                 const PopupMenuItem(
-  //                   value: PopupMenuState.logout,
-  //                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-  //                   child: Text("Log out", style: TextStyle(fontSize: m, color: errorColor, fontWeight: FontWeight.w700),),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     }
-  //   );
-  // }
 
   Widget _body(LayoutViewModel viewModel) {
     return Stack(
@@ -454,13 +330,13 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
     Navigator.pop(context);
     showDialog(
       context: context,
-      barrierDismissible: false,
+      // barrierDismissible: false,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            return Dialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),),
-              child: SingleChildScrollView(
+            return SingleChildScrollView(
+              child: Dialog(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),),
                 child: Container(
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.55,
@@ -470,17 +346,18 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0, bottom: 30, top: 30),
+                        padding: EdgeInsets.only(left: 20.0, bottom: MediaQuery.of(context).size.height*0.01, top: MediaQuery.of(context).size.height*0.01),
                         child: Row(
                           children: [
-                            Expanded(child: Text("Let’s find the right card for you", style: Theme.of(context).textTheme.headline2,)),
+                            Expanded(child: Text("Let's find the right card for you", style: Theme.of(context).textTheme.headline2,)),
                             InkWell(
                               onTap: () {
                                 Navigator.pop(context);
                                 viewModel.disposeCardResource();
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 2.0, right: 20),
+                                // padding: const EdgeInsets.only(left: 2.0, right: 20),
+                                padding: const EdgeInsets.all(20),
                                 child: SvgPicture.asset("assets/closeIcon.svg"),
                               ),
                             ),
@@ -489,11 +366,12 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                       ),
                       const Divider(height: 0,),
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 20),
+                            // const SizedBox(height: 20),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.02),
                             Row(
                               children: [
                                 Expanded(
@@ -504,6 +382,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                       TextField(
                                         controller: viewModel.monthlyIncomeTEC,
                                         keyboardType: TextInputType.number,
+                                        style: const TextStyle(fontWeight: FontWeight.w700),
                                         inputFormatters: [LengthLimitingTextInputFormatter(12)],
                                         onChanged: (value){
                                           if(value.isEmpty) {
@@ -529,77 +408,139 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text("Minimum Settlement Due", style: Theme.of(context).textTheme.bodyText1,),
-                                      TextField(
-                                        controller: viewModel.minimumSettlementTEC,
-                                        decoration: const InputDecoration(
-                                          isDense: true,
-                                          hintText: "Please select",
-                                          hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                                        ),
+                                      const SizedBox(height: 4),
+                                      DropdownButton<String>(
+                                        value: viewModel.dropdownValue,
+                                        style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
+                                        isDense: true,
+                                        underline: const SizedBox(),
+                                        isExpanded: true,
+                                        icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
+                                        // isDense: true,
+                                        items: viewModel.items.map((String items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            viewModel.dropdownValue = newValue!;
+                                          });
+                                        },
                                       ),
+                                      const SizedBox(height: 5),
+                                      Container(height: 1, color: idleGreyColor,),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 30),
+                            // const SizedBox(height: 30),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.04),
 
                             Text("Type of Customer", style: Theme.of(context).textTheme.bodyText1,),
                             Row(
                               children: [
                                 Expanded(
-                                  child: RadioListTile(
-                                    value: CustomerType.existing,
-                                    groupValue: viewModel.customerType,
-                                    contentPadding: EdgeInsets.zero,
-                                    dense: true,
-                                    onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
+                                  child: InkWell(
+                                    onTap: viewModel.monthlyIncomeTEC.text.isEmpty
                                         ? null
-                                        : (CustomerType? value) {
-                                            setState(() {
-                                              viewModel.selectCustomerType(value);
-                                            });
-                                          },
-                                    title: Text("Existing", style: Theme.of(context).textTheme.headline3,),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: RadioListTile(
-                                    value: CustomerType.newCustomer,
-                                    contentPadding: EdgeInsets.zero,
-                                    dense: true,
-                                    groupValue: viewModel.customerType,
-                                    onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
-                                        ? null:(CustomerType? value) {
-                                      setState(() {
-                                        viewModel.selectCustomerType(value);
+                                        : () {
+                                      setState((){
+                                        viewModel.selectCustomerType(CustomerType.existing);
                                       });
                                     },
-                                    title: Text("New Customer", style: Theme.of(context).textTheme.headline3,),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
+                                      child: Row(
+                                        children: [
+                                          SelectedWidget(isSelected: viewModel.customerType == CustomerType.existing),
+                                          const SizedBox(width: 15),
+                                          Text("Existing", style: Theme.of(context).textTheme.headline3,),
+                                        ],
+                                      ),
+                                    ),
                                   ),
+                                  // child: RadioListTile(
+                                  //   value: CustomerType.existing,
+                                  //   groupValue: viewModel.customerType,
+                                  //   contentPadding: EdgeInsets.zero,
+                                  //   dense: true,
+                                  //   onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
+                                  //       ? null
+                                  //       : (CustomerType? value) {
+                                  //           setState(() {
+                                  //             viewModel.selectCustomerType(value);
+                                  //           });
+                                  //         },
+                                  //   title: Text("Existing", style: Theme.of(context).textTheme.headline3,),
+                                  // ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap:
+                                        viewModel.monthlyIncomeTEC.text.isEmpty
+                                            ? null
+                                            : () {
+                                                setState((){
+                                                  viewModel.selectCustomerType(CustomerType.newCustomer);
+                                                });
+                                              },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
+                                      child: Row(
+                                        children: [
+                                          SelectedWidget(isSelected: viewModel.customerType == CustomerType.newCustomer),
+                                          const SizedBox(width: 15),
+                                          Text("New Customer", style: Theme.of(context).textTheme.headline3,),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  // child: RadioListTile(
+                                  //   value: CustomerType.newCustomer,
+                                  //   contentPadding: EdgeInsets.zero,
+                                  //   dense: true,
+                                  //   groupValue: viewModel.customerType,
+                                  //   onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
+                                  //       ? null:(CustomerType? value) {
+                                  //     setState(() {
+                                  //       viewModel.selectCustomerType(value);
+                                  //     });
+                                  //   },
+                                  //   title: Text("New Customer", style: Theme.of(context).textTheme.headline3,),
+                                  // ),
                                 ),
                               ],
                             ),
 
-                            const SizedBox(height: 30),
+                            // const SizedBox(height: 30),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.02),
 
                             Text("Card Preferences", style: Theme.of(context).textTheme.bodyText1,),
-                            CheckboxListTile(
-                              value: viewModel.allCardPrefSelected,
-                              contentPadding: EdgeInsets.zero,
-                              dense: true,
-                              title: Text("Select all", style: Theme.of(context).textTheme.headline3,),
-                              controlAffinity: ListTileControlAffinity.leading,
-                              onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
-                                  ? null:(bool? value) {
-                                setState((){
-                                  viewModel.selectAllCardPref(value);
-                                });
-                              },
+                            SizedBox(height: MediaQuery.of(context).size.height*0.01),
+                            InkWell(
+                              onTap: viewModel.monthlyIncomeTEC.text.isEmpty
+                                  ? null
+                                  : () {
+                                      setState(() {
+                                        viewModel.selectAllCardPref(!viewModel.allCardPrefSelected);
+                                      });
+                                    },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.01),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SelectedWidget(isSelected: viewModel.allCardPrefSelected),
+                                    const SizedBox(width: 15),
+                                    Text("Select all", style: Theme.of(context).textTheme.headline3,),
+                                  ],
+                                ),
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.01),
                             Wrap(
                               spacing: 15,
                               runSpacing: 20,
@@ -614,7 +555,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                 _cardPreferenceWidget("Sharia Compliant", "assets/moonIcon.svg", 6, viewModel, setState),
                               ],
                             ),
-                            const SizedBox(height: 50),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.04),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -622,6 +563,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
+                                    viewModel.disposeCardResource();
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
@@ -638,18 +580,30 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                           : () {
                                         Navigator.pop(context);
                                         locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.limitedCardData);
+                                        viewModel.disposeCardResource();
                                       },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
-                                    backgroundColor: MaterialStateProperty.all(idleGreyColor),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.customerType != null && viewModel.cardPrefList.contains(true)
+                                        ? successColor
+                                        : idleGreyColor,
+                                    ),
                                     foregroundColor: MaterialStateProperty.all(Colors.white),
                                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                                   ),
-                                  child: const Text("Show Card", style: TextStyle(fontWeight: FontWeight.w700),),
+                                  child: Text(
+                                    viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.customerType != null && viewModel.cardPrefList.contains(true)
+                                        ? "Show 2 Card"
+                                        : "Show Card",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
                                 ),
-
                               ],
                             ),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.02),
                           ],
                         ),
                       ),
@@ -671,6 +625,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
+                borderRadius: BorderRadius.circular(16),
                 onTap: viewModel.monthlyIncomeTEC.text.isEmpty
                     ? null:() {
                   setState(() {
@@ -680,15 +635,15 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                   decoration: BoxDecoration(
-                    border: Border.all(color: primaryGrey, width: 1,),
+                    border: Border.all(color: viewModel.cardPrefList[index]?primaryColor.withOpacity(0.2): borderGreyColor, width: 1,),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: viewModel.cardPrefList[index]?Colors.red:darkGreyColor,
-                        border: Border.all(color: viewModel.cardPrefList[index]?Colors.red:borderGreyColor, width: 1)
+                        color: viewModel.cardPrefList[index]?primaryColor:darkGreyColor,
+                        border: Border.all(color: borderGreyColor, width: 1)
                     ),
                     child: SvgPicture.asset(imagePath, color: Colors.white,),
                   ),

@@ -16,6 +16,12 @@ enum LayoutViewIndex {
   // profileView;
 }
 
+
+enum CustomerType {
+  existing,
+  newCustomer,
+}
+
 enum ApplicationFormState{
   cardPage,
   customerId,
