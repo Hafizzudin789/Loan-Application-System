@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
@@ -87,6 +89,6 @@ class LayoutViewModel extends BaseViewModel {
     minimumSettlementTEC.clear();
   }
 
-
   //add application pop up view state end/////////////////////////////////////
+
 }

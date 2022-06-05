@@ -10,6 +10,7 @@ import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
+import 'package:loan_application_system/view/widgets/timer_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -85,7 +86,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                     color: warningColor),
                               ),
                               const SizedBox(height: 30),
-                              const Text("Your session will expire in 00:45", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: warningColor),),
+                              TimerWidget(),
                               const SizedBox(height: 5),
                               const Text("Tap ‘Okay’ to stay logged in or click ‘Log out’ to log out.", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
                               const SizedBox(height: 50),
