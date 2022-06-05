@@ -75,21 +75,19 @@ class LayoutViewModel extends BaseViewModel {
   }
 
   disposeCardResource() {
+    dropdownValue = '25 %';
     customerType = null;
     selectAllCardPref(false);
     monthlyIncomeTEC.clear();
-    // minimumSettlementTEC.clear();
   }
-
   //add application pop up view state end/////////////////////////////////////
 
 
-  String dropdownValue = 'Lorem Ipsum';
+  String dropdownValue = '25 %';
   var items = [
-    'Lorem Ipsum',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
+    '5 %',
+    '25 %',
+    '50 %',
+    '100 %',
   ];
 }
