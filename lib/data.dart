@@ -9,11 +9,16 @@ class Data {
   static const String otpCode = "123456";
 
   static List<CardTypeData> cardTypeData = [
-    CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.svg", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: null, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
-    CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/visaCardIcon.svg", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: primaryGrey),
-    CardTypeData(label: "Digibanc JustOne Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.svg", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: lightYellowColor, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
-    CardTypeData(label: "Digibanc JustOne Platinum MasterCard", annualFee: "Free*", cardType: "assets/visaCardIcon.svg", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: orangeColor, borderColor: primaryGrey),
-    CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.svg", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
+    CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: null, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
+    CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/visaCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: primaryGrey),
+    CardTypeData(label: "Digibanc JustOne Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: lightYellowColor, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
+    CardTypeData(label: "Digibanc JustOne Platinum MasterCard", annualFee: "Free*", cardType: "assets/visaCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: orangeColor, borderColor: primaryGrey),
+    CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
+  ];
+
+  static List<CardTypeData> limitedCardData = [
+    CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: null, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
+    CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/visaCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: primaryGrey),
   ];
 
 }

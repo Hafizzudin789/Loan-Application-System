@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/view/application_form_view/application_form_view.dart';
 import 'package:loan_application_system/view/applications_view.dart';
 import 'package:loan_application_system/view/dashboard_view.dart';
@@ -30,7 +31,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case profileView:
       return MaterialPageRoute(builder: (context) => const ProfileView());
     case applicationFormView:
-      return MaterialPageRoute(builder: (context) => const ApplicationFormView());
+      List<CardTypeData> data = settings.arguments as List<CardTypeData>;
+      return MaterialPageRoute(builder: (context) => ApplicationFormView(cardData: data,));
     default:
       return MaterialPageRoute(builder: (context) => Material(child: Center(child: Text("No Such Route ${settings.name}"),)));
   }

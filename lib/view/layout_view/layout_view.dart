@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/services/routing_service.dart';
@@ -8,7 +9,6 @@ import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
-import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -620,7 +620,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    locator<NavigationService>().navigateToAndBack(applicationFormView);
+                                    locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
@@ -634,7 +634,10 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                   onPressed:
                                       viewModel.monthlyIncomeTEC.text.isEmpty
                                           ? null
-                                          : () {},
+                                          : () {
+                                        Navigator.pop(context);
+                                        locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.limitedCardData);
+                                      },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
                                     backgroundColor: MaterialStateProperty.all(idleGreyColor),

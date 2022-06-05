@@ -2,159 +2,191 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view_model/application_view_model.dart';
-import 'package:stacked/stacked.dart';
+import 'package:loan_application_system/view_model/application_form_view_model.dart';
 
 class CardPage extends StatelessWidget {
-  const CardPage({Key? key}) : super(key: key);
+  final List<CardTypeData> cardData;
+  final ApplicationFormViewModel viewModel;
+  const CardPage({Key? key, required this.cardData, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ApplicationViewModel>.reactive(
-      viewModelBuilder: () => ApplicationViewModel(),
-      builder: (context, viewModel, _) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Card Page",
+                style: TextStyle(
+                    color: blackColorMono,
+                    fontSize: xxl,
+                    fontWeight: FontWeight.w700),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: SvgPicture.asset(
+                    "assets/closeIcon.svg",
+                    width: 14,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          height: 0,
+          thickness: 1,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  side: const BorderSide(
+                                      color: borderGreyColor))),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all(blackColorMono),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(horizontal: 20)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              "Filters",
+                              style: TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(width: 10),
+                            SvgPicture.asset("assets/filterIcon.svg")
+                          ],
+                        ),
+                      ),
+                      Text(
+                        "${cardData.length} Cards Available",
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.54,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(left: 100),
+                    itemCount: cardData.length,
+                    itemBuilder: (context, index) {
+                      return _cardWidget(cardData[index], viewModel, index);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        viewModel.cardSelected.contains(true)
+            ? _progressBar(viewModel)
+            : const SizedBox(),
+      ],
+    );
+  }
+
+  Widget _progressBar(ApplicationFormViewModel viewModel) {
+    int selectedCardLength = viewModel.cardSelected.where((element) => element == true).length;
+    return Builder(
+      builder: (context) {
         return Column(
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+            LinearProgressIndicator(
+              backgroundColor: borderGreyColor,
+              value: viewModel.progressValue,
+              valueColor: const AlwaysStoppedAnimation<Color>(successColor),
+              minHeight: 2,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.0125),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Card Page",
-                    style: TextStyle(
-                        color: blackColorMono,
-                        fontSize: xxl,
-                        fontWeight: FontWeight.w700),
+                  Container(
+                    height: 24,
+                    width: 24,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: idleGreyColor, width: 1),
+                      color: selectedCardLength == viewModel.cardSelected.length
+                          ? primaryColor
+                          : Colors.transparent,
+                    ),
+                    alignment: Alignment.center,
+                    child: selectedCardLength == viewModel.cardSelected.length
+                        ? const Icon(
+                      Icons.done,
+                      size: 15,
+                      color: Colors.white,
+                    )
+                        : const SizedBox(),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SvgPicture.asset(
-                        "assets/closeIcon.svg",
-                        width: 14,
-                      ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: selectedCardLength == 1
+                        ? Text("$selectedCardLength card selected", style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700),)
+                        : Text("$selectedCardLength cards selected", style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700),),
+                  ),
+                  ElevatedButton(
+                    onPressed: viewModel.cardSelected.contains(true) ? () {
+                      viewModel.changeApplicationFormState(ApplicationFormState.customerId);
+                    } : null,
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: const BorderSide(color: borderGreyColor))),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      foregroundColor: MaterialStateProperty.all(blackColorMono),
+                      padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(horizontal: 20)),
+                    ),
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(fontWeight: FontWeight.w700, color: primaryColor),
                     ),
                   ),
                 ],
               ),
             ),
-            const Divider(
-              height: 0,
-              thickness: 1,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 100),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                      side: const BorderSide(
-                                          color: borderGreyColor))),
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              foregroundColor:
-                                  MaterialStateProperty.all(blackColorMono),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.symmetric(horizontal: 20)),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  "Filters",
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                ),
-                                const SizedBox(width: 10),
-                                SvgPicture.asset("assets/filterIcon.svg")
-                              ],
-                            ),
-                          ),
-                          Text("${Data.cardTypeData.length} Cards Available", style: Theme.of(context).textTheme.headline2,),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.54,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(left: 100),
-                        itemCount: Data.cardTypeData.length,
-                        itemBuilder: (context, index) {
-                          return _cardWidget(Data.cardTypeData[index], viewModel);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            viewModel.cardSelected
-                ? Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-                      const LinearProgressIndicator(
-                        backgroundColor: borderGreyColor,
-                        value: 0.1,
-                        valueColor: AlwaysStoppedAnimation<Color>(successColor),
-                        minHeight: 2,
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.0125),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 40.0),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25),
-                                        side: const BorderSide(
-                                            color: borderGreyColor))),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                foregroundColor:
-                                    MaterialStateProperty.all(blackColorMono),
-                                padding: MaterialStateProperty.all(
-                                    const EdgeInsets.symmetric(horizontal: 20)),
-                              ),
-                              child: const Text(
-                                "Next",
-                                style: TextStyle(fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                    ],
-                  )
-                : const SizedBox(),
+            const SizedBox(height: 5),
           ],
         );
-      },
+      }
     );
   }
 
-  Widget _cardWidget(CardTypeData cardTypeData, ApplicationViewModel viewModel) {
+  Widget _cardWidget(CardTypeData cardTypeData, ApplicationFormViewModel viewModel, int index) {
     return Container(
       padding: const EdgeInsets.all(14),
       margin: const EdgeInsets.only(right: 20),
@@ -169,7 +201,7 @@ class CardPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               alignment: Alignment.bottomRight,
               decoration: BoxDecoration(
                 color: cardTypeData.cardColor,
@@ -182,11 +214,18 @@ class CardPage extends StatelessWidget {
                         end: Alignment.bottomCenter,
                       ),
               ),
-              child: SvgPicture.asset(cardTypeData.cardType),
+              child: Image.asset(cardTypeData.cardType),
             ),
           ),
           const SizedBox(height: 20),
-          Text(cardTypeData.label, style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700, letterSpacing: 0.2, height: 1.3),),
+          Text(
+            cardTypeData.label,
+            style: const TextStyle(
+                color: blackColorMono,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.2,
+                height: 1.3),
+          ),
           const SizedBox(height: 20),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,8 +235,14 @@ class CardPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Minimum Income", style: TextStyle(color: darkGreyColor, fontSize: s-1),),
-                    Text(cardTypeData.minimumIncome.toString(), style: const TextStyle(color: blackColorPrimary),),
+                    const Text(
+                      "Minimum Income",
+                      style: TextStyle(color: darkGreyColor, fontSize: s - 1),
+                    ),
+                    Text(
+                      cardTypeData.minimumIncome.toString(),
+                      style: const TextStyle(color: blackColorPrimary),
+                    ),
                   ],
                 ),
               ),
@@ -206,8 +251,14 @@ class CardPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Features", style: TextStyle(color: darkGreyColor, fontSize: s-1),),
-                    Text(cardTypeData.feature, style: const TextStyle(color: blackColorPrimary),),
+                    const Text(
+                      "Features",
+                      style: TextStyle(color: darkGreyColor, fontSize: s - 1),
+                    ),
+                    Text(
+                      cardTypeData.feature,
+                      style: const TextStyle(color: blackColorPrimary),
+                    ),
                   ],
                 ),
               ),
@@ -222,8 +273,14 @@ class CardPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Rewards", style: TextStyle(color: darkGreyColor, fontSize: s-1),),
-                    Text(cardTypeData.rewardsUpTo, style: const TextStyle(color: blackColorPrimary),),
+                    const Text(
+                      "Rewards",
+                      style: TextStyle(color: darkGreyColor, fontSize: s - 1),
+                    ),
+                    Text(
+                      cardTypeData.rewardsUpTo,
+                      style: const TextStyle(color: blackColorPrimary),
+                    ),
                   ],
                 ),
               ),
@@ -232,8 +289,14 @@ class CardPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Annual Fee", style: TextStyle(color: darkGreyColor, fontSize: s-1),),
-                    Text(cardTypeData.annualFee, style: const TextStyle(color: blackColorPrimary),),
+                    const Text(
+                      "Annual Fee",
+                      style: TextStyle(color: darkGreyColor, fontSize: s - 1),
+                    ),
+                    Text(
+                      cardTypeData.annualFee,
+                      style: const TextStyle(color: blackColorPrimary),
+                    ),
                   ],
                 ),
               ),
@@ -242,15 +305,41 @@ class CardPage extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              viewModel.selectCard();
+              viewModel.selectCard(index);
             },
             style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
-              backgroundColor: MaterialStateProperty.all(Colors.white),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  side: BorderSide(color: viewModel.cardSelected[index]?Colors.transparent:borderGreyColor))),
+              backgroundColor: MaterialStateProperty.all(viewModel.cardSelected[index]?primaryColor:Colors.white),
               foregroundColor: MaterialStateProperty.all(blackColorMono),
-              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+              padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(horizontal: 20)),
             ),
-            child: const Text("Select Card", style: TextStyle(fontWeight: FontWeight.w700),),
+            child: viewModel.cardSelected[index]
+                ? Row(
+                    children: const [
+                      Expanded(
+                        child: Text(
+                          "Select Card",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ),
+                      Icon(
+                        Icons.done,
+                        color: Colors.white,
+                        size: 20,
+                      )
+                    ],
+                  )
+                : const Text(
+                    "Select Card",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: blackColorMono),
+                  ),
           ),
         ],
       ),

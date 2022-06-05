@@ -15,3 +15,11 @@ enum LayoutViewIndex {
   fourth;
   // profileView;
 }
+
+enum ApplicationFormState{
+  cardPage,
+  customerId,
+  customerDetails,
+  cardSelection,
+  documents;
+}
