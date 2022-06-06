@@ -19,23 +19,38 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       child: Row(
         children: [
-          Text("Dashboard", style: Theme.of(context).textTheme.headline1,),
-          const SizedBox(width: 40),
-          ElevatedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
-              backgroundColor: MaterialStateProperty.all(Colors.white),
-              foregroundColor: MaterialStateProperty.all(blackColorMono),
-            ),
-            child: Row(
-              children: const [
-                Text("All Product", style: TextStyle(fontWeight: FontWeight.w700),),
-                SizedBox(width: 10),
-                Icon(Icons.keyboard_arrow_down_rounded, size: 20,)
-              ],
-            ),
+          Text(
+            viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
+                ? "Dashboard"
+                : "Applications",
+            style: Theme.of(context).textTheme.headline1,
           ),
+          const SizedBox(width: 40),
+          viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
+              ? ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        side: const BorderSide(color: borderGreyColor))),
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    foregroundColor: MaterialStateProperty.all(blackColorMono),
+                  ),
+                  child: Row(
+                    children: const [
+                      Text(
+                        "All Product",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(width: 10),
+                      Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 20,
+                      )
+                    ],
+                  ),
+                )
+              : const SizedBox(),
 
           const Expanded(child: SizedBox()),
 

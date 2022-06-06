@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/enums.dart';
 
 class Data {
 
@@ -19,6 +20,19 @@ class Data {
   static List<CardTypeData> limitedCardData = [
     CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: null, borderColor: const Color(0XFFD64951).withOpacity(0.2)),
     CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/visaCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor, borderColor: primaryGrey),
+  ];
+  
+  static List<CustomerApplications> customerApplications = [
+    CustomerApplications(applicantEmail: "vaccaro@mail.com", applicantName: "Carla Vaccaro", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 32942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Toyota", status: CustomerApplicationStatus.newA),
+    CustomerApplications(applicantEmail: "kenter@mail.com", applicantName: "Ruben Kenter", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 78000.00, mobileNumber: "+971 335565", product: "Credit Card", type: "Honda", status: CustomerApplicationStatus.processing),
+    CustomerApplications(applicantEmail: "dorwart@mail.com", applicantName: "Davis Dorwart", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 323942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Visa Platinum", status: CustomerApplicationStatus.processing),
+    CustomerApplications(applicantEmail: "donin@mail.com", applicantName: "Mira Donin", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 52942.34, mobileNumber: "+971 335565", product: "Personal Finance", type: "-", status: CustomerApplicationStatus.declined),
+    CustomerApplications(applicantEmail: "geidt@mail.com", applicantName: "Terry Geidt", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 2942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Toyota", status: CustomerApplicationStatus.delivery),
+    CustomerApplications(applicantEmail: "kenter@mail.com", applicantName: "Tatiana Kenter", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 4562942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Toyota", status: CustomerApplicationStatus.complete),
+    CustomerApplications(applicantEmail: "westervelt@mail.com", applicantName: "Roger Westervelt", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 42942.34, mobileNumber: "+971 335565", product: "Personal Finance", type: "-", status: CustomerApplicationStatus.delivery),
+    CustomerApplications(applicantEmail: "passaquindic@mail.com", applicantName: "Cristofer Passaquindic", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 92942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Visa Platinum", status: CustomerApplicationStatus.processing),
+    CustomerApplications(applicantEmail: "ronaldo@mail.com", applicantName: "Cristiano Ronaldo", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 12942.34, mobileNumber: "+971 335565", product: "Credit Card", type: "Toyota", status: CustomerApplicationStatus.accepted),
+    CustomerApplications(applicantEmail: "rosser@mail.com", applicantName: "Adison Rosser", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 342942.34, mobileNumber: "+971 335565", product: "Credit Card", type: "-", status: CustomerApplicationStatus.accepted),
   ];
 
 }
@@ -45,4 +59,19 @@ class CardTypeData {
   final Color? cardColor;
   final Color borderColor;
   CardTypeData({required this.label, required this.annualFee, required this.cardType, required this.feature, required this.minimumIncome, required this.rewardsUpTo, this.cardColor, required this.borderColor});
+}
+
+class CustomerApplications {
+  final String applicantName;
+  final double financeAmount;
+  final String applicantEmail;
+  final String product;
+  final String type;
+  final String applicationId;
+  final String cifNo;
+  final String createdDate;
+  final String mobileNumber;
+  final CustomerApplicationStatus status;
+
+  CustomerApplications({required this.applicantEmail, required this.applicantName, required this.applicationId, required this.cifNo, required this.createdDate, required this.financeAmount, required this.mobileNumber, required this.product, required this.type, required this.status});
 }

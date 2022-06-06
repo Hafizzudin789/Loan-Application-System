@@ -29,3 +29,15 @@ enum ApplicationFormState{
   cardSelection,
   documents;
 }
+
+enum CustomerApplicationStatus {
+  newA("New"),
+  processing("Processing"),
+  complete("Complete"),
+  accepted("Accepted"),
+  delivery("Delivery"),
+  declined("Declined");
+
+  final String label;
+  const CustomerApplicationStatus(this.label);
+}
