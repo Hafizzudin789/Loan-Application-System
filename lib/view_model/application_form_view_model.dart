@@ -129,16 +129,17 @@ class ApplicationFormViewModel extends BaseViewModel {
   }
   bool customerDetailIsComplete() {
     return phoneNumberTEC.text.isNotEmpty && emailTEC.text.isNotEmpty
-        && monthlySalaryTEC.text.isNotEmpty && companyTEC.text.isNotEmpty
+        && monthlySalaryTEC.text.isNotEmpty
         && agreedToTerms && dropdownEmployeeValue != null;
   }
 
 
   String? dropdownEmployeeValue;
   var items = [
-    'Full-Time Employee',
-    'Part-Time Employee',
-    'Freelancer',
+    'Employed',
+    'Student',
+    'Retired',
+    'Self Employed',
   ];
 
   selectStatus(String? value) {
