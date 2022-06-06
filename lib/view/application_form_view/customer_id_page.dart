@@ -125,7 +125,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                       ),
                                       const SizedBox(width: 10),
                                       viewModel.frontIdImagePath != null
-                                          ? const Icon(Icons.remove_red_eye_outlined)
+                                          ? const Icon(Icons.remove_red_eye_outlined, size: 20,)
                                           : const Icon(Icons.photo_camera_outlined, color: primaryColor,),
                                     ],
                                   ),
@@ -153,8 +153,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                                   offset: Offset(-0.5, 2)),
                                             ],
                                           ),
-                                          child: const Icon(
-                                              Icons.delete_outline_rounded),
+                                          child: const Icon(Icons.delete_outline_rounded, size: 20),
                                         ),
                                       ),
                                   )
@@ -242,7 +241,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                       ),
                                       const SizedBox(width: 10),
                                       viewModel.backIdImagePath != null
-                                          ? const Icon(Icons.remove_red_eye_outlined)
+                                          ? const Icon(Icons.remove_red_eye_outlined, size: 20,)
                                           : const Icon(Icons.photo_camera_outlined, color: primaryColor,),
                                     ],
                                   ),
@@ -270,8 +269,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                                   offset: Offset(-0.5, 2)),
                                             ],
                                           ),
-                                          child: const Icon(
-                                              Icons.delete_outline_rounded),
+                                          child: const Icon(Icons.delete_outline_rounded, size: 20),
                                         ),
                                       ),
                                     )
@@ -330,7 +328,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                     ),
                     ElevatedButton(
                       onPressed: viewModel.frontIdImagePath!=null && viewModel.backIdImagePath!=null ? () {
-                        viewModel.changeApplicationFormState(ApplicationFormState.customerDetails);
+                        _confirmDetailsPopUp(context, viewModel);
                       } : null,
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -353,6 +351,233 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
             ],
           );
         }
+    );
+  }
+
+  void _confirmDetailsPopUp(BuildContext context, ApplicationFormViewModel viewModel) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: SingleChildScrollView(
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),),
+              contentPadding: EdgeInsets.zero,
+              content: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24, top: 20),
+                      child: Row(
+                        children: [
+                          Expanded(child: Text("Confirm the details below before proceed", style: Theme.of(context).textTheme.headline2,)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: SvgPicture.asset("assets/closeIcon.svg"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(height: 0),
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Applicant Name", style: Theme.of(context).textTheme.bodyText1,),
+                              TextField(
+                                controller: viewModel.applicantNameTEC,
+                                keyboardType: TextInputType.text,
+                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                onChanged: (value) {},
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  hintText: "Enter applicant name",
+                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height*0.04),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Date of Birth", style: Theme.of(context).textTheme.bodyText1,),
+                                    TextField(
+                                      controller: viewModel.birthDateTEC,
+                                      keyboardType: TextInputType.text,
+                                      style: const TextStyle(fontWeight: FontWeight.w700),
+                                      onChanged: (value){},
+                                      decoration: const InputDecoration(
+                                        isDense: true,
+                                        hintText: "Enter date of birth",
+                                        hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Nationality", style: Theme.of(context).textTheme.bodyText1,),
+                                    TextField(
+                                      controller: viewModel.nationalityTEC,
+                                      keyboardType: TextInputType.text,
+                                      style: const TextStyle(fontWeight: FontWeight.w700),
+                                      onChanged: (value){},
+                                      decoration: const InputDecoration(
+                                        isDense: true,
+                                        hintText: "Enter nationality",
+                                        hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: MediaQuery.of(context).size.height*0.04),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("ID Type", style: Theme.of(context).textTheme.bodyText1,),
+                                    TextField(
+                                      controller: viewModel.idTypeTEC,
+                                      keyboardType: TextInputType.text,
+                                      style: const TextStyle(fontWeight: FontWeight.w700),
+                                      onChanged: (value){},
+                                      decoration: const InputDecoration(
+                                        isDense: true,
+                                        hintText: "Enter id type",
+                                        hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("ID Number", style: Theme.of(context).textTheme.bodyText1,),
+                                    TextField(
+                                      controller: viewModel.idNumberTEC,
+                                      keyboardType: TextInputType.text,
+                                      style: const TextStyle(fontWeight: FontWeight.w700),
+                                      onChanged: (value){},
+                                      decoration: const InputDecoration(
+                                        isDense: true,
+                                        hintText: "Enter id number",
+                                        hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: MediaQuery.of(context).size.height*0.04),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("ID Expiry", style: Theme.of(context).textTheme.bodyText1,),
+                              TextField(
+                                controller: viewModel.idExpiryDateTEC,
+                                keyboardType: TextInputType.text,
+                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                onChanged: (value){},
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  hintText: "Enter id expiry date",
+                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: MediaQuery.of(context).size.height*0.04),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
+                                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                                  foregroundColor: MaterialStateProperty.all(blackColorMono),
+                                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+                                ),
+                                child: const Text("Scan Again", style: TextStyle(fontWeight: FontWeight.w700),),
+                              ),
+                              ElevatedButton(
+                                onPressed: viewModel.detailsIsConfirmed() ? () {
+                                  Navigator.pop(context);
+                                  viewModel.changeApplicationFormState(ApplicationFormState.customerDetails);
+                                }: null,
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
+                                  backgroundColor: MaterialStateProperty.all(viewModel.detailsIsConfirmed()?successColor:idleGreyColor,),
+                                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+                                ),
+                                child: const Text(
+                                  "Confirm",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

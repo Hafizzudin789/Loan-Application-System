@@ -84,6 +84,20 @@ class ApplicationFormViewModel extends BaseViewModel {
     backIdImagePath = value;
     notifyListeners();
   }
+
+
+  TextEditingController applicantNameTEC = TextEditingController(text: "Faisal Saeed Ahmed Mohamed Qamar Alzaman");
+  TextEditingController birthDateTEC = TextEditingController(text: "23 April 1994");
+  TextEditingController nationalityTEC = TextEditingController(text: "Bahranian");
+  TextEditingController idTypeTEC = TextEditingController(text: "National ID");
+  TextEditingController idNumberTEC = TextEditingController(text: "A837468291");
+  TextEditingController idExpiryDateTEC = TextEditingController(text: "29 March 2025");
+
+  bool detailsIsConfirmed() {
+    return applicantNameTEC.text.isNotEmpty && birthDateTEC.text.isNotEmpty
+        && nationalityTEC.text.isNotEmpty && idTypeTEC.text.isNotEmpty
+        && idNumberTEC.text.isNotEmpty && idExpiryDateTEC.text.isNotEmpty;
+  }
   //Customer Id End//
 
 

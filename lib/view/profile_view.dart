@@ -134,7 +134,8 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                   ),
                   InkWell(
                     onTap: () {
-                      viewModel.changeLayoutViewIndex(LayoutViewIndex.dashboardView);
+                      // viewModel.changeLayoutViewIndex(LayoutViewIndex.dashboardView);
+                      Navigator.pop(context);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8),
