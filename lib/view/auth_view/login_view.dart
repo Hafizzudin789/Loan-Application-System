@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/forgot_password_view.dart';

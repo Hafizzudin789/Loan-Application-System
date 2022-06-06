@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/view/application_form_view/application_form_view.dart';
 import 'package:loan_application_system/view/applications_view.dart';
 import 'package:loan_application_system/view/dashboard_view.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/services/routing_service.dart';

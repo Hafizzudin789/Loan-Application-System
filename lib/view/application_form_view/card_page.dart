@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
@@ -134,25 +134,6 @@ class CardPage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Container(
-                  //   height: 24,
-                  //   width: 24,
-                  //   decoration: BoxDecoration(
-                  //     shape: BoxShape.circle,
-                  //     border: Border.all(color: idleGreyColor, width: 1),
-                  //     color: selectedCardLength == viewModel.cardSelected.length
-                  //         ? primaryColor
-                  //         : Colors.transparent,
-                  //   ),
-                  //   alignment: Alignment.center,
-                  //   child: selectedCardLength == viewModel.cardSelected.length
-                  //       ? const Icon(
-                  //     Icons.done,
-                  //     size: 15,
-                  //     color: Colors.white,
-                  //   )
-                  //       : const SizedBox(),
-                  // ),
                   SelectedWidget(isSelected: selectedCardLength == viewModel.cardSelected.length),
                   const SizedBox(width: 10),
                   Expanded(

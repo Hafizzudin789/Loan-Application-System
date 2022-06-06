@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loan_application_system/data.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
@@ -25,6 +25,7 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
       },
       builder: (context, viewModel, _) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Container(
               margin: const EdgeInsets.all(30),

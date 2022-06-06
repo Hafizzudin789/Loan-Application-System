@@ -1,4 +1,5 @@
-import 'package:loan_application_system/data.dart';
+import 'package:flutter/material.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/application_form_view/card_page.dart';
 import 'package:loan_application_system/view/application_form_view/card_selection_page.dart';
@@ -68,8 +69,41 @@ class ApplicationFormViewModel extends BaseViewModel {
   //Card Page End//
 
 
+
   //Customer Id//
 
+  String? frontIdImagePath;
+  String? backIdImagePath;
 
+  setFrontIdImagePath(String? value) {
+    frontIdImagePath = value;
+    notifyListeners();
+  }
+
+  setBackIdImagePath(String? value) {
+    backIdImagePath = value;
+    notifyListeners();
+  }
   //Customer Id End//
+
+
+  //Customer Details//
+
+  TextEditingController phoneNumberTEC = TextEditingController();
+  TextEditingController emailTEC = TextEditingController();
+  TextEditingController employmentStatusTEC = TextEditingController();
+  TextEditingController monthlySalaryTEC = TextEditingController();
+  TextEditingController companyTEC = TextEditingController();
+
+  bool agreedToTerms = false;
+  agreeToTerms() {
+    agreedToTerms = !agreedToTerms;
+    notifyListeners();
+  }
+  bool customerDetailIsComplete() {
+    return phoneNumberTEC.text.isNotEmpty && emailTEC.text.isNotEmpty
+        && employmentStatusTEC.text.isNotEmpty && monthlySalaryTEC.text.isNotEmpty
+        && companyTEC.text.isNotEmpty && agreedToTerms;
+  }
+  //Customer Details End//
 }
