@@ -4,6 +4,7 @@ import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/widgets/selected_widget.dart';
 import 'package:loan_application_system/view_model/application_form_view_model.dart';
+import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 import '../../utils/font_size.dart';
 
@@ -49,93 +50,117 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        controller: viewModel.phoneNumberTEC,
-                        keyboardType: TextInputType.number,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                        // inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                        onChanged: (value){},
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          hintText: "Enter mobile number",
-                          hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Mobile Number", style: Theme.of(context).textTheme.bodyText1,),
+                          TextField(
+                            controller: viewModel.phoneNumberTEC,
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                            // inputFormatters: [LengthLimitingTextInputFormatter(12)],
+                            onChanged: (value){},
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              hintText: "Enter mobile number",
+                              hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(width: 20),
                     Expanded(
-                      child: TextField(
-                        controller: viewModel.emailTEC,
-                        keyboardType: TextInputType.emailAddress,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                        // inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                        onChanged: (value){},
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          hintText: "Enter email address",
-                          hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Email Address", style: Theme.of(context).textTheme.bodyText1,),
+                          TextField(
+                            controller: viewModel.emailTEC,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                            // inputFormatters: [LengthLimitingTextInputFormatter(12)],
+                            onChanged: (value){},
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              hintText: "Enter email address",
+                              hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        controller: viewModel.employmentStatusTEC,
-                        keyboardType: TextInputType.number,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                        // inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                        onChanged: (value){},
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          hintText: "Select employment status",
-                          hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                        ),
-                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Employment status", style: Theme.of(context).textTheme.bodyText1,),
+                          DropdownButton<String>(
+                            value: viewModel.dropdownEmployeeValue,
+                            hint: const Text("Select employment status", style: TextStyle(color: greyColor, fontSize: m+1),),
+                            style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
+                            isDense: true,
+                            underline: const SizedBox(),
+                            isExpanded: true,
+                            icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
+                            items: viewModel.items.map((String items) {
+                              return DropdownMenuItem(
+                                value: items,
+                                child: Text(items),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              viewModel.selectStatus(newValue);
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          Container(height: 1, color: idleGreyColor,),
+                        ],
+                      )
                     ),
+                    const SizedBox(width: 20),
                     Expanded(
-                      child: TextField(
-                        controller: viewModel.companyTEC,
-                        keyboardType: TextInputType.text,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
-                        // inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                        onChanged: (value){},
-                        decoration: const InputDecoration(
-                          isDense: true,
-                          hintText: "Enter employment name",
-                          hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Employment Name", style: Theme.of(context).textTheme.bodyText1,),
+                          TextField(
+                            controller: viewModel.companyTEC,
+                            keyboardType: TextInputType.text,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                            // inputFormatters: [LengthLimitingTextInputFormatter(12)],
+                            onChanged: (value){},
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              hintText: "Enter employment name",
+                              hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                TextField(
-                  controller: viewModel.monthlySalaryTEC,
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                  // inputFormatters: [LengthLimitingTextInputFormatter(12)],
-                  onChanged: (value){},
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    hintText: "Monthly Salary",
-                    hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
-                  ),
-                ),
+                const SizedBox(height: 30),
+                Text("Monthly Salary", style: Theme.of(context).textTheme.bodyText1,),
+                MonthlySalaryTextField(viewModel: viewModel),
               ],
             ),
           ),
@@ -229,3 +254,27 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
     );
   }
 }
+
+class MonthlySalaryTextField extends ViewModelWidget<LayoutViewModel> {
+  final ApplicationFormViewModel viewModel;
+  const MonthlySalaryTextField({Key? key, required this.viewModel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, LayoutViewModel layoutViewModel) {
+    viewModel.monthlySalaryTEC.text = layoutViewModel.monthlyIncomeTEC.text;
+    return TextField(
+      controller: viewModel.monthlySalaryTEC,
+      keyboardType: TextInputType.number,
+      style: const TextStyle(fontWeight: FontWeight.w700),
+      onChanged: (value){},
+      decoration: const InputDecoration(
+        isDense: true,
+        hintText: "Monthly Salary",
+        hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+      ),
+    );
+  }
+}
+

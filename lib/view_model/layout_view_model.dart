@@ -40,7 +40,6 @@ class LayoutViewModel extends BaseViewModel {
 
   ///////add application pop up view state/////////////////////
   final monthlyIncomeTEC = TextEditingController();
-  // final minimumSettlementTEC = TextEditingController();
 
   CustomerType? customerType;
   selectCustomerType(CustomerType? value) {
@@ -74,6 +73,14 @@ class LayoutViewModel extends BaseViewModel {
     }
   }
 
+  String dropdownValue = '25 %';
+  var items = [
+    '5 %',
+    '25 %',
+    '50 %',
+    '100 %',
+  ];
+
   disposeCardResource() {
     dropdownValue = '25 %';
     customerType = null;
@@ -83,11 +90,5 @@ class LayoutViewModel extends BaseViewModel {
   //add application pop up view state end/////////////////////////////////////
 
 
-  String dropdownValue = '25 %';
-  var items = [
-    '5 %',
-    '25 %',
-    '50 %',
-    '100 %',
-  ];
+
 }

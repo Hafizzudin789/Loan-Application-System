@@ -50,6 +50,20 @@ class ApplicationFormViewModel extends BaseViewModel {
     }
   }
 
+  disposeResource() {
+    applicantNameTEC.dispose();
+    birthDateTEC.dispose();
+    nationalityTEC.dispose();
+    idTypeTEC.dispose();
+    idNumberTEC.dispose();
+    idExpiryDateTEC.dispose();
+
+    phoneNumberTEC.dispose();
+    emailTEC.dispose();
+    monthlySalaryTEC.dispose();
+    companyTEC.dispose();
+  }
+
 
 
   //Card Page//
@@ -105,7 +119,6 @@ class ApplicationFormViewModel extends BaseViewModel {
 
   TextEditingController phoneNumberTEC = TextEditingController();
   TextEditingController emailTEC = TextEditingController();
-  TextEditingController employmentStatusTEC = TextEditingController();
   TextEditingController monthlySalaryTEC = TextEditingController();
   TextEditingController companyTEC = TextEditingController();
 
@@ -116,8 +129,21 @@ class ApplicationFormViewModel extends BaseViewModel {
   }
   bool customerDetailIsComplete() {
     return phoneNumberTEC.text.isNotEmpty && emailTEC.text.isNotEmpty
-        && employmentStatusTEC.text.isNotEmpty && monthlySalaryTEC.text.isNotEmpty
-        && companyTEC.text.isNotEmpty && agreedToTerms;
+        && monthlySalaryTEC.text.isNotEmpty && companyTEC.text.isNotEmpty
+        && agreedToTerms && dropdownEmployeeValue != null;
+  }
+
+
+  String? dropdownEmployeeValue;
+  var items = [
+    'Full-Time Employee',
+    'Part-Time Employee',
+    'Freelancer',
+  ];
+
+  selectStatus(String? value) {
+    dropdownEmployeeValue = value;
+    notifyListeners();
   }
   //Customer Details End//
 }

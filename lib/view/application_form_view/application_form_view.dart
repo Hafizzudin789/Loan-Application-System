@@ -23,6 +23,7 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
       onModelReady: (viewModel) {
         viewModel.initializeCardSelectedList(widget.cardData.length);
       },
+      onDispose: (viewModel) => viewModel.disposeResource(),
       builder: (context, viewModel, _) {
         return Scaffold(
           resizeToAvoidBottomInset: false,

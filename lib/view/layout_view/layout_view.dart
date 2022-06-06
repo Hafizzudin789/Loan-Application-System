@@ -563,7 +563,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
-                                    viewModel.disposeCardResource();
+                                    // viewModel.disposeCardResource();
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
@@ -580,7 +580,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                           : () {
                                         Navigator.pop(context);
                                         locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.limitedCardData);
-                                        viewModel.disposeCardResource();
+                                        // viewModel.disposeCardResource();
                                       },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
