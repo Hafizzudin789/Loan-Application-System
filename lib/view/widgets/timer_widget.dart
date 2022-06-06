@@ -13,7 +13,7 @@ class TimerWidget extends StatefulWidget {
 
 class _TimerWidgetState extends State<TimerWidget> {
 
-  int counter = 20;
+  int counter = 60;
   late Timer _timer;
 
   @override

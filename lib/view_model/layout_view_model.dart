@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
@@ -7,6 +9,8 @@ import 'package:stacked/stacked.dart';
 
 
 class LayoutViewModel extends BaseViewModel {
+
+  late Timer timerForSession;
 
   LayoutViewIndex _layoutViewIndex = LayoutViewIndex.dashboardView;
   LayoutViewIndex get layoutViewIndex => _layoutViewIndex;

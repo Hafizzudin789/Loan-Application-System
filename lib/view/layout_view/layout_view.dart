@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,90 +40,97 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
             ),
           ),
           onInit: () {
-            Future.delayed(
-              const Duration(seconds: 10), () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                    content: StatefulBuilder(
-                      builder: (BuildContext context, StateSetter setState) {
-                        return SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: SvgPicture.asset("assets/closeIcon.svg", height: 15, width: 15),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: const BoxDecoration(
-                                  color: borderGreyColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(Icons.error_outline,
-                                    color: warningColor),
-                              ),
-                              const SizedBox(height: 30),
-                              const TimerWidget(),
-                              const SizedBox(height: 5),
-                              const Text("Tap ‘Okay’ to stay logged in or click ‘Log out’ to log out.", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
-                              const SizedBox(height: 50),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    style: ButtonStyle(
-                                      foregroundColor: MaterialStateProperty.all(errorColor),
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
-                                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
-                                      side: MaterialStateProperty.all(const BorderSide(color: errorColor)),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView(isSessionExpired: true,)), (route) => false);
-                                    },
-                                    child: const Text("Log out", style: TextStyle(fontWeight: FontWeight.w700),),
-                                  ),
-                                  TextButton(
-                                    style: ButtonStyle(
-                                        foregroundColor: MaterialStateProperty.all(Colors.white),
-                                        backgroundColor: MaterialStateProperty.all(primaryColor),
-                                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
-                                        padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20))
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Okay", style: TextStyle(fontWeight: FontWeight.w700),),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-              );
-            },
-            );
+            viewModel.timerForSession = Timer.periodic(const Duration(minutes: 18), (timer) {
+              timer.cancel();
+              _showSessionExpirePopUp(context);
+            });
+          },
+          onDispose: () {
+            viewModel.timerForSession.cancel();
           },
         )
       ),
+    );
+  }
+
+
+  void _showSessionExpirePopUp(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: SvgPicture.asset("assets/closeIcon.svg", height: 15, width: 15),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        color: borderGreyColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.error_outline,
+                          color: warningColor),
+                    ),
+                    const SizedBox(height: 30),
+                    const TimerWidget(),
+                    const SizedBox(height: 5),
+                    const Text("Tap ‘Okay’ to stay logged in or click ‘Log out’ to log out.", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
+                    const SizedBox(height: 50),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all(errorColor),
+                            backgroundColor: MaterialStateProperty.all(Colors.white),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
+                            side: MaterialStateProperty.all(const BorderSide(color: errorColor)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView(isSessionExpired: false,)), (route) => false);
+                          },
+                          child: const Text("Log out", style: TextStyle(fontWeight: FontWeight.w700),),
+                        ),
+                        TextButton(
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(Colors.white),
+                              backgroundColor: MaterialStateProperty.all(primaryColor),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25))),
+                              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20))
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Okay", style: TextStyle(fontWeight: FontWeight.w700),),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -560,7 +569,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: viewModel.monthlyIncomeTEC.text.isNotEmpty? null: () {
                                     Navigator.pop(context);
                                     locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
                                     // viewModel.disposeCardResource();
@@ -568,7 +577,7 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
                                     backgroundColor: MaterialStateProperty.all(Colors.white),
-                                    foregroundColor: MaterialStateProperty.all(blackColorMono),
+                                    foregroundColor: MaterialStateProperty.all(viewModel.monthlyIncomeTEC.text.isNotEmpty? greyColor:blackColorMono),
                                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                                   ),
                                   child: const Text("View all card", style: TextStyle(fontWeight: FontWeight.w700),),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/service_locator.dart';
+import 'package:loan_application_system/services/navigation_service.dart';
+import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/layout_view/layout_view.dart';
-import 'package:loan_application_system/view/splash_view.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -56,8 +56,10 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            // home: const SplashView(),
-            home: const LayoutView(),
+            navigatorKey: locator<NavigationService>().navigatorKeyGlobal,
+            onGenerateRoute: generateRoute,
+            // initialRoute: splashView,
+            initialRoute: layoutView,
           ),
         );
       },

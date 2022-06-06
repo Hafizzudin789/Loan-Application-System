@@ -6,7 +6,6 @@ import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -65,7 +64,7 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
             position: PopupMenuPosition.under,
             onSelected: (value) {
               if(value == PopupMenuState.logout) {
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LogoutView()), (route) => false);
+                locator<NavigationService>().navigateAndRemoveAllGlobal(logoutView, arguments: false);
               } else {
                 // viewModel.changeLayoutViewIndex(LayoutViewIndex.profileView);
                 locator<NavigationService>().navigateToAndBack(profileView);

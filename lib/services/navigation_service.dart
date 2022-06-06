@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loan_application_system/utils/enums.dart';
 
 class NavigationService {
+  GlobalKey<NavigatorState> navigatorKeyGlobal = GlobalKey<NavigatorState>();
 
   LayoutViewIndex layoutIndex = LayoutViewIndex.dashboardView;
 
@@ -27,6 +28,12 @@ class NavigationService {
 
   goBack() {
     return navigatorKeys[layoutIndex.name]!.currentState!.pop();
+  }
+
+
+  ////////Global///////
+  navigateAndRemoveAllGlobal(String routeName, {dynamic arguments}) {
+    return navigatorKeyGlobal.currentState!.pushNamedAndRemoveUntil(routeName, (route) => false, arguments: arguments);
   }
 
 }

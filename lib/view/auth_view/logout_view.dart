@@ -6,7 +6,7 @@ import 'package:loan_application_system/view/auth_view/auth_base_view.dart';
 
 class LogoutView extends StatefulWidget {
   final bool isSessionExpired;
-  const LogoutView({Key? key, this.isSessionExpired = false}) : super(key: key);
+  const LogoutView({Key? key, required this.isSessionExpired}) : super(key: key);
 
   @override
   State<LogoutView> createState() => _LogoutViewState();
