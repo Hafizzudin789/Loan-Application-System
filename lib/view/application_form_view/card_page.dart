@@ -104,7 +104,7 @@ class CardPage extends StatelessWidget {
                       ListView.builder(
                         controller: viewModel.scrollController,
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(left: 100),
+                        padding: EdgeInsets.only(left: 100, right: cardData.length<3?0:60),
                         itemCount: cardData.length,
                         itemBuilder: (context, index) {
                           return _cardWidget(cardData[index], viewModel, index);
@@ -118,8 +118,8 @@ class CardPage extends StatelessWidget {
                         child: ClipRRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(
-                              sigmaX: 1.5,
-                              sigmaY: 1.5,
+                              sigmaX: cardData.length<3?0:1.5,
+                              sigmaY: cardData.length<3?0:1.5,
                             ),
                             child: const SizedBox(
                               width: 90,
@@ -135,8 +135,8 @@ class CardPage extends StatelessWidget {
                         child: ClipRRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(
-                              sigmaX: 1.5,
-                              sigmaY: 1.5,
+                              sigmaX: cardData.length<3?0:1.5,
+                              sigmaY: cardData.length<3?0:1.5,
                             ),
                             child: const SizedBox(
                               width: 90,
