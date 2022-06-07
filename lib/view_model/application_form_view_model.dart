@@ -62,6 +62,8 @@ class ApplicationFormViewModel extends BaseViewModel {
     emailTEC.dispose();
     monthlySalaryTEC.dispose();
     companyTEC.dispose();
+
+    scrollController.dispose();
   }
 
 
@@ -75,7 +77,7 @@ class ApplicationFormViewModel extends BaseViewModel {
     //     !scrollController.position.outOfRange) {
     //   return;
     // }
-    scrollController.animateTo(scrollController.offset+400, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut, );
+    scrollController.animateTo(scrollController.offset+400, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut, );
   }
 
   scrollRight() {
@@ -83,7 +85,7 @@ class ApplicationFormViewModel extends BaseViewModel {
     //     !scrollController.position.outOfRange) {
     //   return;
     // }
-    scrollController.animateTo(scrollController.offset-400, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut, );
+    scrollController.animateTo(scrollController.offset-400, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut, );
   }
 
   List<bool> _cardSelected = [];
