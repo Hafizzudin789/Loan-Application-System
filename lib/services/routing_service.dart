@@ -9,6 +9,7 @@ import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/dashboard_view.dart';
 import 'package:loan_application_system/view/layout_view/layout_view.dart';
 import 'package:loan_application_system/view/profile_view.dart';
+import 'package:loan_application_system/view/splash_view.dart';
 
 
 const String splashView = "splash-view";
@@ -24,6 +25,8 @@ const String scanIdView = "scan-id-view";
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case splashView:
+      return MaterialPageRoute(builder: (context) => const SplashView());
     case layoutView:
       return MaterialPageRoute(builder: (context) => const LayoutView());
     case dashboardView:
