@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loan_application_system/service_locator.dart';
+import 'package:loan_application_system/services/navigation_service.dart';
+import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
@@ -94,7 +99,14 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    viewModel.setFrontIdImagePath("assets/frontId.png");
+                                    if(viewModel.frontIdImagePath==null) {
+                                      Timer? frontIdScanTimer;
+                                      frontIdScanTimer = Timer(const Duration(seconds: 4), () {
+                                        viewModel.setFrontIdImagePath("assets/frontId.png");
+                                        locator<NavigationService>().goBackGlobal();
+                                      });
+                                      locator<NavigationService>().navigateToAndBackGlobal(scanIdView, arguments: ["Front ID", frontIdScanTimer]);
+                                    }
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(
@@ -206,7 +218,14 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                               Expanded(
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    viewModel.setBackIdImagePath("assets/backId.png");
+                                    if(viewModel.backIdImagePath==null) {
+                                      Timer? backIdScanTimer;
+                                      backIdScanTimer = Timer(const Duration(seconds: 4), () {
+                                        viewModel.setBackIdImagePath("assets/backId.png");
+                                        locator<NavigationService>().goBackGlobal();
+                                      });
+                                      locator<NavigationService>().navigateToAndBackGlobal(scanIdView, arguments: ["Back ID", backIdScanTimer]);
+                                    }
                                   },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(

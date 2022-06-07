@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/enums.dart';

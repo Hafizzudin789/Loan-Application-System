@@ -36,4 +36,12 @@ class NavigationService {
     return navigatorKeyGlobal.currentState!.pushNamedAndRemoveUntil(routeName, (route) => false, arguments: arguments);
   }
 
+  navigateToAndBackGlobal(String routeName, {dynamic arguments}) {
+    return navigatorKeyGlobal.currentState!.pushNamed(routeName, arguments: arguments);
+  }
+
+  goBackGlobal() {
+    return navigatorKeyGlobal.currentState!.pop();
+  }
+
 }

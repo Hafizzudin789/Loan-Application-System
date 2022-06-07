@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/view/application_form_view/application_form_view.dart';
+import 'package:loan_application_system/view/application_form_view/scan_id_view.dart';
 import 'package:loan_application_system/view/applications_view.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/dashboard_view.dart';
@@ -17,6 +20,7 @@ const String layoutView = "layout-view";
 const String profileView = "profile-view";
 const String applicationFormView = "application-form-view";
 const String logoutView = "logout-view";
+const String scanIdView = "scan-id-view";
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -38,6 +42,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case logoutView:
       bool value = settings.arguments as bool;
       return MaterialPageRoute(builder: (context) => LogoutView(isSessionExpired: value));
+    case scanIdView:
+      String value = (settings.arguments as List)[0];
+      Timer timer = (settings.arguments as List)[1];
+      return MaterialPageRoute(builder: (context) => ScanIdView(textValue: value, timer: timer,));
     default:
       return MaterialPageRoute(builder: (context) => Material(child: Center(child: Text("No Such Route ${settings.name}"),)));
   }

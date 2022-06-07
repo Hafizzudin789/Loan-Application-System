@@ -42,6 +42,8 @@ dependencies:
   syncfusion_flutter_charts: ^20.1.57
   get_it: ^7.2.0
   image_picker: ^0.8.5+3
+  camera: ^0.9.7+1
+  permission_handler: ^9.2.0
 
 dev_dependencies:
   flutter_test:
