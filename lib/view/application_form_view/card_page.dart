@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/model/data.dart';
@@ -92,16 +94,121 @@ class CardPage extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.54,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 100),
-                    itemCount: cardData.length,
-                    itemBuilder: (context, index) {
-                      return _cardWidget(cardData[index], viewModel, index);
-                    },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ListView.builder(
+                        controller: viewModel.scrollController,
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(left: 100),
+                        itemCount: cardData.length,
+                        itemBuilder: (context, index) {
+                          return _cardWidget(cardData[index], viewModel, index);
+                        },
+                      ),
+
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: ClipRRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 1.5,
+                              sigmaY: 1.5,
+                            ),
+                            child: const SizedBox(
+                              width: 90,
+                              height: double.infinity,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: ClipRRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 1.5,
+                              sigmaY: 1.5,
+                            ),
+                            child: const SizedBox(
+                              width: 90,
+                              height: double.infinity,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      Positioned(
+                        left: 50,
+                        child: viewModel.scrollController.hasClients && viewModel.scrollController.offset >
+                            viewModel.scrollController.position.minScrollExtent
+                            ? InkWell(
+                                onTap: () {
+                                  viewModel.scrollRight();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: borderGreyColor, width: 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: borderGreyColor,
+                                          offset: Offset(-0.5, 2),
+                                          blurRadius: 0.5,
+                                          spreadRadius: 1),
+                                    ],
+                                  ),
+                                  child: const Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    size: 15,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                      ),
+                      Positioned(
+                        right: 50,
+                        child: (viewModel.scrollController.hasClients && viewModel.scrollController.offset <
+                            viewModel.scrollController.position.maxScrollExtent) || cardData.length > 2
+                            ? InkWell(
+                                onTap: () {
+                                  viewModel.scrollLeft();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: borderGreyColor, width: 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: borderGreyColor,
+                                          offset: Offset(-0.5, 2),
+                                          blurRadius: 0.5,
+                                          spreadRadius: 1),
+                                    ],
+                                  ),
+                                  child: const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 15,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                      ),
+                    ],
                   ),
                 ),
               ],

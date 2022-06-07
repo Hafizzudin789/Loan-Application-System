@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/enums.dart';
@@ -70,6 +68,24 @@ class ApplicationFormViewModel extends BaseViewModel {
 
   //Card Page//
 
+  ScrollController scrollController = ScrollController();
+
+  scrollLeft() {
+    // if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+    //     !scrollController.position.outOfRange) {
+    //   return;
+    // }
+    scrollController.animateTo(scrollController.offset+400, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut, );
+  }
+
+  scrollRight() {
+    // if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+    //     !scrollController.position.outOfRange) {
+    //   return;
+    // }
+    scrollController.animateTo(scrollController.offset-400, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut, );
+  }
+
   List<bool> _cardSelected = [];
   List<bool> get cardSelected => _cardSelected;
   selectCard(int index) {
@@ -80,6 +96,18 @@ class ApplicationFormViewModel extends BaseViewModel {
 
   initializeCardSelectedList(int length) {
     _cardSelected = List.filled(length, false);
+
+    //add listener
+    if(scrollController.hasListeners) {
+      scrollController.removeListener(_scrollListener);
+      scrollController.addListener(_scrollListener);
+    } else {
+      scrollController.addListener(_scrollListener);
+    }
+    notifyListeners();
+  }
+
+  _scrollListener() {
     notifyListeners();
   }
   //Card Page End//
