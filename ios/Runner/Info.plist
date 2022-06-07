@@ -26,6 +26,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Want to scan id.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow acces to photos</string>
 	<key>UILaunchStoryboardName</key>
@@ -46,7 +48,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-    <string>Want to scan id.</string>
 </dict>
 </plist>
