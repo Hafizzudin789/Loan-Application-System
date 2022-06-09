@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/widgets/selected_widget.dart';
@@ -228,7 +230,99 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
                     ),
                     ElevatedButton(
                       onPressed: viewModel.customerDetailIsComplete() ? () {
-                        viewModel.changeApplicationFormState(ApplicationFormState.cardSelection);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: SingleChildScrollView(
+                                child: AlertDialog(
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                  content: StatefulBuilder(
+                                    builder: (BuildContext context, StateSetter setState) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: SvgPicture.asset(
+                                                  "assets/closeIcon.svg",
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Image.asset("assets/mobile.png", scale: 1.2,),
+                                          const SizedBox(height: 20),
+
+                                          const Text("Almost there, enter 6-digit OTP", style: TextStyle(fontSize: xl, fontWeight: FontWeight.w600, color: blackColorMono),),
+                                          const SizedBox(height: 5),
+                                          const Text("Please enter the verification code sent to customer mobile", style: TextStyle(fontSize: m, fontWeight: FontWeight.w500, color: darkGreyColor),),
+                                          Text(viewModel.phoneNumberTEC.text, style: const TextStyle(color: primaryColor, fontSize: m, fontWeight: FontWeight.w500,),),
+                                          const SizedBox(height: 20),
+                                          TextField(
+                                            controller: viewModel.optTEC,
+                                            obscureText: true,
+                                            keyboardType: TextInputType.number,
+                                            onChanged: (value) {
+                                              setState(() {});
+                                            },
+                                            inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6),],
+                                            decoration: InputDecoration(
+                                              hintText: "Enter 6-digit code",
+                                              hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w600, fontSize: xl),
+                                              border: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                              focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor,),),
+                                              errorBorder: const UnderlineInputBorder(borderSide: BorderSide(color: errorColor,),),
+                                              errorText: viewModel.otpError,
+                                              errorStyle: const TextStyle(color: errorColor),
+                                            ),
+                                          ),
+
+                                          const SizedBox(height: 30),
+
+                                          Row(
+                                            children: [
+                                              Expanded(child: Text(viewModel.optTEC.text.length==6 ?"Resend code":"Resend code 04:57", style: TextStyle(fontSize: m, fontWeight: FontWeight.w600, color: viewModel.optTEC.text.length==6 ?primaryColor:blackColorMono,),)),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(viewModel.optTEC.text.length==6 ? primaryColor: idleGreyColor),
+                                                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),),),
+                                                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20),),
+                                                ),
+                                                onPressed: () {
+                                                  if(viewModel.optTEC.text == Data.otpCode) {
+                                                    Navigator.pop(context);
+                                                    viewModel.changeApplicationFormState(ApplicationFormState.cardSelection);
+                                                  } else {
+                                                    setState((){
+                                                      viewModel.otpError = "Incorrect verification code";
+                                                    });
+                                                  }
+                                                },
+                                                child: const Text("Verify", style: TextStyle(color: Colors.white, fontSize: m, fontWeight: FontWeight.w700),),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       } : null,
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

@@ -40,6 +40,11 @@ class NavigationService {
     return navigatorKeyGlobal.currentState!.pushNamed(routeName, arguments: arguments);
   }
 
+  navigateToGlobal(String routeName, {dynamic arguments}) {
+    return navigatorKeyGlobal.currentState!.pushReplacementNamed(routeName, arguments: arguments);
+  }
+
+
   goBackGlobal() {
     return navigatorKeyGlobal.currentState!.pop();
   }

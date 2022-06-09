@@ -178,5 +178,8 @@ class ApplicationFormViewModel extends BaseViewModel {
     dropdownEmployeeValue = value;
     notifyListeners();
   }
+
+  String? otpError;
+  TextEditingController optTEC = TextEditingController();
   //Customer Details End//
 }
