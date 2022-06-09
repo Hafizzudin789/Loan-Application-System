@@ -418,6 +418,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                               TextField(
                                 controller: viewModel.applicantNameTEC,
                                 keyboardType: TextInputType.text,
+                                readOnly: true,
                                 style: const TextStyle(fontWeight: FontWeight.w700),
                                 onChanged: (value) {},
                                 decoration: const InputDecoration(
@@ -439,6 +440,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                   children: [
                                     Text("Date of Birth", style: Theme.of(context).textTheme.bodyText1,),
                                     TextField(
+                                      readOnly: true,
                                       controller: viewModel.birthDateTEC,
                                       keyboardType: TextInputType.text,
                                       style: const TextStyle(fontWeight: FontWeight.w700),
@@ -461,6 +463,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                   children: [
                                     Text("Nationality", style: Theme.of(context).textTheme.bodyText1,),
                                     TextField(
+                                      readOnly: true,
                                       controller: viewModel.nationalityTEC,
                                       keyboardType: TextInputType.text,
                                       style: const TextStyle(fontWeight: FontWeight.w700),
@@ -488,6 +491,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                   children: [
                                     Text("ID Type", style: Theme.of(context).textTheme.bodyText1,),
                                     TextField(
+                                      readOnly: true,
                                       controller: viewModel.idTypeTEC,
                                       keyboardType: TextInputType.text,
                                       style: const TextStyle(fontWeight: FontWeight.w700),
@@ -510,6 +514,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                                   children: [
                                     Text("ID Number", style: Theme.of(context).textTheme.bodyText1,),
                                     TextField(
+                                      readOnly: true,
                                       controller: viewModel.idNumberTEC,
                                       keyboardType: TextInputType.text,
                                       style: const TextStyle(fontWeight: FontWeight.w700),
@@ -535,6 +540,7 @@ class CustomerIdPage extends ViewModelWidget<ApplicationFormViewModel> {
                             children: [
                               Text("ID Expiry", style: Theme.of(context).textTheme.bodyText1,),
                               TextField(
+                                readOnly: true,
                                 controller: viewModel.idExpiryDateTEC,
                                 keyboardType: TextInputType.text,
                                 style: const TextStyle(fontWeight: FontWeight.w700),

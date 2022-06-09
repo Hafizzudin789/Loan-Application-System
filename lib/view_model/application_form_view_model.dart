@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/application_form_view/card_page.dart';
@@ -73,18 +74,10 @@ class ApplicationFormViewModel extends BaseViewModel {
   ScrollController scrollController = ScrollController();
 
   scrollLeft() {
-    // if (scrollController.offset >= scrollController.position.maxScrollExtent &&
-    //     !scrollController.position.outOfRange) {
-    //   return;
-    // }
     scrollController.animateTo(scrollController.offset+400, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut, );
   }
 
   scrollRight() {
-    // if (scrollController.offset >= scrollController.position.maxScrollExtent &&
-    //     !scrollController.position.outOfRange) {
-    //   return;
-    // }
     scrollController.animateTo(scrollController.offset-400, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut, );
   }
 
@@ -182,4 +175,35 @@ class ApplicationFormViewModel extends BaseViewModel {
   String? otpError;
   TextEditingController optTEC = TextEditingController();
   //Customer Details End//
+
+
+
+  //Documents Page
+
+  String? paySlipDocsPath;
+  String? bankStatementDocsPath;
+
+  setPaySlipDocs(String? value) {
+    paySlipDocsPath = value;
+    notifyListeners();
+  }
+
+  setBankStatementDocs(String? value) {
+    bankStatementDocsPath = value;
+    notifyListeners();
+  }
+
+  openCamera(bool isPaySlip) async{
+    ImagePicker picker = ImagePicker();
+    XFile? imageFile = await picker.pickImage(source: ImageSource.camera);
+
+    if(imageFile!= null) {
+      if(isPaySlip) {
+        setPaySlipDocs("");
+      } else {
+        setBankStatementDocs("");
+      }
+    }
+  }
+  //Documents Page End
 }

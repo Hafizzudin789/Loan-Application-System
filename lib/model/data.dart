@@ -21,6 +21,11 @@ class Data {
     CardTypeData(label: "Digibanc Cash Back Platinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: null),
     CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/visaCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor),
   ];
+
+  static List<CardTypeData> cardSelection = [
+    CardTypeData(label: "Digibanc JustOnePlatinum MasterCard", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: primaryColor),
+    CardTypeData(label: "Digibanc JustOne Visa Platinum Card", annualFee: "Free*", cardType: "assets/masterCardIcon.png", feature: "Rewards", minimumIncome: 600, rewardsUpTo: "up to 8x", cardColor: lightYellowColor),
+  ];
   
   static List<CustomerApplications> customerApplications = [
     CustomerApplications(applicantEmail: "vaccaro@mail.com", applicantName: "Carla Vaccaro", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 32942.34, mobileNumber: "+971 335565", product: "Auto Finance", type: "Toyota", status: CustomerApplicationStatus.newA),
