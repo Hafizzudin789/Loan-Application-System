@@ -1,18 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
-import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/auth_view/logout_view.dart';
 import 'package:loan_application_system/view/widgets/apply_applications_widget.dart';
-import 'package:loan_application_system/view/widgets/selected_widget.dart';
 import 'package:loan_application_system/view/widgets/stateful_wrapper_widget.dart';
 import 'package:loan_application_system/view/widgets/timer_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
@@ -30,15 +26,13 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body : StatefulWrapper(
-          child: SafeArea(
-            child: Row(
-              children: [
-                _customSideNavBar(viewModel),
-                Expanded(
-                  child: _body(viewModel),
-                ),
-              ],
-            ),
+          child: Row(
+            children: [
+              _customSideNavBar(viewModel),
+              Expanded(
+                child: SafeArea(child: _body(viewModel)),
+              ),
+            ],
           ),
           onInit: () {
             viewModel.timerForSession = Timer.periodic(const Duration(minutes: 18), (timer) {
@@ -142,69 +136,71 @@ class LayoutView extends ViewModelWidget<LayoutViewModel> {
           color: Colors.white,
           width: MediaQuery.of(context).size.width * 0.085,
           padding: const EdgeInsets.only(left: 20.0, right: 20, top: 30, bottom: 15),
-          child: Column(
-            children: [
-              ShaderMask(
-                shaderCallback: (bounds) {
-                  return const RadialGradient(
-                    center: Alignment.topCenter,
-                    radius: 1,
-                    colors: [Color(0XFF9B1B7F), primaryColor],
-                    tileMode: TileMode.mirror,
-                  ).createShader(bounds);
-                },
-                child: SvgPicture.asset("assets/logo.svg"),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                decoration: const BoxDecoration(
-                  color: primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: IconButton(
-                  onPressed: () {
-                    showApplyApplicationsPopUp(context, viewModel);
+          child: SafeArea(
+            child: Column(
+              children: [
+                ShaderMask(
+                  shaderCallback: (bounds) {
+                    return const RadialGradient(
+                      center: Alignment.topCenter,
+                      radius: 1,
+                      colors: [Color(0XFF9B1B7F), primaryColor],
+                      tileMode: TileMode.mirror,
+                    ).createShader(bounds);
                   },
-                  tooltip: "Request application",
-                  icon: const Icon(
-                    Icons.add,
-                    color: Colors.white,
+                  child: SvgPicture.asset("assets/logo.svg"),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    onPressed: () {
+                      showApplyApplicationsPopUp(context, viewModel);
+                    },
+                    tooltip: "Request application",
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 40),
-              Container(
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: primaryGrey,
-                  borderRadius: BorderRadius.circular(100.0),
-                  // shape: BoxShape.circle
+                const SizedBox(height: 40),
+                Container(
+                  padding: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    color: primaryGrey,
+                    borderRadius: BorderRadius.circular(100.0),
+                    // shape: BoxShape.circle
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _navBarButtonWidget("assets/dashboardIcon.svg", viewModel, LayoutViewIndex.dashboardView),
+                      const SizedBox(height: 10),
+                      _navBarButtonWidget("assets/applicationsIcon.svg", viewModel, LayoutViewIndex.applicationsView),
+                      const SizedBox(height: 10),
+                      _navBarButtonWidget("assets/pieChart.svg", viewModel, LayoutViewIndex.third),
+                      const SizedBox(height: 10),
+                      _navBarButtonWidget("assets/searchIcon.svg", viewModel, LayoutViewIndex.fourth),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navBarButtonWidget("assets/dashboardIcon.svg", viewModel, LayoutViewIndex.dashboardView),
-                    const SizedBox(height: 10),
-                    _navBarButtonWidget("assets/applicationsIcon.svg", viewModel, LayoutViewIndex.applicationsView),
-                    const SizedBox(height: 10),
-                    _navBarButtonWidget("assets/pieChart.svg", viewModel, LayoutViewIndex.third),
-                    const SizedBox(height: 10),
-                    _navBarButtonWidget("assets/searchIcon.svg", viewModel, LayoutViewIndex.fourth),
-                  ],
+                const SizedBox(height: 50),
+                const Expanded(child: SizedBox()),
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                    color: lightGreyColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: SvgPicture.asset("assets/messageIcon.svg"),
                 ),
-              ),
-              const SizedBox(height: 50),
-              const Expanded(child: SizedBox()),
-              Container(
-                padding: const EdgeInsets.all(15),
-                decoration: const BoxDecoration(
-                  color: lightGreyColor,
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset("assets/messageIcon.svg"),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }
