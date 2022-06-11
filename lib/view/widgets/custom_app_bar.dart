@@ -66,7 +66,6 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
               if(value == PopupMenuState.logout) {
                 locator<NavigationService>().navigateAndRemoveAllGlobal(logoutView, arguments: false);
               } else {
-                // viewModel.changeLayoutViewIndex(LayoutViewIndex.profileView);
                 locator<NavigationService>().navigateToAndBack(profileView);
               }
             },

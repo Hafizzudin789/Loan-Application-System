@@ -31,6 +31,7 @@ enum ApplicationFormState{
 }
 
 enum CustomerApplicationStatus {
+  all("All Status"),
   newA("New"),
   processing("Processing"),
   complete("Complete"),
@@ -40,4 +41,14 @@ enum CustomerApplicationStatus {
 
   final String label;
   const CustomerApplicationStatus(this.label);
+}
+
+enum Product {
+  all("All Product"),
+  creditCard("Credit Card"),
+  autoFinance("Auto Finance"),
+  personalFinance("Personal Finance");
+
+  final String value;
+  const Product(this.value);
 }
