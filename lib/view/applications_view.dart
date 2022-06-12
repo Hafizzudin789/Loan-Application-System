@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
@@ -19,6 +20,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
     return ViewModelBuilder<ApplicationsViewModel>.reactive(
       viewModelBuilder: () => ApplicationsViewModel(),
       onModelReady: (applicationsViewModel)=>applicationsViewModel.initializeApplicationsList(),
+      onDispose: (applicationsViewModel) => applicationsViewModel.disposeResource(),
       builder: (context, applicationsViewModel, _) {
         return Column(
           children: [
@@ -62,6 +64,9 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                   rows: applicationsViewModel.customerApplications
                                       .map(
                                         (e) => DataRow(
+                                          // selected: (e.product.value == applicationsViewModel.searchTEC.text || e.applicantName == applicationsViewModel.searchTEC.text || e.financeAmount.toString() == applicationsViewModel.searchTEC.text
+                                          //     || e.applicantEmail == applicationsViewModel.searchTEC.text || e.cifNo == applicationsViewModel.searchTEC.text || e.type == applicationsViewModel.searchTEC.text || e.applicationId == applicationsViewModel.searchTEC.text
+                                          //     || e.mobileNumber == applicationsViewModel.searchTEC.text)? true: false,
                                           cells: [
                                             DataCell(Text(
                                               e.applicantName,
@@ -299,13 +304,17 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           ),
         ),
         const Expanded(child: SizedBox()),
-        const SizedBox(
+        SizedBox(
           width: 170,
           child: TextField(
-            decoration: InputDecoration(
+            controller: applicationsViewModel.searchTEC,
+            decoration: const InputDecoration(
               hintText: "Search",
               suffixIcon: Icon(Icons.search),
             ),
+            // onChanged: (value) {
+            //   applicationsViewModel.search();
+            // },
           ),
         ),
         const SizedBox(width: 10),
@@ -397,10 +406,10 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         const Expanded(child: SizedBox()),
         Text(
           applicationsViewModel.pageNumber==1
-              ? "Showing 1 - ${applicationsViewModel.customerApplications.length} of 24"
+              ? "Showing 1 - ${applicationsViewModel.customerApplications.length} of ${Data.customerApplications.length}"
               : applicationsViewModel.pageNumber==2
-                  ? "Showing 11 - ${10+applicationsViewModel.customerApplications.length}  of 24"
-                  : "Showing 21 - ${20+applicationsViewModel.customerApplications.length}  of 24",
+                  ? "Showing 11 - ${10+applicationsViewModel.customerApplications.length}  of ${Data.customerApplications.length}"
+                  : "Showing 21 - ${20+applicationsViewModel.customerApplications.length}  of ${Data.customerApplications.length}",
           style: const TextStyle(
             color: darkGreyColor,
             fontSize: s - 1,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/services/toast_message.dart';
 import 'package:loan_application_system/utils/enums.dart';
@@ -123,5 +124,24 @@ class ApplicationsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  //
+  // bool searchMatched(CustomerApplications value) {
+  //   if(value.product.value == searchTEC.text || value.applicantName == searchTEC.text || value.financeAmount.toString() == searchTEC.text
+  //     || value.applicantEmail == searchTEC.text || value.cifNo == searchTEC.text || value.type == searchTEC.text || value.applicationId == searchTEC.text
+  //     || value.mobileNumber == searchTEC.text) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // search() {
+  //   notifyListeners();
+  // }
+
+  TextEditingController searchTEC = TextEditingController();
+  disposeResource() {
+    searchTEC.dispose();
+  }
 
 }
