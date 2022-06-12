@@ -5,22 +5,29 @@ import 'package:stacked/stacked.dart';
 
 class ApplicationsViewModel extends BaseViewModel {
 
-  List<CustomerApplications> customerApplications = Data.customerApplications;
+  List<CustomerApplications> customerApplications = [];
+
+  initializeApplicationsList() {
+    customerApplications = Data.customerApplications.sublist(0,resultLimit.value);
+    notifyListeners();
+  }
 
   int pageNumber = 1;
   changePage(int value) async{
     pageNumber = value;
+    _resultLimit = ResultLimit.ten;
+
     await selectDataAccordingToPage();
     notifyListeners();
   }
 
   selectDataAccordingToPage() {
     if(pageNumber == 1) {
-      customerApplications = Data.customerApplications;
+      customerApplications = Data.customerApplications.sublist(0,10);
     } else if(pageNumber == 2) {
-      customerApplications = Data.customerApplicationsPage2;
+      customerApplications = Data.customerApplications.sublist(10,20);
     } else {
-      customerApplications = Data.customerApplicationsPage3;
+      customerApplications = Data.customerApplications.sublist(20,24);
     }
   }
 
@@ -75,4 +82,46 @@ class ApplicationsViewModel extends BaseViewModel {
     customerApplications = filteredList;
     notifyListeners();
   }
+
+  ResultLimit _resultLimit = ResultLimit.ten;
+  ResultLimit get resultLimit => _resultLimit;
+
+  List<ResultLimit> resultLimitList = [
+    ResultLimit.ten,
+    ResultLimit.twenty,
+    ResultLimit.thirty,
+    ResultLimit.forty,
+    ResultLimit.fifty,
+  ];
+
+  changeResultLimit(ResultLimit value) {
+    _resultLimit = value;
+
+    switch(value){
+      case ResultLimit.ten:
+        if(pageNumber == 1) {
+          customerApplications = Data.customerApplications.sublist(0, 10);
+        } else if (pageNumber == 2){
+          customerApplications = Data.customerApplications.sublist(10, 20);
+        }
+        break;
+      case ResultLimit.twenty:
+        if(pageNumber == 1) {
+          customerApplications = Data.customerApplications.sublist(0, 20);
+        } else if (pageNumber == 2){
+          customerApplications = Data.customerApplications.sublist(10, 24);
+        }
+        break;
+      default:
+        if(pageNumber == 1) {
+          customerApplications = Data.customerApplications.sublist(0, 24);
+        } else if (pageNumber == 2){
+          customerApplications = Data.customerApplications.sublist(10, 24);
+        }
+        break;
+    }
+    notifyListeners();
+  }
+
+
 }

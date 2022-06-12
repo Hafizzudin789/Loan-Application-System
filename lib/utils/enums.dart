@@ -52,3 +52,14 @@ enum Product {
   final String value;
   const Product(this.value);
 }
+
+enum ResultLimit {
+  ten(10),
+  twenty(20),
+  thirty(30),
+  forty(40),
+  fifty(50);
+
+  final int value;
+  const ResultLimit(this.value);
+}

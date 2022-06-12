@@ -18,6 +18,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
   Widget build(BuildContext context, LayoutViewModel viewModel) {
     return ViewModelBuilder<ApplicationsViewModel>.reactive(
       viewModelBuilder: () => ApplicationsViewModel(),
+      onModelReady: (applicationsViewModel)=>applicationsViewModel.initializeApplicationsList(),
       builder: (context, applicationsViewModel, _) {
         return Column(
           children: [
@@ -393,32 +394,32 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           ),
         ),
 
-
         const Expanded(child: SizedBox()),
-        const Text("Showing 1 - 10 of 56", style: TextStyle(color: darkGreyColor, fontSize: s-1, fontWeight: FontWeight.w600),),
+        Text(
+          applicationsViewModel.pageNumber==1
+              ? "Showing 1 - ${applicationsViewModel.customerApplications.length} of 24"
+              : applicationsViewModel.pageNumber==2
+                  ? "Showing 11 - ${10+applicationsViewModel.customerApplications.length}  of 24"
+                  : "Showing 21 - ${20+applicationsViewModel.customerApplications.length}  of 24",
+          style: const TextStyle(
+            color: darkGreyColor,
+            fontSize: s - 1,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: const BorderSide(color: borderGreyColor))),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(blackColorMono),
-          ),
-          child: Row(
-            children: const [
-              Text(
-                "1",
-                style: TextStyle(fontWeight: FontWeight.w700),
+        PopupMenuButton<ResultLimit>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          itemBuilder: (context) => applicationsViewModel.resultLimitList.map(
+                (e) => PopupMenuItem<ResultLimit>(
+                  value: e,
+                  child: Text(e.value.toString()),
               ),
-              SizedBox(width: 10),
-              Icon(
-                Icons.keyboard_arrow_down_rounded,
-                size: 20,
-              )
-            ],
-          ),
+          ).toList(),
+          onSelected: (ResultLimit value) {
+            applicationsViewModel.changeResultLimit(value);
+          },
+          child: ElevatedButtonWidget(text: applicationsViewModel.resultLimit.value.toString(), iconData: Icons.keyboard_arrow_down_rounded),
         ),
       ],
     );
