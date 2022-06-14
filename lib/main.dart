@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             navigatorKey: locator<NavigationService>().navigatorKeyGlobal,
             onGenerateRoute: generateRoute,
             // initialRoute: splashView,
-            initialRoute: layoutView,
+            // initialRoute: layoutView,
           ),
         );
       },
