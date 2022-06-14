@@ -54,35 +54,69 @@ class Data {
     CustomerApplications(applicantEmail: "Ramesh@mail.com", applicantName: "Ramesh Kenter", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 78000.00, mobileNumber: "+971 335565", product: Product.creditCard, type: "Honda", status: CustomerApplicationStatus.processing),
     CustomerApplications(applicantEmail: "Hafiz@mail.com", applicantName: "Hafiz Dorwart", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 323942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "Visa Platinum", status: CustomerApplicationStatus.complete),
     CustomerApplications(applicantEmail: "Angel@mail.com", applicantName: "Angel Donin", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 52942.34, mobileNumber: "+971 335565", product: Product.personalFinance, type: "-", status: CustomerApplicationStatus.declined),
-
   ];
-  //
-  // static List<CustomerApplications> customerApplicationsPage2 = [
-  //   CustomerApplications(applicantEmail: "badacaro@mail.com", applicantName: "Leo Vaccaro", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 32942.34, mobileNumber: "+971 335565", product: Product.creditCard, type: "Honda", status: CustomerApplicationStatus.processing),
-  //   CustomerApplications(applicantEmail: "vdav@mail.com", applicantName: "Cavani Kenter", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 78000.00, mobileNumber: "+971 335565", product: Product.personalFinance, type: "Toyota", status: CustomerApplicationStatus.newA),
-  //   CustomerApplications(applicantEmail: "ddaw@mail.com", applicantName: "Kim Dorwart", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 323942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "Visa Platinum", status: CustomerApplicationStatus.declined),
-  //   CustomerApplications(applicantEmail: "diamong@mail.com", applicantName: "Mira Tornado", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 52942.34, mobileNumber: "+971 335565", product: Product.creditCard, type: "-", status: CustomerApplicationStatus.delivery),
-  //   CustomerApplications(applicantEmail: "have@mail.com", applicantName: "Berry Geidt", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 2942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "Toyota", status: CustomerApplicationStatus.complete),
-  //   CustomerApplications(applicantEmail: "kater@mail.com", applicantName: "Duke Pater", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 4562942.34, mobileNumber: "+971 335565", product: Product.personalFinance, type: "Visa Platinum", status: CustomerApplicationStatus.processing),
-  //   CustomerApplications(applicantEmail: "karen@mail.com", applicantName: "Roger Allsdoin", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 42942.34, mobileNumber: "+971 335565", product: Product.personalFinance, type: "-", status: CustomerApplicationStatus.accepted),
-  //   CustomerApplications(applicantEmail: "haluwa@mail.com", applicantName: "Bush Passaquindic", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 92942.34, mobileNumber: "+971 335565", product: Product.creditCard, type: "Visa Platinum", status: CustomerApplicationStatus.delivery),
-  //   CustomerApplications(applicantEmail: "haveafbva@mail.com", applicantName: "Hafiz Ronaldo", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 12942.34, mobileNumber: "+971 335565", product: Product.personalFinance, type: "Toyota", status: CustomerApplicationStatus.accepted),
-  //   CustomerApplications(applicantEmail: "rose@mail.com", applicantName: "Bidhan Rosser", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 342942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "-", status: CustomerApplicationStatus.accepted),
-  // ];
-  //
-  // static List<CustomerApplications> customerApplicationsPage3 = [
-  //   CustomerApplications(applicantEmail: "Hero@mail.com", applicantName: "Hero Shetty", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 32942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "Toyota", status: CustomerApplicationStatus.newA),
-  //   CustomerApplications(applicantEmail: "Ramesh@mail.com", applicantName: "Ramesh Kenter", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 78000.00, mobileNumber: "+971 335565", product: Product.creditCard, type: "Honda", status: CustomerApplicationStatus.processing),
-  //   CustomerApplications(applicantEmail: "Hafiz@mail.com", applicantName: "Hafiz Dorwart", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 323942.34, mobileNumber: "+971 335565", product: Product.autoFinance, type: "Visa Platinum", status: CustomerApplicationStatus.complete),
-  //   CustomerApplications(applicantEmail: "Angel@mail.com", applicantName: "Angel Donin", applicationId: "34300040053", cifNo: "3435000040053-3", createdDate: "22/5/2022", financeAmount: 52942.34, mobileNumber: "+971 335565", product: Product.personalFinance, type: "-", status: CustomerApplicationStatus.declined),
-  // ];
 
+
+  static List<ApplicationStatusModel> allApplicationCountData = [
+    ApplicationStatusModel(380, "Completed"),
+    ApplicationStatusModel(250, "In Progress"),
+    ApplicationStatusModel(160, "Rejected"),
+  ];
+
+  static List<ApplicationStatusModel> creditCardApplicationCountData = [
+    ApplicationStatusModel(232, "Completed"),
+    ApplicationStatusModel(51, "In Progress"),
+    ApplicationStatusModel(9, "Rejected"),
+  ];
+
+  static List<ApplicationStatusModel> autoFinanceApplicationCountData = [
+    ApplicationStatusModel(100, "Completed"),
+    ApplicationStatusModel(25, "In Progress"),
+    ApplicationStatusModel(50, "Rejected"),
+  ];
+
+  static List<ApplicationStatusModel> personalFinanceApplicationCountData = [
+    ApplicationStatusModel(48, "Completed"),
+    ApplicationStatusModel(174, "In Progress"),
+    ApplicationStatusModel(101, "Rejected"),
+  ];
+
+  static List<ApplicationDataModel> allData = [
+    ApplicationDataModel(450, "Credit\nCard", errorColor),
+    ApplicationDataModel(213, "Personal\nFinance", yellowColor),
+    ApplicationDataModel(147, "Auto\nFinance", greenColor),
+  ];
+
+  static List<ApplicationDataModel> creditCardData = [
+    ApplicationDataModel(450, "Platinum", errorColor),
+    ApplicationDataModel(213, "Gold", yellowColor),
+    ApplicationDataModel(147, "Silver", greenColor),
+  ];
+
+  static List<ApplicationDataModel> autoFinanceData = [
+    ApplicationDataModel(450, "Toyota", errorColor),
+    ApplicationDataModel(213, "Mercedes", yellowColor),
+    ApplicationDataModel(147, "Volkwagen", greenColor),
+  ];
+
+  static List<ApplicationDataModel> personalFinanceData = [
+    ApplicationDataModel(450, "Facility 1", errorColor),
+    ApplicationDataModel(213, "Facility 2", yellowColor),
+    ApplicationDataModel(147, "Facility 3", greenColor),
+  ];
 }
 
-class ApplicationData {
+class ApplicationStatusModel {
   final String label;
   final int value;
-  ApplicationData(this.value, this.label);
+  ApplicationStatusModel(this.value, this.label);
+}
+
+class ApplicationDataModel {
+  final String label;
+  final int value;
+  final Color color;
+  ApplicationDataModel(this.value, this.label, this.color);
 }
 
 class TypesCountData {

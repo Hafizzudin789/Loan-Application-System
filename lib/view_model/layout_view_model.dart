@@ -1,11 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/layout_view/tab_navigator_Widget.dart';
 import 'package:stacked/stacked.dart';
+import 'package:collection/collection.dart';
 
 
 class LayoutViewModel extends BaseViewModel {
@@ -40,6 +41,67 @@ class LayoutViewModel extends BaseViewModel {
       ),
     );
   }
+
+
+  ////Dashboard View logic
+
+  String totalVolume = "42,000,000.00";
+  List<ApplicationStatusModel> applicationsCountData = Data.allApplicationCountData;
+  int getTotalSelectedApplicationsCount() {
+    List<int> listOfInt = applicationsCountData.map((e) => e.value).toList();
+    return listOfInt.sum;
+  }
+
+  List<ApplicationDataModel> applicationData = Data.allData;
+
+  
+  Product _dashboardState = Product.all;
+  Product get dashboardState => _dashboardState;
+
+  changeDashboardState(Product value) {
+    switch(value) {
+      case Product.creditCard:
+        totalVolume = "420,000.00";
+        applicationsCountData = Data.creditCardApplicationCountData;
+        applicationData = Data.creditCardData;
+        break;
+      case Product.autoFinance:
+        totalVolume = "147,000.00";
+        applicationsCountData = Data.autoFinanceApplicationCountData;
+        applicationData = Data.autoFinanceData;
+        break;
+      case Product.personalFinance:
+        totalVolume = "360,000.00";
+        applicationsCountData = Data.personalFinanceApplicationCountData;
+        applicationData = Data.personalFinanceData;
+        break;
+      default:
+        totalVolume = "42,000,000.00";
+        applicationsCountData = Data.allApplicationCountData;
+        applicationData = Data.allData;
+        break;
+    }
+    _dashboardState = value;
+    notifyListeners();
+  }
+
+  List<Product> products = [
+    Product.all,
+    Product.creditCard,
+    Product.autoFinance,
+    Product.personalFinance,
+  ];
+
+  String selectedYearOrMonth = "Yearly";
+  List<String> dropdownYearMonth = ["Yearly","Monthly"];
+  selectDropDownYearMonth(String value) {
+    selectedYearOrMonth = value;
+    notifyListeners();
+  }
+  ////Dashboard View logic End
+
+
+
 
 
   ///////add application pop up view state/////////////////////

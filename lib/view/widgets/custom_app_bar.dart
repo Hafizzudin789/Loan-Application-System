@@ -6,6 +6,7 @@ import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
+import 'package:loan_application_system/view/widgets/elevated_button_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,29 +27,42 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
           ),
           const SizedBox(width: 40),
           viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
-              ? ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                        side: const BorderSide(color: borderGreyColor))),
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    foregroundColor: MaterialStateProperty.all(blackColorMono),
-                  ),
-                  child: Row(
-                    children: const [
-                      Text(
-                        "All Product",
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(width: 10),
-                      Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        size: 20,
-                      )
-                    ],
-                  ),
+              ? PopupMenuButton<Product>(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  itemBuilder: (context) => viewModel.products.map(
+                            (e) => PopupMenuItem<Product>(
+                              value: e,
+                              child: Text(e.value.toString()),
+                            ),
+                          ).toList(),
+                  onSelected: (Product value) {
+                    viewModel.changeDashboardState(value);
+                  },
+                  child: ElevatedButtonWidget(text: viewModel.dashboardState.value.toString(), iconData: Icons.keyboard_arrow_down_rounded),
                 )
+              // ? ElevatedButton(
+              //     onPressed: () {},
+              //     style: ButtonStyle(
+              //       shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(25),
+              //           side: const BorderSide(color: borderGreyColor))),
+              //       backgroundColor: MaterialStateProperty.all(Colors.white),
+              //       foregroundColor: MaterialStateProperty.all(blackColorMono),
+              //     ),
+              //     child: Row(
+              //       children: const [
+              //         Text(
+              //           "All Product",
+              //           style: TextStyle(fontWeight: FontWeight.w700),
+              //         ),
+              //         SizedBox(width: 10),
+              //         Icon(
+              //           Icons.keyboard_arrow_down_rounded,
+              //           size: 20,
+              //         )
+              //       ],
+              //     ),
+              //   )
               : const SizedBox(),
 
           const Expanded(child: SizedBox()),

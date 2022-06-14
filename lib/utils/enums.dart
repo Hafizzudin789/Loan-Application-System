@@ -1,3 +1,11 @@
+enum LayoutViewIndex {
+  dashboardView,
+  applicationsView,
+  third,
+  fourth;
+  // profileView;
+}
+
 enum ProfileViewState{
   profile,
   security;
@@ -6,14 +14,6 @@ enum ProfileViewState{
 enum PopupMenuState {
   account,
   logout,
-}
-
-enum LayoutViewIndex {
-  dashboardView,
-  applicationsView,
-  third,
-  fourth;
-  // profileView;
 }
 
 
