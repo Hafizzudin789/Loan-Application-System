@@ -92,10 +92,18 @@ class LayoutViewModel extends BaseViewModel {
     Product.personalFinance,
   ];
 
-  String selectedYearOrMonth = "Yearly";
-  List<String> dropdownYearMonth = ["Yearly","Monthly"];
-  selectDropDownYearMonth(String value) {
-    selectedYearOrMonth = value;
+  String selectedYear = "2022";
+  List<String> dropdownYear = ["2022","2021","2020", "2019", "2018", "2017"];
+  selectDropDownYear(String value) {
+    selectedYear = value;
+    notifyListeners();
+  }
+
+  String selectedMonth = "All Month";
+  List<String> dropdownMonth = ["All Month","January","February", "March", "April", "May", "June", "July", "August", "September", "October",
+    "November", "December"];
+  selectDropDownMonth(String value) {
+    selectedMonth = value;
     notifyListeners();
   }
   ////Dashboard View logic End

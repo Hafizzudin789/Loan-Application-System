@@ -86,32 +86,35 @@ class DashboardView extends ViewModelWidget<LayoutViewModel> {
                         ),
                         PopupMenuButton<String>(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                          itemBuilder: (context) => viewModel.dropdownYearMonth.map(
+                          itemBuilder: (context) => viewModel.dropdownYear.map(
                               (e) => PopupMenuItem<String>(
                                 value: e,
                                 child: Text(e),
                               ),
                           ).toList(),
                           onSelected: (String value) {
-                            viewModel.selectDropDownYearMonth(value);
+                            viewModel.selectDropDownYear(value);
                           },
-                          child: ElevatedButtonWidget(text: viewModel.selectedYearOrMonth, iconData: Icons.keyboard_arrow_down_rounded),
+                          child: ElevatedButtonWidget(text: viewModel.selectedYear, iconData: Icons.keyboard_arrow_down_rounded),
                         ),
 
-                        const SizedBox(width: 15),
+                        const SizedBox(width: 10),
 
                         PopupMenuButton<String>(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                          itemBuilder: (context) => viewModel.dropdownYearMonth.map(
+                          itemBuilder: (context) => viewModel.dropdownMonth.map(
                                 (e) => PopupMenuItem<String>(
                                   value: e,
                                   child: Text(e),
                                 ),
                           ).toList(),
+                          constraints: const BoxConstraints(
+                            maxHeight: 500,
+                          ),
                           onSelected: (String value) {
-                            viewModel.selectDropDownYearMonth(value);
+                            viewModel.selectDropDownMonth(value);
                           },
-                          child: ElevatedButtonWidget(text: viewModel.selectedYearOrMonth, iconData: Icons.keyboard_arrow_down_rounded),
+                          child: ElevatedButtonWidget(text: viewModel.selectedMonth, iconData: Icons.keyboard_arrow_down_rounded),
                         ),
                         // ElevatedButton(
                         //   onPressed: () {},
