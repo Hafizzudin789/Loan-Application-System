@@ -82,27 +82,27 @@ class Data {
   ];
 
   static List<ApplicationDataModel> allData = [
-    ApplicationDataModel(450, "Credit\nCard", errorColor),
-    ApplicationDataModel(213, "Personal\nFinance", yellowColor),
-    ApplicationDataModel(147, "Auto\nFinance", greenColor),
+    ApplicationDataModel(45, "Credit\nCard", errorColor),
+    ApplicationDataModel(21, "Personal\nFinance", yellowColor),
+    ApplicationDataModel(14, "Auto\nFinance", greenColor),
   ];
 
   static List<ApplicationDataModel> creditCardData = [
-    ApplicationDataModel(450, "Platinum", errorColor),
-    ApplicationDataModel(213, "Gold", yellowColor),
-    ApplicationDataModel(147, "Silver", greenColor),
+    ApplicationDataModel(23, "Platinum", errorColor),
+    ApplicationDataModel(51, "Gold", yellowColor),
+    ApplicationDataModel(14, "Silver", greenColor),
   ];
 
   static List<ApplicationDataModel> autoFinanceData = [
-    ApplicationDataModel(450, "Toyota", errorColor),
-    ApplicationDataModel(213, "Mercedes", yellowColor),
-    ApplicationDataModel(147, "Volkwagen", greenColor),
+    ApplicationDataModel(30, "Toyota", errorColor),
+    ApplicationDataModel(20, "Mercedes", yellowColor),
+    ApplicationDataModel(45, "Volkwagen", greenColor),
   ];
 
   static List<ApplicationDataModel> personalFinanceData = [
-    ApplicationDataModel(450, "Facility 1", errorColor),
-    ApplicationDataModel(213, "Facility 2", yellowColor),
-    ApplicationDataModel(147, "Facility 3", greenColor),
+    ApplicationDataModel(20, "Facility 1", errorColor),
+    ApplicationDataModel(50, "Facility 2", yellowColor),
+    ApplicationDataModel(14, "Facility 3", greenColor),
   ];
 }
 

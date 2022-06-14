@@ -182,7 +182,7 @@ class DashboardView extends ViewModelWidget<LayoutViewModel> {
                             endAngle: 270,
                             innerRadius: "82%",
                             radius: "85%",
-                            animationDuration: 1000,
+                            animationDuration: 800,
                           ),
                         ],
                       ),
@@ -464,12 +464,12 @@ class DashboardView extends ViewModelWidget<LayoutViewModel> {
               Flexible(
                 child: Container(
                   width: 20,
-                  // height: value.toDouble()*3,
-                  height: color == errorColor
-                      ? 45*3
-                      : color == yellowColor
-                        ? 23*3
-                        : 15*3,
+                  height: value.toDouble()*3,
+                  // height: color == errorColor
+                  //     ? 45*3
+                  //     : color == yellowColor
+                  //       ? 23*3
+                  //       : 15*3,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: color,
