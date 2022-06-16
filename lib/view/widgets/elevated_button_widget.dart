@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   final String text;
   final IconData iconData;
-  const ElevatedButtonWidget({Key? key, required this.text, required this.iconData}) : super(key: key);
+  final String? imagePath;
+  const ElevatedButtonWidget({Key? key, required this.text, required this.iconData, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,12 @@ class ElevatedButtonWidget extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
           ),
           const SizedBox(width: 10),
-          Icon(
-            iconData,
-            size: 20,
-          )
+          imagePath == null
+              ? Icon(
+                  iconData,
+                  size: 20,
+                )
+              : SvgPicture.asset(imagePath!)
         ],
       ),
     );

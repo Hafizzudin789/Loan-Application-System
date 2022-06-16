@@ -64,9 +64,6 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                   rows: applicationsViewModel.customerApplications
                                       .map(
                                         (e) => DataRow(
-                                          // selected: (e.product.value == applicationsViewModel.searchTEC.text || e.applicantName == applicationsViewModel.searchTEC.text || e.financeAmount.toString() == applicationsViewModel.searchTEC.text
-                                          //     || e.applicantEmail == applicationsViewModel.searchTEC.text || e.cifNo == applicationsViewModel.searchTEC.text || e.type == applicationsViewModel.searchTEC.text || e.applicationId == applicationsViewModel.searchTEC.text
-                                          //     || e.mobileNumber == applicationsViewModel.searchTEC.text)? true: false,
                                           cells: [
                                             DataCell(Text(
                                               e.applicantName,
@@ -283,26 +280,156 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           child: ElevatedButtonWidget(text: applicationsViewModel.applicationStatus.label, iconData: Icons.keyboard_arrow_down_rounded),
         ),
         const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: const BorderSide(color: borderGreyColor))),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(blackColorMono),
-          ),
-          child: Row(
-            children: [
-              const Text(
-                "Filters",
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(width: 10),
-              SvgPicture.asset("assets/filterIcon.svg")
-            ],
-          ),
+
+        PopupMenuButton<String>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          offset: const Offset(0, 40),
+          itemBuilder: (context) => applicationsViewModel.customFilterList.map(
+                (e) => PopupMenuItem<String>(
+                  enabled: false,
+                  child: e == "Reset Filter"
+                      ? InkWell(
+                          onTap: () {},
+                          child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                e,
+                                style: const TextStyle(
+                                    color: idleGreyColor,
+                                    fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                        )
+                      : PopupMenuButton<String>(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          offset: const Offset(250, 0),
+                          // position: PopupMenuPosition.under,
+                          constraints: const BoxConstraints(
+                            minWidth: 250,
+                            maxWidth: 250,
+                          ),
+                          itemBuilder: (context) => [
+                            e == "Date"
+                                ? PopupMenuItem(
+                                    enabled: false,
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        const Text("Select a date range", style: TextStyle(fontSize: s, color: secondaryDarkGrey, fontWeight: FontWeight.w700),),
+                                        const SizedBox(height: 6),
+                                        const Text("From", style: TextStyle(fontSize: s, color: darkGreyColor),),
+                                        TextField(
+                                          readOnly: true,
+                                          onTap: () {
+
+                                          },
+                                          style: const TextStyle(color: blackColorMono),
+                                          decoration: const InputDecoration(
+                                            suffixIcon: Icon(Icons.date_range_rounded, color: blackColorMono,),
+                                            isDense: true,
+                                            hintText: "dd mm yyyy",
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        const Text("To", style: TextStyle(fontSize: s, color: darkGreyColor),),
+                                        TextField(
+                                          readOnly: true,
+                                          onTap: () {
+
+                                          },
+                                          style: const TextStyle(color: blackColorMono),
+                                          decoration: const InputDecoration(
+                                            suffixIcon: Icon(Icons.date_range_rounded, color: blackColorMono,),
+                                            isDense: true,
+                                            hintText: "dd mmm yyyy",
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        TextButton(
+                                          onPressed: () {},
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all(primaryColor),
+                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+                                            foregroundColor: MaterialStateProperty.all(Colors.white),
+                                          ),
+                                          child: const Text("Apply", style: TextStyle(fontWeight: FontWeight.w700),),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : PopupMenuItem(
+                                    enabled: false,
+                                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        const Text("Select a amount range", style: TextStyle(fontSize: s, color: secondaryDarkGrey, fontWeight: FontWeight.w700),),
+                                        const SizedBox(height: 4),
+                                        const Text("Minimum amount", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
+                                        const TextField(
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: "BHD 0.00",
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        const Text("Max amount", style: TextStyle(fontSize: s, color: darkGreyColor),),
+                                        const TextField(
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: "BHD 0.00",
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        TextButton(
+                                          onPressed: () {},
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all(primaryColor),
+                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+                                            foregroundColor: MaterialStateProperty.all(Colors.white),
+                                          ),
+                                          child: const Text("Apply", style: TextStyle(fontWeight: FontWeight.w700),),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                          ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                                    children: [
+                                      Expanded(child: Text(e, style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700),)),
+                                      // const Icon(Icons.keyboard_arrow_right_rounded, color: blackColorMono,)
+                                      SvgPicture.asset("assets/arrowForward.svg", color: blackColorMono, height: 12,)
+                                    ],
+                                  ),
+                          ),
+                        ),
+                ),
+          ).toList(),
+          child: const ElevatedButtonWidget(text: "Filters", iconData: Icons.keyboard_arrow_down_rounded, imagePath: "assets/filterIcon.svg"),
         ),
+
         const Expanded(child: SizedBox()),
         SizedBox(
           width: 170,
@@ -311,6 +438,9 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
             decoration: const InputDecoration(
               hintText: "Search",
               suffixIcon: Icon(Icons.search),
+              border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
             ),
             // onChanged: (value) {
             //   applicationsViewModel.search();
@@ -451,6 +581,16 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         child: Text(page.toString(), style: TextStyle(fontWeight: FontWeight.w700, color: applicationsViewModel.pageNumber== page? blackColorMono: darkGreyColor),),
       ),
     );
+  }
+
+  _selectCustomFilterOption(String value) {
+    if(value == "Date") {
+
+    } else if (value == "Amount") {
+
+    } else {
+
+    }
   }
 }
 

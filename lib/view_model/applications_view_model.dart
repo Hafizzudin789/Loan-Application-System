@@ -139,6 +139,21 @@ class ApplicationsViewModel extends BaseViewModel {
   //   notifyListeners();
   // }
 
+  // String? selectedCustomFilterOption;
+  List<String> customFilterList = [
+    "Date",
+    "Amount",
+    "Reset Filter",
+  ];
+
+  // selectCustomFilterOption(String value) {
+  //   selectedCustomFilterOption = value;
+  //   notifyListeners();
+  // }
+
+
+
+
   TextEditingController searchTEC = TextEditingController();
   disposeResource() {
     searchTEC.dispose();
