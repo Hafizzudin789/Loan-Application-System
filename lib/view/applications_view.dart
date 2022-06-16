@@ -431,23 +431,45 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         ),
 
         const Expanded(child: SizedBox()),
-        SizedBox(
-          width: 170,
-          child: TextField(
-            controller: applicationsViewModel.searchTEC,
-            decoration: const InputDecoration(
-              hintText: "Search",
-              suffixIcon: Icon(Icons.search),
-              border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+        TextField(
+          controller: applicationsViewModel.searchTEC,
+          textInputAction: TextInputAction.search,
+          onSubmitted: (value) {
+            applicationsViewModel.searchCustomerApplications();
+          },
+          // textAlign: TextAlign.center,
+          // textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            // filled: true,
+            // fillColor: Colors.red,
+            hintText: "Search",
+            hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w700),
+            suffixIcon: InkWell(
+              onTap: () {
+                applicationsViewModel.searchTEC.clear();
+                applicationsViewModel.updateUI();
+              },
+              child: applicationsViewModel.searchTEC.text.isNotEmpty
+                  ? SvgPicture.asset("assets/clearIcon.svg", height: 5, width: 5,)
+                  : Icon(applicationsViewModel.searchTEC.text.isNotEmpty?Icons.close:Icons.search, color: blackColorMono, size: 20,),
             ),
-            // onChanged: (value) {
-            //   applicationsViewModel.search();
-            // },
+            suffixIconConstraints: const BoxConstraints(
+                minHeight: 20,
+                minWidth: 20,
+            ),
+            constraints: const BoxConstraints(
+              minWidth: 150,
+              maxWidth: 200,
+            ),
+            border: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
           ),
+          onChanged: (value) {
+            applicationsViewModel.updateUI();
+          },
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 15),
         ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(

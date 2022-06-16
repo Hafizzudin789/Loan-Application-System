@@ -124,37 +124,36 @@ class ApplicationsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  //
-  // bool searchMatched(CustomerApplications value) {
-  //   if(value.product.value == searchTEC.text || value.applicantName == searchTEC.text || value.financeAmount.toString() == searchTEC.text
-  //     || value.applicantEmail == searchTEC.text || value.cifNo == searchTEC.text || value.type == searchTEC.text || value.applicationId == searchTEC.text
-  //     || value.mobileNumber == searchTEC.text) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
-  // search() {
-  //   notifyListeners();
-  // }
-
-  // String? selectedCustomFilterOption;
   List<String> customFilterList = [
     "Date",
     "Amount",
     "Reset Filter",
   ];
 
-  // selectCustomFilterOption(String value) {
-  //   selectedCustomFilterOption = value;
-  //   notifyListeners();
-  // }
-
 
 
 
   TextEditingController searchTEC = TextEditingController();
+  searchCustomerApplications() {
+    // if(searchTEC.text.isEmpty) {
+    //   return;
+    // }
+    selectDataAccordingToPage();
+    List<CustomerApplications> data = customerApplications.where((element) => _contains(element)).toList();
+    customerApplications = data;
+    notifyListeners();
+  }
+
+  bool _contains(CustomerApplications data) {
+    return data.cifNo == searchTEC.text || data.applicantName == searchTEC.text || data.mobileNumber == searchTEC.text
+        || data.applicationId == searchTEC.text || data.applicantEmail == searchTEC.text;
+  }
+
+  updateUI() {
+    notifyListeners();
+  }
+
   disposeResource() {
     searchTEC.dispose();
   }
