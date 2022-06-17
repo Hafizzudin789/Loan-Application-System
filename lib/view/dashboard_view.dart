@@ -85,6 +85,7 @@ class DashboardView extends ViewModelWidget<LayoutViewModel> {
                           ),
                         ),
                         PopupMenuButton<String>(
+                          offset: const Offset(0, 40),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                           itemBuilder: (context) => viewModel.dropdownYear.map(
                               (e) => PopupMenuItem<String>(
@@ -101,6 +102,7 @@ class DashboardView extends ViewModelWidget<LayoutViewModel> {
                         const SizedBox(width: 10),
 
                         PopupMenuButton<String>(
+                          offset: const Offset(0, 40),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                           itemBuilder: (context) => viewModel.dropdownMonth.map(
                                 (e) => PopupMenuItem<String>(

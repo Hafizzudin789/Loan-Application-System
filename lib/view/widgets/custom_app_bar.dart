@@ -9,6 +9,7 @@ import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/widgets/elevated_button_widget.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
 class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
           const SizedBox(width: 40),
           viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
               ? PopupMenuButton<Product>(
+                  offset: const Offset(0, 40),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   itemBuilder: (context) => viewModel.products.map(
                             (e) => PopupMenuItem<Product>(
@@ -40,34 +42,12 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
                   },
                   child: ElevatedButtonWidget(text: viewModel.dashboardState.value.toString(), iconData: Icons.keyboard_arrow_down_rounded),
                 )
-              // ? ElevatedButton(
-              //     onPressed: () {},
-              //     style: ButtonStyle(
-              //       shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(25),
-              //           side: const BorderSide(color: borderGreyColor))),
-              //       backgroundColor: MaterialStateProperty.all(Colors.white),
-              //       foregroundColor: MaterialStateProperty.all(blackColorMono),
-              //     ),
-              //     child: Row(
-              //       children: const [
-              //         Text(
-              //           "All Product",
-              //           style: TextStyle(fontWeight: FontWeight.w700),
-              //         ),
-              //         SizedBox(width: 10),
-              //         Icon(
-              //           Icons.keyboard_arrow_down_rounded,
-              //           size: 20,
-              //         )
-              //       ],
-              //     ),
-              //   )
               : const SizedBox(),
 
           const Expanded(child: SizedBox()),
 
-          const Text("14 December 2021", style: TextStyle(fontSize: s),),
+          // const Text("14 December 2021", style: TextStyle(fontSize: s),),
+          Text(DateFormat.yMMMMd().format(DateTime.now()), style: const TextStyle(fontSize: s),),
           const SizedBox(width: 25),
           SvgPicture.asset("assets/settingsIcon.svg", height: 20),
           const SizedBox(width: 25),
