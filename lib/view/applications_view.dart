@@ -47,7 +47,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                               const SizedBox(height: 10),
                               const Text("Sorry, no result found", style: TextStyle(color: noResultColor, fontSize: l, fontWeight: FontWeight.w700),),
                               const SizedBox(height: 5),
-                              const Text("You search was unfortunately not found or does’t exist.", style: TextStyle(color: darkGreyColor),),
+                              const Text("Your search was unfortunately not found or does’t exist.", style: TextStyle(color: darkGreyColor),),
                             ],
                           )
                           : SingleChildScrollView(
@@ -467,7 +467,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                             ),
                                             child: Row(
                                               children: [
-                                                Expanded(child: Text("${applicationsViewModel.fromTEC.text} - ${applicationsViewModel.toTEC.text}", style: TextStyle(fontSize: s, color: Colors.white),)),
+                                                Expanded(child: Text("${applicationsViewModel.fromTEC.text} - ${applicationsViewModel.toTEC.text}", style: const TextStyle(fontSize: s, color: Colors.white),)),
                                                 SvgPicture.asset("assets/clearIcon.svg", color: Colors.white,),
                                               ],
                                             ),
@@ -486,7 +486,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                             ),
                                             child: Row(
                                               children: [
-                                                Expanded(child: Text("${applicationsViewModel.minAmountTEC.text} - ${applicationsViewModel.maxAmountTEC.text}", style: TextStyle(fontSize: s, color: Colors.white),)),
+                                                Expanded(child: Text("${applicationsViewModel.minAmountTEC.text} - ${applicationsViewModel.maxAmountTEC.text}", style: const TextStyle(fontSize: s, color: Colors.white),)),
                                                 SvgPicture.asset("assets/clearIcon.svg", color: Colors.white,),
                                               ],
                                             ),

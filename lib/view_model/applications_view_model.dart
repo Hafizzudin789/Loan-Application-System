@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/service_locator.dart';
 import 'package:loan_application_system/services/navigation_service.dart';
-import 'package:loan_application_system/services/toast_message.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:stacked/stacked.dart';
 
@@ -79,9 +78,9 @@ class ApplicationsViewModel extends BaseViewModel {
             : e.product == _productTypeSelected)))
         .toList();
 
-    if(filteredList.isEmpty) {
-      toastMessage(message: "No result found");
-    }
+    // if(filteredList.isEmpty) {
+    //   toastMessage(message: "No result found");
+    // }
     customerApplications = filteredList;
     notifyListeners();
   }
