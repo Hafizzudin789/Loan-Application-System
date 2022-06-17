@@ -267,6 +267,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
       children: [
         PopupMenuButton<Product>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          offset: const Offset(0, 40),
           itemBuilder: (context) => applicationsViewModel.products.map(
                 (e) => PopupMenuItem<Product>(
                   value: e,
@@ -281,6 +282,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         const SizedBox(width: 10),
 
         PopupMenuButton<CustomerApplicationStatus>(
+          offset: const Offset(0, 40),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           itemBuilder: (context) => applicationsViewModel.applicationStatusList.map((e) => PopupMenuItem<CustomerApplicationStatus>(
               value: e,

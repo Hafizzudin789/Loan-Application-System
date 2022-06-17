@@ -112,25 +112,56 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Employment status", style: Theme.of(context).textTheme.bodyText1,),
-                          DropdownButton<String>(
-                            value: viewModel.dropdownEmployeeValue,
-                            hint: const Text("Select employment status", style: TextStyle(color: greyColor, fontSize: m+1),),
-                            style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
-                            isDense: true,
-                            underline: const SizedBox(),
-                            isExpanded: true,
-                            icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
-                            items: viewModel.items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              viewModel.selectStatus(newValue);
+                          // DropdownButton<String>(
+                          //   value: viewModel.dropdownEmployeeValue,
+                          //   hint: const Text("Select employment status", style: TextStyle(color: greyColor, fontSize: m+1),),
+                          //   style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
+                          //   isDense: true,
+                          //   underline: const SizedBox(),
+                          //   isExpanded: true,
+                          //   icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
+                          //   items: viewModel.dropdownEmployeeTypeList.map((String items) {
+                          //     return DropdownMenuItem(
+                          //       value: items,
+                          //       child: Text(items),
+                          //     );
+                          //   }).toList(),
+                          //   onChanged: (String? newValue) {
+                          //     viewModel.selectStatus(newValue);
+                          //   },
+                          // ),
+
+                          PopupMenuButton<String>(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            offset: const Offset(0, 40),
+                            itemBuilder: (context) => viewModel.dropdownEmployeeTypeList.map(
+                                  (e) => PopupMenuItem<String>(
+                                      value: e,
+                                      child: Text(e),
+                                    ),
+                                  ).toList(),
+                            onSelected: (String value) {
+                              viewModel.selectStatus(value);
                             },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 7),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      viewModel.dropdownEmployeeValue??"",
+                                      style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          const SizedBox(height: 10),
                           Container(height: 1, color: idleGreyColor,),
                         ],
                       )

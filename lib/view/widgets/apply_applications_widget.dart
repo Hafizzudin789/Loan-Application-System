@@ -186,27 +186,40 @@ void _showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                   children: [
                                     Text("Minimum Settlement Due", style: Theme.of(context).textTheme.bodyText1,),
                                     const SizedBox(height: 4),
-                                    DropdownButton<String>(
-                                      value: viewModel.dropdownValue,
-                                      style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
-                                      isDense: true,
-                                      underline: const SizedBox(),
-                                      isExpanded: true,
-                                      icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
-                                      // isDense: true,
-                                      items: viewModel.items.map((String items) {
-                                        return DropdownMenuItem(
-                                          value: items,
-                                          child: Text(items),
-                                        );
-                                      }).toList(),
-                                      onChanged: (String? newValue) {
+
+                                    PopupMenuButton<String>(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                      offset: const Offset(0, 40),
+                                      itemBuilder: (context) => viewModel.items.map(
+                                            (e) => PopupMenuItem<String>(
+                                                value: e,
+                                                child: Text(e),
+                                              ),
+                                      ).toList(),
+                                      onSelected: (String value) {
                                         setState(() {
-                                          viewModel.dropdownValue = newValue!;
+                                          viewModel.dropdownValue = value;
                                         });
                                       },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 6.0, top: 4),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                viewModel.dropdownValue,
+                                                style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            const Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 20,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 5),
                                     Container(height: 1, color: idleGreyColor,),
                                   ],
                                 ),

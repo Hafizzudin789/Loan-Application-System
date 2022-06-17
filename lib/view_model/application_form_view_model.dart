@@ -160,7 +160,7 @@ class ApplicationFormViewModel extends BaseViewModel {
 
 
   String? dropdownEmployeeValue;
-  var items = [
+  var dropdownEmployeeTypeList = [
     'Employed',
     'Student',
     'Retired',
