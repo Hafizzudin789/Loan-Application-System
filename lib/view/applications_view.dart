@@ -37,204 +37,215 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                   children: [
                     _navButtonsWidget(viewModel, applicationsViewModel, context),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: DataTable(
-                                  headingTextStyle: const TextStyle(
-                                    color: darkGreyColor,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: s + 1,
-                                  ),
-                                  showBottomBorder: true,
-                                  columns: const [
-                                    DataColumn(label: Text("Applicant Name")),
-                                    DataColumn(label: Text("Finance Amount")),
-                                    DataColumn(label: Text("Applicant Email")),
-                                    DataColumn(label: Text("Product")),
-                                    DataColumn(label: Text("Type")),
-                                    DataColumn(label: Text("Application ID")),
-                                    DataColumn(label: Text("CIF No.")),
-                                    DataColumn(label: Text("Created Date")),
-                                    DataColumn(label: Text("Mobile Number")),
-                                  ],
-                                  rows: applicationsViewModel.customerApplications
-                                      .map(
-                                        (e) => DataRow(
-                                          cells: [
-                                            DataCell(Text(
-                                              e.applicantName,
-                                              style: const TextStyle(
-                                                  color: blackColorMono,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.financeAmount.toString(),
-                                              style: const TextStyle(
+                      child: applicationsViewModel.customerApplications.isEmpty
+                          ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                              SvgPicture.asset("assets/search.svg"),
+                              const SizedBox(height: 10),
+                              const Text("Sorry, no result found", style: TextStyle(color: noResultColor, fontSize: l, fontWeight: FontWeight.w700),),
+                              const SizedBox(height: 5),
+                              const Text("You search was unfortunately not found or does’t exist.", style: TextStyle(color: darkGreyColor),),
+                            ],
+                          )
+                          : SingleChildScrollView(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child:SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: DataTable(
+                                                headingTextStyle: const TextStyle(
                                                   color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.applicantEmail,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.product.value,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.type,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.applicationId,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.cifNo,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.createdDate,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                            DataCell(Text(
-                                              e.mobileNumber,
-                                              style: const TextStyle(
-                                                  color: darkGreyColor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: m),
-                                            )),
-                                          ],
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ),
-                            DataTable(
-                              headingTextStyle: const TextStyle(
-                                  color: darkGreyColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: s + 1),
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                                        color: borderGreyColor, width: 1)),
-                              ),
-                              showBottomBorder: true,
-                              columns: const [
-                                DataColumn(label: Text("Status")),
-                              ],
-                              rows: applicationsViewModel.customerApplications
-                                  .map((e) => DataRow(cells: [
-                                        DataCell(
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 5),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  color: e.status ==
-                                                          CustomerApplicationStatus
-                                                              .newA
-                                                      ? const Color(0XFF0590FF)
-                                                      : e.status ==
-                                                              CustomerApplicationStatus
-                                                                  .processing
-                                                          ? yellowColor
-                                                          : e.status ==
-                                                                  CustomerApplicationStatus
-                                                                      .complete
-                                                              ? greenColor
-                                                              : e.status ==
-                                                                      CustomerApplicationStatus
-                                                                          .accepted
-                                                                  ? const Color(
-                                                                      0XFF5CD2D0)
-                                                                  : e.status ==
-                                                                          CustomerApplicationStatus
-                                                                              .delivery
-                                                                      ? orangeColor
-                                                                      : warningColor,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: s + 1,
                                                 ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Text(
-                                                      e.status.label,
-                                                      style: TextStyle(
-                                                        color: e.status ==
-                                                                    CustomerApplicationStatus
-                                                                        .newA ||
-                                                                e.status ==
-                                                                    CustomerApplicationStatus
-                                                                        .declined
-                                                            ? Colors.white
-                                                            : blackColorMono,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: s,
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 5),
-                                                    Icon(
-                                                      Icons
-                                                          .info_outline_rounded,
-                                                      size: 15,
+                                                showBottomBorder: true,
+                                                columns: const [
+                                                  DataColumn(label: Text("Applicant Name")),
+                                                  DataColumn(label: Text("Finance Amount")),
+                                                  DataColumn(label: Text("Applicant Email")),
+                                                  DataColumn(label: Text("Product")),
+                                                  DataColumn(label: Text("Type")),
+                                                  DataColumn(label: Text("Application ID")),
+                                                  DataColumn(label: Text("CIF No.")),
+                                                  DataColumn(label: Text("Created Date")),
+                                                  DataColumn(label: Text("Mobile Number")),
+                                                ],
+                                                rows: applicationsViewModel.customerApplications
+                                                    .map(
+                                                      (e) => DataRow(
+                                                    cells: [
+                                                      DataCell(Text(
+                                                        e.applicantName,
+                                                        style: const TextStyle(
+                                                            color: blackColorMono,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.financeAmount.toString(),
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.applicantEmail,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.product.value,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.type,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.applicationId,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.cifNo,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.createdDate,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                      DataCell(Text(
+                                                        e.mobileNumber,
+                                                        style: const TextStyle(
+                                                            color: darkGreyColor,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: m),
+                                                      )),
+                                                    ],
+                                                  ),
+                                                ).toList(),
+                                              ),
+                                          ),
+                                  ),
+                                  DataTable(
+                                    headingTextStyle: const TextStyle(
+                                        color: darkGreyColor,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: s + 1),
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                          left: BorderSide(
+                                              color: borderGreyColor, width: 1)),
+                                    ),
+                                    showBottomBorder: true,
+                                    columns: const [
+                                      DataColumn(label: Text("Status")),
+                                    ],
+                                    rows: applicationsViewModel.customerApplications
+                                        .map((e) => DataRow(cells: [
+                                      DataCell(
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 10,
+                                                  vertical: 5),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    100),
+                                                color: e.status ==
+                                                    CustomerApplicationStatus
+                                                        .newA
+                                                    ? const Color(0XFF0590FF)
+                                                    : e.status ==
+                                                    CustomerApplicationStatus
+                                                        .processing
+                                                    ? yellowColor
+                                                    : e.status ==
+                                                    CustomerApplicationStatus
+                                                        .complete
+                                                    ? greenColor
+                                                    : e.status ==
+                                                    CustomerApplicationStatus
+                                                        .accepted
+                                                    ? const Color(
+                                                    0XFF5CD2D0)
+                                                    : e.status ==
+                                                    CustomerApplicationStatus
+                                                        .delivery
+                                                    ? orangeColor
+                                                    : warningColor,
+                                              ),
+                                              child: Row(
+                                                mainAxisSize:
+                                                MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    e.status.label,
+                                                    style: TextStyle(
                                                       color: e.status ==
-                                                                  CustomerApplicationStatus
-                                                                      .newA ||
-                                                              e.status ==
-                                                                  CustomerApplicationStatus
-                                                                      .declined
+                                                          CustomerApplicationStatus
+                                                              .newA ||
+                                                          e.status ==
+                                                              CustomerApplicationStatus
+                                                                  .declined
                                                           ? Colors.white
                                                           : blackColorMono,
-                                                    )
-                                                  ],
-                                                ),
+                                                      fontWeight:
+                                                      FontWeight.w700,
+                                                      fontSize: s,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Icon(
+                                                    Icons
+                                                        .info_outline_rounded,
+                                                    size: 15,
+                                                    color: e.status ==
+                                                        CustomerApplicationStatus
+                                                            .newA ||
+                                                        e.status ==
+                                                            CustomerApplicationStatus
+                                                                .declined
+                                                        ? Colors.white
+                                                        : blackColorMono,
+                                                  )
+                                                ],
                                               ),
-                                              const Expanded(
-                                                  child: SizedBox(width: 20)),
-                                              const Icon(Icons.more_vert)
-                                            ],
-                                          ),
+                                            ),
+                                            const Expanded(
+                                                child: SizedBox(width: 20)),
+                                            const Icon(Icons.more_vert)
+                                          ],
                                         ),
-                                      ]))
-                                  .toList(),
+                                      ),
+                                    ]))
+                                        .toList(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
 
                     const SizedBox(height: 5),
@@ -450,7 +461,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                 applicationsViewModel.updateUI();
               },
               child: applicationsViewModel.searchTEC.text.isNotEmpty
-                  ? SvgPicture.asset("assets/clearIcon.svg", height: 5, width: 5,)
+                  ? SvgPicture.asset("assets/clearIcon.svg", height: 5, width: 5)
                   : Icon(applicationsViewModel.searchTEC.text.isNotEmpty?Icons.close:Icons.search, color: blackColorMono, size: 20,),
             ),
             suffixIconConstraints: const BoxConstraints(
