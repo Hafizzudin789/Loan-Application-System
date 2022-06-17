@@ -27,6 +27,7 @@ const yellowColor = Color(0XFFFFB800);
 const orangeColor = Color(0XFFEB7E40);
 
 const noResultColor = Color(0XFF9FACB9);
+const darkBlueColor = Color(0XFF0E3150);
 
 
 

@@ -11,6 +11,7 @@ import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:loan_application_system/view_model/applications_view_model.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
 class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
   const ApplicationsView({Key? key}) : super(key: key);
@@ -127,7 +128,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                                             fontSize: m),
                                                       )),
                                                       DataCell(Text(
-                                                        e.createdDate,
+                                                        DateFormat.yMd().format(DateTime.parse(e.createdDate)),
                                                         style: const TextStyle(
                                                             color: darkGreyColor,
                                                             fontWeight: FontWeight.w500,
@@ -278,6 +279,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           child: ElevatedButtonWidget(text: applicationsViewModel.productTypeSelected.value, iconData: Icons.keyboard_arrow_down_rounded),
         ),
         const SizedBox(width: 10),
+
         PopupMenuButton<CustomerApplicationStatus>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           itemBuilder: (context) => applicationsViewModel.applicationStatusList.map((e) => PopupMenuItem<CustomerApplicationStatus>(
@@ -300,13 +302,15 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                   enabled: false,
                   child: e == "Reset Filter"
                       ? InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            applicationsViewModel.resetFilters();
+                          },
                           child: SizedBox(
                               width: double.infinity,
                               child: Text(
                                 e,
-                                style: const TextStyle(
-                                    color: idleGreyColor,
+                                style: TextStyle(
+                                    color: applicationsViewModel.dateOrAmountFilterApplied? primaryColor: idleGreyColor,
                                     fontWeight: FontWeight.w700),
                                 textAlign: TextAlign.center,
                               ),
@@ -315,7 +319,6 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                       : PopupMenuButton<String>(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                           offset: const Offset(250, 0),
-                          // position: PopupMenuPosition.under,
                           constraints: const BoxConstraints(
                             minWidth: 250,
                             maxWidth: 250,
@@ -333,9 +336,10 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         const SizedBox(height: 6),
                                         const Text("From", style: TextStyle(fontSize: s, color: darkGreyColor),),
                                         TextField(
+                                          controller: applicationsViewModel.fromTEC,
                                           readOnly: true,
                                           onTap: () {
-
+                                            applicationsViewModel.selectDate(context, applicationsViewModel.fromTEC, true);
                                           },
                                           style: const TextStyle(color: blackColorMono),
                                           decoration: const InputDecoration(
@@ -351,15 +355,16 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         const SizedBox(height: 5),
                                         const Text("To", style: TextStyle(fontSize: s, color: darkGreyColor),),
                                         TextField(
+                                          controller: applicationsViewModel.toTEC,
                                           readOnly: true,
                                           onTap: () {
-
+                                            applicationsViewModel.selectDate(context, applicationsViewModel.toTEC, false);
                                           },
                                           style: const TextStyle(color: blackColorMono),
                                           decoration: const InputDecoration(
                                             suffixIcon: Icon(Icons.date_range_rounded, color: blackColorMono,),
                                             isDense: true,
-                                            hintText: "dd mmm yyyy",
+                                            hintText: "dd mm yyyy",
                                             hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
                                             border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
@@ -368,8 +373,11 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         ),
                                         const SizedBox(height: 8),
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            applicationsViewModel.applyDateFilter();
+                                          },
                                           style: ButtonStyle(
+                                            //backgroundColor: MaterialStateProperty.all(applicationsViewModel.fromTEC.text.isNotEmpty && applicationsViewModel.toTEC.text.isNotEmpty?primaryColor: idleGreyColor),
                                             backgroundColor: MaterialStateProperty.all(primaryColor),
                                             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
                                             foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -389,11 +397,13 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         const Text("Select a amount range", style: TextStyle(fontSize: s, color: secondaryDarkGrey, fontWeight: FontWeight.w700),),
                                         const SizedBox(height: 4),
                                         const Text("Minimum amount", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
-                                        const TextField(
-                                          decoration: InputDecoration(
+                                        TextField(
+                                          controller: applicationsViewModel.minAmountTEC,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
                                             isDense: true,
                                             hintText: "BHD 0.00",
-                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
                                             border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                                             enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
@@ -401,11 +411,13 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         ),
                                         const SizedBox(height: 5),
                                         const Text("Max amount", style: TextStyle(fontSize: s, color: darkGreyColor),),
-                                        const TextField(
-                                          decoration: InputDecoration(
+                                        TextField(
+                                          controller: applicationsViewModel.maxAmountTEC,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
                                             isDense: true,
                                             hintText: "BHD 0.00",
-                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
                                             border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
                                             enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
@@ -413,8 +425,11 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                         ),
                                         const SizedBox(height: 8),
                                         TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            applicationsViewModel.applyAmountFilter();
+                                          },
                                           style: ButtonStyle(
+                                            //backgroundColor: MaterialStateProperty.all(applicationsViewModel.minAmountTEC.text.isNotEmpty && applicationsViewModel.maxAmountTEC.text.isNotEmpty?primaryColor: idleGreyColor),
                                             backgroundColor: MaterialStateProperty.all(primaryColor),
                                             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
                                             foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -427,18 +442,64 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                           ],
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Row(
-                                    children: [
-                                      Expanded(child: Text(e, style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700),)),
-                                      // const Icon(Icons.keyboard_arrow_right_rounded, color: blackColorMono,)
-                                      SvgPicture.asset("assets/arrowForward.svg", color: blackColorMono, height: 12,)
-                                    ],
-                                  ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(child: Text(e, style: const TextStyle(color: blackColorMono, fontWeight: FontWeight.w700),)),
+                                    // const Icon(Icons.keyboard_arrow_right_rounded, color: blackColorMono,)
+                                    SvgPicture.asset("assets/arrowForward.svg", color: blackColorMono, height: 12,)
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                applicationsViewModel.dateOrAmountFilterApplied && e == "Date" && applicationsViewModel.fromTEC.text.isNotEmpty && applicationsViewModel.toTEC.text.isNotEmpty
+                                    ? InkWell(
+                                        onTap: () {
+                                          applicationsViewModel.resetFilters();
+                                        },
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                            decoration: BoxDecoration(
+                                              color: darkBlueColor,
+                                              borderRadius: BorderRadius.circular(50),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(child: Text("${applicationsViewModel.fromTEC.text} - ${applicationsViewModel.toTEC.text}", style: TextStyle(fontSize: s, color: Colors.white),)),
+                                                SvgPicture.asset("assets/clearIcon.svg", color: Colors.white,),
+                                              ],
+                                            ),
+                                          ),
+                                      )
+                                    : applicationsViewModel.dateOrAmountFilterApplied && e == "Amount" && applicationsViewModel.minAmountTEC.text.isNotEmpty && applicationsViewModel.maxAmountTEC.text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () {
+                                            applicationsViewModel.resetFilters();
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                            decoration: BoxDecoration(
+                                              color: darkBlueColor,
+                                              borderRadius: BorderRadius.circular(50),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(child: Text("${applicationsViewModel.minAmountTEC.text} - ${applicationsViewModel.maxAmountTEC.text}", style: TextStyle(fontSize: s, color: Colors.white),)),
+                                                SvgPicture.asset("assets/clearIcon.svg", color: Colors.white,),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox()
+                              ],
+                            ),
                           ),
                         ),
                 ),
           ).toList(),
-          child: const ElevatedButtonWidget(text: "Filters", iconData: Icons.keyboard_arrow_down_rounded, imagePath: "assets/filterIcon.svg"),
+          child: ElevatedButtonWidget(text: "Filters", iconData: Icons.keyboard_arrow_down_rounded, imagePath: applicationsViewModel.dateOrAmountFilterApplied?"assets/filterApplied.svg": "assets/filterIcon.svg"),
         ),
 
         const Expanded(child: SizedBox()),
@@ -614,16 +675,6 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         child: Text(page.toString(), style: TextStyle(fontWeight: FontWeight.w700, color: applicationsViewModel.pageNumber== page? blackColorMono: darkGreyColor),),
       ),
     );
-  }
-
-  _selectCustomFilterOption(String value) {
-    if(value == "Date") {
-
-    } else if (value == "Amount") {
-
-    } else {
-
-    }
   }
 }
 
