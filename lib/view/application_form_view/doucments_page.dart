@@ -576,7 +576,13 @@ class DocumentsPage extends ViewModelWidget<ApplicationFormViewModel> {
                                   ],
                                 ),
                                 const SizedBox(height: 14),
-                                _labelValueWidget("Status", "Card Order Placed"),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(child: _labelValueWidget("Application Number", "300002239488")),
+                                    Expanded(child: _labelValueWidget("Status", "Card Order Placed")),
+                                  ],
+                                ),
                               ],
                             ),
                           ),

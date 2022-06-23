@@ -361,6 +361,12 @@ class MonthlySalaryTextField extends ViewModelWidget<LayoutViewModel> {
       keyboardType: TextInputType.number,
       style: const TextStyle(fontWeight: FontWeight.w700),
       onChanged: (value){},
+      onTap: () {
+        if(viewModel.monthlySalaryTEC.text.isEmpty) {
+          viewModel.monthlySalaryTEC.text = "BHD ";
+          viewModel.monthlySalaryTEC.selection = TextSelection.fromPosition(TextPosition(offset: viewModel.monthlySalaryTEC.text.length));
+        }
+      },
       decoration: const InputDecoration(
         isDense: true,
         hintText: "Monthly Salary",

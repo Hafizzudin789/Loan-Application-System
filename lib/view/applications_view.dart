@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
+import 'package:loan_application_system/utils/date_format.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/widgets/apply_applications_widget.dart';
@@ -11,7 +12,6 @@ import 'package:loan_application_system/view/widgets/footer.dart';
 import 'package:loan_application_system/view_model/applications_view_model.dart';
 import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
-import 'package:intl/intl.dart';
 
 class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
   const ApplicationsView({Key? key}) : super(key: key);
@@ -128,7 +128,8 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                                             fontSize: m),
                                                       )),
                                                       DataCell(Text(
-                                                        DateFormat.yMd().format(DateTime.parse(e.createdDate)),
+                                                        // DateFormat.yMd().format(DateTime.parse(e.createdDate)),
+                                                        formatDate(DateTime.parse(e.createdDate)),
                                                         style: const TextStyle(
                                                             color: darkGreyColor,
                                                             fontWeight: FontWeight.w500,
@@ -392,53 +393,75 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                 : PopupMenuItem(
                                     enabled: false,
                                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        const Text("Select a amount range", style: TextStyle(fontSize: s, color: secondaryDarkGrey, fontWeight: FontWeight.w700),),
-                                        const SizedBox(height: 4),
-                                        const Text("Minimum amount", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
-                                        TextField(
-                                          controller: applicationsViewModel.minAmountTEC,
-                                          keyboardType: TextInputType.number,
-                                          decoration: const InputDecoration(
-                                            isDense: true,
-                                            hintText: "BHD 0.00",
-                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
-                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        const Text("Max amount", style: TextStyle(fontSize: s, color: darkGreyColor),),
-                                        TextField(
-                                          controller: applicationsViewModel.maxAmountTEC,
-                                          keyboardType: TextInputType.number,
-                                          decoration: const InputDecoration(
-                                            isDense: true,
-                                            hintText: "BHD 0.00",
-                                            hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
-                                            border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        TextButton(
-                                          onPressed: () {
-                                            applicationsViewModel.applyAmountFilter();
-                                          },
-                                          style: ButtonStyle(
-                                            //backgroundColor: MaterialStateProperty.all(applicationsViewModel.minAmountTEC.text.isNotEmpty && applicationsViewModel.maxAmountTEC.text.isNotEmpty?primaryColor: idleGreyColor),
-                                            backgroundColor: MaterialStateProperty.all(primaryColor),
-                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
-                                            foregroundColor: MaterialStateProperty.all(Colors.white),
-                                          ),
-                                          child: const Text("Apply", style: TextStyle(fontWeight: FontWeight.w700),),
-                                        ),
-                                      ],
+                                    child: StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            const Text("Select a amount range", style: TextStyle(fontSize: s, color: secondaryDarkGrey, fontWeight: FontWeight.w700),),
+                                            const SizedBox(height: 4),
+                                            const Text("Minimum amount", style: TextStyle(fontSize: s, color: darkGreyColor, fontWeight: FontWeight.w500),),
+                                            TextField(
+                                              controller: applicationsViewModel.minAmountTEC,
+                                              keyboardType: TextInputType.number,
+                                              style: const TextStyle(fontWeight: FontWeight.w700),
+                                              onTap: () {
+                                                if(applicationsViewModel.minAmountTEC.text.isEmpty) {
+                                                  setState(() {
+                                                    applicationsViewModel.minAmountTEC.text = "BHD ";
+                                                    applicationsViewModel.minAmountTEC.selection = TextSelection.fromPosition(TextPosition(offset: applicationsViewModel.minAmountTEC.text.length));
+                                                  });
+                                                }
+                                              },
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                hintText: "BHD 0.00",
+                                                hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
+                                                border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Text("Max amount", style: TextStyle(fontSize: s, color: darkGreyColor),),
+                                            TextField(
+                                              controller: applicationsViewModel.maxAmountTEC,
+                                              keyboardType: TextInputType.number,
+                                              style: const TextStyle(fontWeight: FontWeight.w700),
+                                              onTap: () {
+                                                if(applicationsViewModel.maxAmountTEC.text.isEmpty) {
+                                                  setState(() {
+                                                    applicationsViewModel.maxAmountTEC.text = "BHD ";
+                                                    applicationsViewModel.maxAmountTEC.selection = TextSelection.fromPosition(TextPosition(offset: applicationsViewModel.maxAmountTEC.text.length));
+                                                  });
+                                                }
+                                              },
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                hintText: "BHD 0.00",
+                                                hintStyle: TextStyle(fontWeight: FontWeight.w700, color: greyColor),
+                                                border: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            TextButton(
+                                              onPressed: () {
+                                                applicationsViewModel.applyAmountFilter();
+                                              },
+                                              style: ButtonStyle(
+                                                //backgroundColor: MaterialStateProperty.all(applicationsViewModel.minAmountTEC.text.isNotEmpty && applicationsViewModel.maxAmountTEC.text.isNotEmpty?primaryColor: idleGreyColor),
+                                                backgroundColor: MaterialStateProperty.all(primaryColor),
+                                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+                                                foregroundColor: MaterialStateProperty.all(Colors.white),
+                                              ),
+                                              child: const Text("Apply", style: TextStyle(fontWeight: FontWeight.w700),),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ),
                           ],
@@ -608,12 +631,18 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
         const SizedBox(width: 8),
         _pageNumberWidget(applicationsViewModel, 1),
         const SizedBox(width: 8),
-        _pageNumberWidget(applicationsViewModel, 2),
+        applicationsViewModel.pageNumber == 1 && applicationsViewModel.customerApplications.length == Data.customerApplications.length
+            ? const SizedBox()
+            : _pageNumberWidget(applicationsViewModel, 2),
         const SizedBox(width: 8),
-        _pageNumberWidget(applicationsViewModel, 3),
+        applicationsViewModel.pageNumber == 1 && applicationsViewModel.customerApplications.length == Data.customerApplications.length
+            ? const SizedBox()
+            : _pageNumberWidget(applicationsViewModel, 3),
         const SizedBox(width: 8),
-        InkWell(
-          onTap: () {
+       InkWell(
+          onTap:  applicationsViewModel.pageNumber == 1 && applicationsViewModel.customerApplications.length == Data.customerApplications.length
+              ? null
+              : () {
             if(applicationsViewModel.pageNumber != 3) {
               applicationsViewModel.changePage(applicationsViewModel.pageNumber+1);
             }
@@ -625,7 +654,10 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
               border: Border.all(color: borderGreyColor, width: 1),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.arrow_forward_ios_rounded, size: 20, color: applicationsViewModel.pageNumber != 3? blackColorMono:idleGreyColor,),
+            child: Icon(Icons.arrow_forward_ios_rounded, size: 20, color: (applicationsViewModel.pageNumber != 3)
+                ? blackColorMono
+                : idleGreyColor,
+            ),
           ),
         ),
 

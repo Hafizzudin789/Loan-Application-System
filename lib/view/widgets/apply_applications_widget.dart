@@ -47,7 +47,7 @@ showApplyApplicationsPopUp(BuildContext context, LayoutViewModel viewModel) {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _cardTypeWidget("Credit Card", "assets/discountIcon.svg", const Color(0XFF5CD2D0), const Color(0XFF5CD2D0).withOpacity(0.1), _showCardOptionsDetail, viewModel),
+                  _cardTypeWidget("Credit Card", "assets/discountIcon.svg", const Color(0XFF5CD2D0), const Color(0XFF5CD2D0).withOpacity(0.1), showCardOptionsDetail, viewModel),
                   const SizedBox(width: 15),
                   _cardTypeWidget("Auto Finance", "assets/carIcon.svg", yellowColor, const Color(0XFFFFFBED), _showFinanceDetail, viewModel),
                   const SizedBox(width: 15),
@@ -103,11 +103,10 @@ Widget _cardTypeWidget(String label, String imagePath, Color iconBackgroundColor
   );
 }
 
-void _showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
+void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
   Navigator.pop(context);
   showDialog(
     context: context,
-    // barrierDismissible: false,
     builder: (context) {
       return StatefulBuilder(
         builder: (context, setState) {
@@ -161,7 +160,21 @@ void _showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                       keyboardType: TextInputType.number,
                                       style: const TextStyle(fontWeight: FontWeight.w700),
                                       inputFormatters: [LengthLimitingTextInputFormatter(12)],
+                                      onTap: () {
+                                        if(viewModel.monthlyIncomeTEC.text.isEmpty) {
+                                          setState(() {
+                                            viewModel.monthlyIncomeTEC.text = "BHD ";
+                                            viewModel.monthlyIncomeTEC.selection = TextSelection.fromPosition(TextPosition(offset: viewModel.monthlyIncomeTEC.text.length));
+                                          });
+                                        }
+                                      },
                                       onChanged: (value){
+                                        // if(value.length == 1) {
+                                        //   setState(() {
+                                        //     viewModel.monthlyIncomeTEC.text = "BHD ";
+                                        //     viewModel.monthlyIncomeTEC.selection = TextSelection.fromPosition(TextPosition(offset: viewModel.monthlyIncomeTEC.text.length));
+                                        //   });
+                                        // }
                                         if(value.isEmpty) {
                                           setState(() {
                                             viewModel.disposeCardResource();

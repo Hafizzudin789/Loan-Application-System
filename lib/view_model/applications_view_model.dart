@@ -150,7 +150,7 @@ class ApplicationsViewModel extends BaseViewModel {
     );
 
     if(newDate != null) {
-      textEditingController.text = "${newDate.month}/${newDate.day}/${newDate.year}";
+      textEditingController.text = "${newDate.day}/${newDate.month}/${newDate.year}";
       if(isFrom) {
         fromDate = newDate.toString();
       } else {
@@ -184,7 +184,7 @@ class ApplicationsViewModel extends BaseViewModel {
   TextEditingController maxAmountTEC = TextEditingController();
 
   applyAmountFilter() {
-    if(minAmountTEC.text.isEmpty || maxAmountTEC.text.isEmpty) {
+    if(minAmountTEC.text.isEmpty || maxAmountTEC.text.isEmpty || maxAmountTEC.text.trim() == "BHD" || minAmountTEC.text.trim() == "BHD") {
       return;
     }
     locator<NavigationService>().goBack();
@@ -199,7 +199,9 @@ class ApplicationsViewModel extends BaseViewModel {
     dateOrAmountFilterApplied = true;
     selectDataAccordingToPage();
 
-    List<CustomerApplications> data = customerApplications.where((element) => double.parse(minAmountTEC.text)<=element.financeAmount && element.financeAmount<=double.parse(maxAmountTEC.text)).toList();
+    String minAm = minAmountTEC.text.replaceAll("BHD ", "").trim();
+    String maxAm = maxAmountTEC.text.replaceAll("BHD ", "").trim();
+    List<CustomerApplications> data = customerApplications.where((element) => double.parse(minAm)<=element.financeAmount && element.financeAmount<=double.parse(maxAm)).toList();
     customerApplications = data;
     notifyListeners();
   }
