@@ -17,37 +17,6 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
   Widget build(BuildContext context, ApplicationFormViewModel viewModel) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Customer Details",
-                style: TextStyle(
-                    color: blackColorMono,
-                    fontSize: xxl,
-                    fontWeight: FontWeight.w700),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SvgPicture.asset(
-                    "assets/closeIcon.svg",
-                    width: 14,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Divider(
-          height: 0,
-          thickness: 1,
-        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1),

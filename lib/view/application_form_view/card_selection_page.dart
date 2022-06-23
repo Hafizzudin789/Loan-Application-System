@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
@@ -14,82 +13,45 @@ class CardSelectionPage extends ViewModelWidget<ApplicationFormViewModel> {
   Widget build(BuildContext context, ApplicationFormViewModel viewModel) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Card Selection",
-                  style: TextStyle(
-                      color: blackColorMono,
-                      fontSize: xxl,
-                      fontWeight: FontWeight.w700),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SvgPicture.asset(
-                      "assets/closeIcon.svg",
-                      width: 14,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height*0.04),
+            Padding(
+              padding: const EdgeInsets.only(left: 100.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: const TextSpan(
+                      text: "Sorry, Faisal Saeed is not eligible for",
+                      style: TextStyle(fontSize: xxl, color: blackColorMono, fontWeight: FontWeight.w500, letterSpacing: 0.5),
+                      children: [
+                        TextSpan(text: " Digibanc\nCash Back Platinum MasterCard", style: TextStyle(fontSize: xxl, color: primaryColor, fontWeight: FontWeight.w500, letterSpacing: 0.5))
+                      ],
                     ),
+                    textAlign: TextAlign.start,
                   ),
-                ),
-              ],
+                  SizedBox(height: MediaQuery.of(context).size.height*0.04),
+                  const Text("Here’s other credit card eligible for Faisal Saeed", style: TextStyle(fontSize: xl, color: blackColorMono, fontWeight: FontWeight.w600), textAlign: TextAlign.start,),
+                ],
+              ),
             ),
-          ),
-          const Divider(
-            height: 0,
-            thickness: 1,
-          ),
-
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height*0.04),
-                Padding(
-                  padding: const EdgeInsets.only(left: 100.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                          text: "Sorry, Faisal Saeed is not eligible for",
-                          style: TextStyle(fontSize: xxl, color: blackColorMono, fontWeight: FontWeight.w500, letterSpacing: 0.5),
-                          children: [
-                            TextSpan(text: " Digibanc\nCash Back Platinum MasterCard", style: TextStyle(fontSize: xxl, color: primaryColor, fontWeight: FontWeight.w500, letterSpacing: 0.5))
-                          ],
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height*0.04),
-                      const Text("Here’s other credit card eligible for Faisal Saeed", style: TextStyle(fontSize: xl, color: blackColorMono, fontWeight: FontWeight.w600), textAlign: TextAlign.start,),
-                    ],
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height*0.03),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.54,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 100),
-                    itemCount: Data.cardSelection.length,
-                    itemBuilder: (context, index) {
-                      return _cardWidget(Data.cardSelection[index], viewModel, index);
-                    },
-                  ),
-                ),
-              ],
+            SizedBox(height: MediaQuery.of(context).size.height*0.03),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.54,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(left: 100),
+                itemCount: Data.cardSelection.length,
+                itemBuilder: (context, index) {
+                  return _cardWidget(Data.cardSelection[index], viewModel, index);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -216,7 +178,6 @@ class CardSelectionPage extends ViewModelWidget<ApplicationFormViewModel> {
                 ElevatedButton(
                   onPressed: () {
                     viewModel.changeApplicationFormState(ApplicationFormState.documents);
-                    print(viewModel.applicationFormState);
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(

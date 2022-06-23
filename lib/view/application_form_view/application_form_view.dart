@@ -5,25 +5,23 @@ import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view_model/application_form_view_model.dart';
+import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-class ApplicationFormView extends StatefulWidget {
+
+class ApplicationFormView extends ViewModelWidget<LayoutViewModel> {
   final List<CardTypeData> cardData;
   const ApplicationFormView({Key? key, required this.cardData}) : super(key: key);
 
-  @override
-  State<ApplicationFormView> createState() => _ApplicationFormViewState();
-}
 
-class _ApplicationFormViewState extends State<ApplicationFormView> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, LayoutViewModel layoutViewModel) {
     return ViewModelBuilder<ApplicationFormViewModel>.reactive(
       viewModelBuilder: () => ApplicationFormViewModel(),
       onModelReady: (viewModel) {
-        viewModel.initializeCardSelectedList(widget.cardData.length);
+        viewModel.initializeCardSelectedList(cardData.length);
       },
-      onDispose: (viewModel) => viewModel.disposeResource(),
+      onDispose: (viewModel) => viewModel.disposeResource(layoutViewModel),
       builder: (context, viewModel, _) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -63,14 +61,14 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
                                 const SizedBox(width: 10),
                                 const Expanded(
                                     child: Text(
-                                  "NEW APPLICATION",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: s,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: 1.5,
-                                  ),
-                                )),
+                                      "NEW APPLICATION",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: s,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 1.5,
+                                      ),
+                                    )),
                               ],
                             ),
                           ),
@@ -94,7 +92,52 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
                   ),
                   Expanded(
                     flex: 9,
-                    child: viewModel.applicationFormPage(cardData: widget.cardData, viewModel: viewModel),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                viewModel.applicationFormState == ApplicationFormState.cardPage
+                                    ? "Card Page"
+                                    : viewModel.applicationFormState == ApplicationFormState.customerId
+                                    ? "Customer ID"
+                                    : viewModel.applicationFormState == ApplicationFormState.customerDetails
+                                    ? "Customer Details"
+                                    : viewModel.applicationFormState == ApplicationFormState.cardSelection
+                                    ? "Card Selection"
+                                    : "Documents",
+                                style: const TextStyle(
+                                    color: blackColorMono,
+                                    fontSize: xxl,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: SvgPicture.asset(
+                                    "assets/closeIcon.svg",
+                                    width: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          height: 0,
+                          thickness: 1,
+                        ),
+                        Expanded(
+                          child: viewModel.applicationFormPage(cardData: cardData),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -132,3 +175,4 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
   }
 
 }
+

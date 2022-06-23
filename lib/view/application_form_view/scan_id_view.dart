@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,13 +32,13 @@ class ScanIdView extends StatelessWidget {
             children: [
               viewModel.cameraController!=null && viewModel.cameraController!.value.isInitialized
                   ? Transform.scale(
-                scale: (screenWidth / viewModel.cameraController!.value.previewSize!.width) > (screenHeight / viewModel.cameraController!.value.previewSize!.height)
-                    ? (screenWidth / viewModel.cameraController!.value.previewSize!.width) + 0.25
-                    : (screenHeight / viewModel.cameraController!.value.previewSize!.height) + 0.25,
-                child: Center(
-                  child: CameraPreview(viewModel.cameraController!),
-                ),
-              )
+                      scale: (screenWidth / viewModel.cameraController!.value.previewSize!.width) > (screenHeight / viewModel.cameraController!.value.previewSize!.height)
+                          ? (screenWidth / viewModel.cameraController!.value.previewSize!.width) + 0.25
+                          : (screenHeight / viewModel.cameraController!.value.previewSize!.height) + 0.25,
+                      child: Center(
+                        child: CameraPreview(viewModel.cameraController!),
+                      ),
+                    )
                   : Center(child: Container(color: blackColorMono,),),
               Positioned(
                 top: 10,

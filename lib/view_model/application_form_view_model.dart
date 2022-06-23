@@ -7,6 +7,7 @@ import 'package:loan_application_system/view/application_form_view/card_selectio
 import 'package:loan_application_system/view/application_form_view/customer_details_page.dart';
 import 'package:loan_application_system/view/application_form_view/customer_id_page.dart';
 import 'package:loan_application_system/view/application_form_view/doucments_page.dart';
+import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class ApplicationFormViewModel extends BaseViewModel {
@@ -18,11 +19,10 @@ class ApplicationFormViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  applicationFormPage({required List<CardTypeData> cardData, required ApplicationFormViewModel viewModel}) {
+  applicationFormPage({required List<CardTypeData> cardData}) {
     return applicationFormState == ApplicationFormState.cardPage
         ? CardPage(
             cardData: cardData,
-            viewModel: viewModel,
           )
         : applicationFormState == ApplicationFormState.customerId
             ? const CustomerIdPage()
@@ -51,7 +51,7 @@ class ApplicationFormViewModel extends BaseViewModel {
     }
   }
 
-  disposeResource() {
+  disposeResource(LayoutViewModel viewModel) {
     applicantNameTEC.dispose();
     birthDateTEC.dispose();
     nationalityTEC.dispose();
@@ -65,6 +65,8 @@ class ApplicationFormViewModel extends BaseViewModel {
     companyTEC.dispose();
 
     scrollController.dispose();
+
+    viewModel.disposeCardResource();
   }
 
 

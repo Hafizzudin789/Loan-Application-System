@@ -8,47 +8,16 @@ import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
 import 'package:loan_application_system/view/widgets/selected_widget.dart';
 import 'package:loan_application_system/view_model/application_form_view_model.dart';
+import 'package:stacked/stacked.dart';
 
-class CardPage extends StatelessWidget {
+class CardPage extends ViewModelWidget<ApplicationFormViewModel> {
   final List<CardTypeData> cardData;
-  final ApplicationFormViewModel viewModel;
-  const CardPage({Key? key, required this.cardData, required this.viewModel}) : super(key: key);
+  const CardPage({Key? key, required this.cardData}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ApplicationFormViewModel viewModel) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Card Page",
-                style: TextStyle(
-                    color: blackColorMono,
-                    fontSize: xxl,
-                    fontWeight: FontWeight.w700),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: SvgPicture.asset(
-                    "assets/closeIcon.svg",
-                    width: 14,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Divider(
-          height: 0,
-          thickness: 1,
-        ),
         Expanded(
           child: SingleChildScrollView(
             child: Column(
