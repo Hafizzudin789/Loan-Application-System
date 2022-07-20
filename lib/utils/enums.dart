@@ -2,7 +2,8 @@ enum LayoutViewIndex {
   dashboardView,
   applicationsView,
   third,
-  fourth;
+  fourth,
+  customersListView;
   // profileView;
 }
 

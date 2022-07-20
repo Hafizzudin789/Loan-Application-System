@@ -104,6 +104,17 @@ class Data {
     ApplicationDataModel(50, "Facility 2", yellowColor),
     ApplicationDataModel(14, "Facility 3", greenColor),
   ];
+
+  static List<Customer> customers = [
+    Customer(name: "Carla Vaccaro", cifNo: "3030492716", email: "carla@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Paco Aguilar", cifNo: "3030492716", email: "paco@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Davis Dorwart", cifNo: "3030492716", email: "davis@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Mira Donin", cifNo: "3030492716", email: "mira@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Terry Geidt", cifNo: "3030492716", email: "terry@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Tatiana Kenter", cifNo: "3030492716", email: "kenter@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Roger Westervelt", cifNo: "3030492716", email: "roger@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+    Customer(name: "Cristofer Passaquindic", cifNo: "3030492716", email: "cristofer@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
+  ];
 }
 
 class ApplicationStatusModel {
@@ -149,4 +160,13 @@ class CustomerApplications {
   final CustomerApplicationStatus status;
 
   CustomerApplications({required this.applicantEmail, required this.applicantName, required this.applicationId, required this.cifNo, required this.createdDate, required this.financeAmount, required this.mobileNumber, required this.product, required this.type, required this.status});
+}
+
+class Customer {
+  final String name;
+  final String cifNo;
+  final String id;
+  final String phoneNumber;
+  final String email;
+  Customer({required this.name, required this.cifNo, required this.email, required this.phoneNumber, required this.id});
 }

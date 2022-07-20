@@ -23,7 +23,9 @@ class CustomAppBar extends ViewModelWidget<LayoutViewModel> {
           Text(
             viewModel.layoutViewIndex == LayoutViewIndex.dashboardView
                 ? "Dashboard"
-                : "Applications",
+                : viewModel.layoutViewIndex == LayoutViewIndex.applicationsView
+                  ? "Applications"
+                  : "Customer List",
             style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(width: 40),

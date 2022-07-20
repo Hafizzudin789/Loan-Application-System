@@ -242,8 +242,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
                                           ],
                                         ),
                                       ),
-                                    ]))
-                                        .toList(),
+                                    ])).toList(),
                                   ),
                                 ],
                               ),

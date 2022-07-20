@@ -11,7 +11,7 @@ class NavigationService {
     LayoutViewIndex.applicationsView.name: GlobalKey<NavigatorState>(),
     LayoutViewIndex.third.name: GlobalKey<NavigatorState>(),
     LayoutViewIndex.fourth.name: GlobalKey<NavigatorState>(),
-    // LayoutViewIndex.profileView.name: GlobalKey<NavigatorState>(),
+    LayoutViewIndex.customersListView.name: GlobalKey<NavigatorState>(),
   };
 
   navigateTo(String routeName, {dynamic arguments}) {
