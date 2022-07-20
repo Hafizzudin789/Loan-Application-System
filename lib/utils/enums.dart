@@ -12,6 +12,12 @@ enum ProfileViewState{
   security;
 }
 
+enum CustomerProfileViewState{
+  profile,
+  account,
+  product;
+}
+
 enum PopupMenuState {
   account,
   logout,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loan_application_system/service_locator.dart';
+import 'package:loan_application_system/services/navigation_service.dart';
+import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
@@ -18,6 +21,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
   Widget build(BuildContext context, LayoutViewModel layoutViewModel) {
     return ViewModelBuilder<CustomerListViewModel>.reactive(
       viewModelBuilder: () => CustomerListViewModel(),
+      onDispose: (viewModel)=>viewModel.disposeResource(),
       builder: (context, viewModel, _) {
         return Column(
           children: [
@@ -39,9 +43,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
                           ? Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.1),
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                                 SvgPicture.asset("assets/search.svg"),
                                 const SizedBox(height: 10),
                                 const Text(
@@ -76,9 +78,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
                                   DataColumn(label: Text("Mobile Number")),
                                   DataColumn(label: Text("Email address")),
                                 ],
-                                rows: viewModel
-                                    .customers
-                                    .map(
+                                rows: viewModel.customers.map(
                                       (e) => DataRow(
                                         cells: [
                                           DataCell(Text(
@@ -125,7 +125,12 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
                                                       fontSize: m),
                                                 ),
                                               ),
-                                              const Icon(Icons.more_vert)
+                                              InkWell(
+                                                onTap: () {
+                                                  locator<NavigationService>().navigateToAndBack(customerProfileView);
+                                                },
+                                                child: const Icon(Icons.more_vert),
+                                              ),
                                             ],
                                           )),
                                         ],
@@ -168,7 +173,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
 
         const Expanded(child: SizedBox()),
         TextField(
-          // controller: applicationsViewModel.searchTEC,
+          controller: viewModel.searchTEC,
           textInputAction: TextInputAction.search,
           onSubmitted: (value) {
             // applicationsViewModel.searchCustomerApplications();
@@ -178,13 +183,12 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
             hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w700),
             suffixIcon: InkWell(
               onTap: () {
-                // applicationsViewModel.searchTEC.clear();
-                // applicationsViewModel.updateUI();
+                viewModel.searchTEC.clear();
+                viewModel.updateUI();
               },
-              child:
-             // applicationsViewModel.searchTEC.text.isNotEmpty ?
-              SvgPicture.asset("assets/clearIcon.svg", height: 5, width: 5)
-                 // : Icon(applicationsViewModel.searchTEC.text.isNotEmpty?Icons.close:Icons.search, color: blackColorMono, size: 20,),
+              child: viewModel.searchTEC.text.isNotEmpty
+                  ? SvgPicture.asset("assets/clearIcon.svg", height: 5, width: 5)
+                  : Icon(viewModel.searchTEC.text.isNotEmpty?Icons.close:Icons.search, color: blackColorMono, size: 20,),
             ),
             suffixIconConstraints: const BoxConstraints(
               minHeight: 20,
@@ -199,7 +203,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
             enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor)),
           ),
           onChanged: (value) {
-            // applicationsViewModel.updateUI();
+            viewModel.updateUI();
           },
         ),
         const SizedBox(width: 15),

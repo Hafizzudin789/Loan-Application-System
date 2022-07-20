@@ -115,6 +115,12 @@ class Data {
     Customer(name: "Roger Westervelt", cifNo: "3030492716", email: "roger@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
     Customer(name: "Cristofer Passaquindic", cifNo: "3030492716", email: "cristofer@mail.com", phoneNumber: "+971 3843 2748", id: "3434 15 1353"),
   ];
+
+  static List<ProductModel> productModelList = [
+    ProductModel(name: "Auto Finance", status: CustomerApplicationStatus.newA, type: "Honda", applicationNumber: "3030492716",),
+    ProductModel(name: "Credit Card", status: CustomerApplicationStatus.processing, type: "Visa", applicationNumber: "3030492734",),
+    ProductModel(name: "Credit Card", status: CustomerApplicationStatus.complete, type: "MasterCard", applicationNumber: "3220492734",),
+  ];
 }
 
 class ApplicationStatusModel {
@@ -169,4 +175,12 @@ class Customer {
   final String phoneNumber;
   final String email;
   Customer({required this.name, required this.cifNo, required this.email, required this.phoneNumber, required this.id});
+}
+
+class ProductModel {
+  final String name;
+  final String type;
+  final String applicationNumber;
+  final CustomerApplicationStatus status;
+  ProductModel({required this.name, required this.status, required this.type, required this.applicationNumber});
 }

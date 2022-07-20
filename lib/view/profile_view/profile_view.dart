@@ -5,16 +5,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/view/profile_view/security_details_view.dart';
-import 'package:loan_application_system/view_model/layout_view_model.dart';
 import 'package:loan_application_system/view_model/profile_view_model.dart';
 import 'package:stacked/stacked.dart';
 import '../../utils/font_size.dart';
 
-class ProfileView extends ViewModelWidget<LayoutViewModel> {
+class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LayoutViewModel viewModel) {
+  Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       viewModelBuilder: () => ProfileViewModel(),
       onDispose: (profileViewModel) {
@@ -75,7 +74,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
                   Expanded(
                     flex: 9,
                     child: profileViewModel.profileViewState == ProfileViewState.profile
-                        ? _profileDetailWidget(profileViewModel, viewModel)
+                        ? _profileDetailWidget(profileViewModel)
                         : SecurityDetailsView(profileViewModel: profileViewModel),
                   ),
                 ],
@@ -114,7 +113,7 @@ class ProfileView extends ViewModelWidget<LayoutViewModel> {
     );
   }
 
-  Widget _profileDetailWidget(ProfileViewModel profileViewModel, LayoutViewModel viewModel) {
+  Widget _profileDetailWidget(ProfileViewModel profileViewModel) {
     return Builder(
       builder: (context) {
         return Column(

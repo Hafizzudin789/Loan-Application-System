@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:loan_application_system/model/data.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:stacked/stacked.dart';
@@ -43,6 +44,17 @@ class CustomerListViewModel extends BaseViewModel {
 
   changeResultLimit(ResultLimit value) {
     _resultLimit = value;
+  }
+
+  TextEditingController searchTEC = TextEditingController();
+
+
+  updateUI() {
+    notifyListeners();
+  }
+
+  disposeResource() {
+    searchTEC.dispose();
   }
 
 }
