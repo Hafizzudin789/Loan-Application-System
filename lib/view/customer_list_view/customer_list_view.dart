@@ -6,7 +6,6 @@ import 'package:loan_application_system/services/routing_service.dart';
 import 'package:loan_application_system/utils/color_constant.dart';
 import 'package:loan_application_system/utils/enums.dart';
 import 'package:loan_application_system/utils/font_size.dart';
-import 'package:loan_application_system/view/widgets/apply_applications_widget.dart';
 import 'package:loan_application_system/view/widgets/custom_app_bar.dart';
 import 'package:loan_application_system/view/widgets/elevated_button_widget.dart';
 import 'package:loan_application_system/view/widgets/footer.dart';
@@ -127,7 +126,7 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
                                               ),
                                               InkWell(
                                                 onTap: () {
-                                                  locator<NavigationService>().navigateToAndBack(customerProfileView);
+                                                  locator<NavigationService>().navigateToAndBack(customerProfileView, arguments: e.name);
                                                 },
                                                 child: const Icon(Icons.more_vert),
                                               ),
@@ -230,13 +229,13 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
         const SizedBox(width: 20),
         Container(
           decoration: const BoxDecoration(
-            color: primaryColor,
+            color: successColor,
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
           child: IconButton(
             onPressed: () {
-              showApplyApplicationsPopUp(context, layoutViewModel);
+              locator<NavigationService>().navigateToAndBack(createNewCustomerProfileView);
             },
             tooltip: "Request application",
             icon: const Icon(
