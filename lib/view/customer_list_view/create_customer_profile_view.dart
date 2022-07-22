@@ -105,8 +105,8 @@ class CreateCustomerProfileView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                                   child: ElevatedButton(
                                     onPressed: applicationViewModel.frontIdImagePath != null && applicationViewModel.backIdImagePath != null
+                                        && applicationViewModel.dropdownEmployeeValue != null
                                         && viewModel.mobileNumberTEC.text.isNotEmpty && viewModel.emailTEC.text.isNotEmpty
-                                        && viewModel.employmentStatusTEC.text.isNotEmpty
                                         && viewModel.employmentName.text.isNotEmpty
                                         && viewModel.monthlySalary.text.isNotEmpty?() {
                                       _confirmDetailsPopUp(context, applicationViewModel, viewModel);
@@ -119,8 +119,8 @@ class CreateCustomerProfileView extends StatelessWidget {
                                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25)),
                                       foregroundColor: MaterialStateProperty.all(
                                         applicationViewModel.frontIdImagePath != null && applicationViewModel.backIdImagePath != null
+                                            && applicationViewModel.dropdownEmployeeValue != null
                                           && viewModel.mobileNumberTEC.text.isNotEmpty && viewModel.emailTEC.text.isNotEmpty
-                                            && viewModel.employmentStatusTEC.text.isNotEmpty
                                             && viewModel.employmentName.text.isNotEmpty
                                             && viewModel.monthlySalary.text.isNotEmpty
                                             ? primaryColor
@@ -357,42 +357,76 @@ class CreateCustomerProfileView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.mobileNumberTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            decoration: const InputDecoration(
-                                              labelText: "Mobile Number",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Mobile Number",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
                                               ),
-                                            ),
-                                            onChanged: (value) {
-                                              viewModel.updateUI();
-                                            },
+                                              TextField(
+                                                controller: viewModel.mobileNumberTEC,
+                                                keyboardType: TextInputType.text,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w700),
+                                                onChanged: (value) {
+                                                  viewModel.updateUI();
+                                                },
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Enter mobile address",
+                                                  hintStyle: TextStyle(
+                                                    color: greyColor,
+                                                    fontSize: m,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  disabledBorder:
+                                                  UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.emailTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            decoration: const InputDecoration(
-                                              labelText: "Email",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Email",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
                                               ),
-                                            ),
-                                            onChanged: (value) {
-                                              viewModel.updateUI();
-                                            },
+                                              TextField(
+                                                controller: viewModel.emailTEC,
+                                                keyboardType: TextInputType.text,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w700),
+                                                onChanged: (value) {
+                                                  viewModel.updateUI();
+                                                },
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Enter email address",
+                                                  hintStyle: TextStyle(
+                                                    color: greyColor,
+                                                    fontSize: m,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                  disabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
@@ -431,63 +465,113 @@ class CreateCustomerProfileView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.employmentStatusTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            decoration: const InputDecoration(
-                                              labelText: "Employment Status",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child:  Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text("Employment status", style: TextStyle(color: darkGreyColor),),
+                                              PopupMenuButton<String>(
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                                offset: const Offset(0, 40),
+                                                itemBuilder: (context) => applicationFormViewModel.dropdownEmployeeTypeList.map(
+                                                      (e) => PopupMenuItem<String>(
+                                                        value: e,
+                                                        child: Text(e),
+                                                      ),
+                                                ).toList(),
+                                                onSelected: (String value) {
+                                                  applicationFormViewModel.selectStatus(value);
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 7),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          applicationFormViewModel.dropdownEmployeeValue??"",
+                                                          style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 10),
+                                                      const Icon(
+                                                        Icons.keyboard_arrow_down,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            onChanged: (value) {
-                                              viewModel.updateUI();
-                                            },
+                                              Container(height: 1, color: idleGreyColor,),
+                                            ],
                                           ),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.employmentName,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            decoration: const InputDecoration(
-                                              labelText: "Employment Name",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Employment Name", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.employmentName,
+                                                keyboardType: TextInputType.text,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                onChanged: (value){
+                                                  viewModel.updateUI();
+                                                },
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Enter employment name",
+                                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            onChanged: (value) {
-                                              viewModel.updateUI();
-                                            },
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(width: 20),
-                                    TextField(
-                                      controller: viewModel.monthlySalary,
-                                      style: const TextStyle(
-                                          color: blackColorMono),
-                                      decoration: const InputDecoration(
-                                        labelText: "Monthly Salary",
-                                        labelStyle: TextStyle(color: darkGreyColor),
-                                        disabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: borderGreyColor),
+                                    const SizedBox(height: 20),
+                                    // TextField(
+                                    //   controller: viewModel.monthlySalary,
+                                    //   style: const TextStyle(
+                                    //       color: blackColorMono),
+                                    //   decoration: const InputDecoration(
+                                    //     labelText: "Monthly Salary",
+                                    //     labelStyle: TextStyle(color: darkGreyColor),
+                                    //     disabledBorder: UnderlineInputBorder(
+                                    //       borderSide: BorderSide(
+                                    //           color: borderGreyColor),
+                                    //     ),
+                                    //   ),
+                                    //   onChanged: (value) {
+                                    //     viewModel.updateUI();
+                                    //   },
+                                    // ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Monthly Salary", style: Theme.of(context).textTheme.bodyText1,),
+                                        TextField(
+                                          controller: viewModel.monthlySalary,
+                                          keyboardType: TextInputType.text,
+                                          style: const TextStyle(fontWeight: FontWeight.w700),
+                                          onChanged: (value){
+                                            viewModel.updateUI();
+                                          },
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            hintText: "Monthly Salary",
+                                            hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                            disabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: borderGreyColor),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      onChanged: (value) {
-                                        viewModel.updateUI();
-                                      },
-                                    ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),

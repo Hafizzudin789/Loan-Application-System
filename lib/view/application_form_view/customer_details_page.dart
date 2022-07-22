@@ -81,25 +81,6 @@ class CustomerDetailsPage extends ViewModelWidget<ApplicationFormViewModel> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Employment status", style: Theme.of(context).textTheme.bodyText1,),
-                          // DropdownButton<String>(
-                          //   value: viewModel.dropdownEmployeeValue,
-                          //   hint: const Text("Select employment status", style: TextStyle(color: greyColor, fontSize: m+1),),
-                          //   style: const TextStyle(fontWeight: FontWeight.w500, color: blackColorMono, fontSize: l),
-                          //   isDense: true,
-                          //   underline: const SizedBox(),
-                          //   isExpanded: true,
-                          //   icon: const Icon(Icons.keyboard_arrow_down, color: blackColorMono,),
-                          //   items: viewModel.dropdownEmployeeTypeList.map((String items) {
-                          //     return DropdownMenuItem(
-                          //       value: items,
-                          //       child: Text(items),
-                          //     );
-                          //   }).toList(),
-                          //   onChanged: (String? newValue) {
-                          //     viewModel.selectStatus(newValue);
-                          //   },
-                          // ),
-
                           PopupMenuButton<String>(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                             offset: const Offset(0, 40),
