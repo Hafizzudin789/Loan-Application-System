@@ -206,42 +206,43 @@ class CustomerListView extends ViewModelWidget<LayoutViewModel> {
           },
         ),
         const SizedBox(width: 15),
-        ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: const BorderSide(color: borderGreyColor))),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(blackColorMono),
-          ),
-          child: Row(
-            children: [
-              const Text(
-                "Download",
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(width: 10),
-              SvgPicture.asset("assets/downloadIcon.svg")
-            ],
-          ),
-        ),
-        const SizedBox(width: 20),
         Container(
-          decoration: const BoxDecoration(
-            color: successColor,
+          decoration: BoxDecoration(
+            color: Colors.white,
             shape: BoxShape.circle,
+            border: Border.all(color: borderGreyColor, width: 1)
           ),
           alignment: Alignment.center,
           child: IconButton(
-            onPressed: () {
-              locator<NavigationService>().navigateToAndBack(createNewCustomerProfileView);
-            },
+            onPressed: () {},
             tooltip: "Request application",
-            icon: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
+            icon: SvgPicture.asset("assets/downloadIcon.svg", color: blackColorMono,),
+          ),
+        ),
+        const SizedBox(width: 10),
+        TextButton(
+          onPressed: () {
+            locator<NavigationService>().navigateToAndBack(createNewCustomerProfileView);
+          },
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),)),
+            backgroundColor: MaterialStateProperty.all(primaryColor),
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 10, horizontal: 15))
+          ),
+          child: Row(
+            children: const [
+              Text(
+                "New Customer",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              SizedBox(width: 10),
+              Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ],
           ),
         ),
       ],

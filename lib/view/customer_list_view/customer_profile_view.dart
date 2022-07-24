@@ -235,13 +235,13 @@ class CustomerProfileView extends StatelessWidget {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25),
                                       side: BorderSide(
-                                          color: viewModel.profileImagePath != null
+                                          color: viewModel.profileImagePathForExisting != null
                                               ? errorColor
                                               : borderGreyColor))),
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.white),
                               foregroundColor: MaterialStateProperty.all(
-                                  viewModel.profileImagePath != null
+                                  viewModel.profileImagePathForExisting != null
                                       ? errorColor
                                       : blackColorMono),
                             ),
@@ -321,39 +321,48 @@ class CustomerProfileView extends StatelessWidget {
                                     const SizedBox(height: 10),
                                     Row(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(100),
-                                          child: viewModel.profileImagePath == null
-                                            ? Container(
-                                                height: 70,
-                                                width: 70,
-                                                color: secondaryDarkGrey,
-                                                alignment: Alignment.center,
-                                                child: const Text(
-                                                  "PD",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: xxl,
-                                                    fontWeight: FontWeight.w700,
+                                        Container(
+                                          padding: const EdgeInsets.all(2),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(100),
+                                            color: idleGreyColor,
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(100),
+                                            child: viewModel.profileImagePathForExisting == null
+                                              ? Container(
+                                                  height: 70,
+                                                  width: 70,
+                                                  color: secondaryDarkGrey,
+                                                  alignment: Alignment.center,
+                                                  child: const Text(
+                                                    "PD",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: xxl,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            : Image.file(File(viewModel.profileImagePath!), fit: BoxFit.cover, height: 70, width: 70,),
+                                                )
+                                              : viewModel.profileImagePathForExisting!.contains("assets")
+                                                  ? Image.asset(viewModel.profileImagePathForExisting!, fit: BoxFit.cover, height: 70, width: 70,)
+                                                  : Image.file(File(viewModel.profileImagePathForExisting!), fit: BoxFit.cover, height: 70, width: 70,)
+                                          ),
                                         ),
                                         const SizedBox(width: 20),
                                         ElevatedButton(
                                           onPressed: !viewModel.isEditable ? null : () {
-                                            viewModel.pickAndUpload(context);
+                                            viewModel.pickAndUploadForExisting(context);
                                           },
                                           style: ButtonStyle(
                                             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(25),
-                                                side: BorderSide(color: viewModel.profileImagePath != null?errorColor:borderGreyColor))),
+                                                side: BorderSide(color: viewModel.profileImagePathForExisting != null && viewModel.isEditable?errorColor:borderGreyColor))),
                                             backgroundColor: MaterialStateProperty.all(Colors.white),
                                             foregroundColor: MaterialStateProperty.all(
                                               !viewModel.isEditable
                                                   ? idleGreyColor
-                                                  : viewModel.profileImagePath != null
+                                                  : viewModel.profileImagePathForExisting != null
                                                       ? errorColor
                                                       : blackColorMono,
                                             ),
@@ -361,13 +370,13 @@ class CustomerProfileView extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               Text(
-                                                viewModel.profileImagePath != null?"Remove Picture":"Upload Picture",
+                                                viewModel.profileImagePathForExisting != null ?"Remove Picture":"Upload Picture",
                                                 style: const TextStyle(
                                                     fontWeight:
                                                     FontWeight.w700),
                                               ),
                                               const SizedBox(width: 10),
-                                              viewModel.profileImagePath != null
+                                              viewModel.profileImagePathForExisting != null
                                                   ? const Icon(Icons.delete_outlined)
                                                   : SvgPicture.asset(
                                                       "assets/uploadIcon.svg",
@@ -397,124 +406,268 @@ class CustomerProfileView extends StatelessWidget {
                                             ],
                                           )
                                         : const SizedBox(),
-                                    TextField(
-                                      controller: viewModel.fullNameTEC,
-                                      enabled: false,
-                                      style: const TextStyle(
-                                          color: blackColorMono),
-                                      decoration: InputDecoration(
-                                        labelText: "Full Name",
-                                        labelStyle: const TextStyle(color: darkGreyColor),
-                                        disabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                  ? errorColor
-                                                  : borderGreyColor),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
+                                    // TextField(
+                                    //   controller: viewModel.fullNameTEC,
+                                    //   enabled: false,
+                                    //   style: const TextStyle(
+                                    //       color: blackColorMono, fontWeight: FontWeight.w700),
+                                    //   decoration: InputDecoration(
+                                    //     labelText: "Full Name",
+                                    //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                    //     disabledBorder: UnderlineInputBorder(
+                                    //       borderSide: BorderSide(
+                                    //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                    //               ? errorColor
+                                    //               : borderGreyColor),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Expanded(
-                                          child: TextField(
-                                            controller: viewModel.nationalityTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: false,
-                                            decoration: InputDecoration(
-                                              labelText: "Nationality",
-                                              labelStyle: const TextStyle(color: darkGreyColor),
-                                              disabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                        ? errorColor
-                                                        : borderGreyColor),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        Expanded(
-                                          child: TextField(
-                                            controller: viewModel.birthDateTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: false,
-                                            decoration: InputDecoration(
-                                              labelText: "Date of Birth",
-                                              labelStyle: const TextStyle(color: darkGreyColor),
-                                              disabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                        ? errorColor
-                                                        : borderGreyColor),
-                                              ),
+                                        Text("Full Name", style: Theme.of(context).textTheme.bodyText1,),
+                                        TextField(
+                                          controller: viewModel.fullNameTEC,
+                                          keyboardType: TextInputType.text,
+                                          enabled: false,
+                                          style: const TextStyle(fontWeight: FontWeight.w700),
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: "Full Name",
+                                            hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                            disabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                      ? errorColor
+                                                      : borderGreyColor),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    TextField(
-                                      controller: viewModel.idTypeTEC,
-                                      style: const TextStyle(
-                                          color: blackColorMono),
-                                      enabled: false,
-                                      decoration: InputDecoration(
-                                        labelText: "ID Type",
-                                        labelStyle: const TextStyle(color: darkGreyColor),
-                                        disabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                  ? errorColor
-                                                  : borderGreyColor),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 20),
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.idNumberTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: false,
-                                            decoration: InputDecoration(
-                                              labelText: "ID Number",
-                                              labelStyle: const TextStyle(color: darkGreyColor),
-                                              disabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                        ? errorColor
-                                                        : borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Nationality", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.nationalityTEC,
+                                                keyboardType: TextInputType.text,
+                                                enabled: false,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Nationality",
+                                                  hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                            ? errorColor
+                                                            : borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
+                                          // child: TextField(
+                                          //   controller: viewModel.nationalityTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: false,
+                                          //   decoration: InputDecoration(
+                                          //     labelText: "Nationality",
+                                          //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder: UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                          //               ? errorColor
+                                          //               : borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.expiryDateTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: false,
-                                            decoration: InputDecoration(
-                                              labelText: "ID Expiry",
-                                              labelStyle: const TextStyle(color: darkGreyColor),
-                                              disabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
-                                                        ? errorColor
-                                                        : borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Date of Birth", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.birthDateTEC,
+                                                keyboardType: TextInputType.text,
+                                                enabled: false,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Date of Birth",
+                                                  hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                            ? errorColor
+                                                            : borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
+                                            ],
+                                          ),
+                                          // child: TextField(
+                                          //   controller: viewModel.birthDateTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: false,
+                                          //   decoration: InputDecoration(
+                                          //     labelText: "Date of Birth",
+                                          //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder: UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                          //               ? errorColor
+                                          //               : borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text("ID Type", style: Theme.of(context).textTheme.bodyText1,),
+                                        TextField(
+                                          controller: viewModel.idTypeTEC,
+                                          keyboardType: TextInputType.text,
+                                          enabled: false,
+                                          style: const TextStyle(fontWeight: FontWeight.w700),
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            hintText: "ID Type",
+                                            hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                            disabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                      ? errorColor
+                                                      : borderGreyColor),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
+                                    // TextField(
+                                    //   controller: viewModel.idTypeTEC,
+                                    //   style: const TextStyle(
+                                    //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                    //   enabled: false,
+                                    //   decoration: InputDecoration(
+                                    //     labelText: "ID Type",
+                                    //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                    //     disabledBorder: UnderlineInputBorder(
+                                    //       borderSide: BorderSide(
+                                    //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                    //               ? errorColor
+                                    //               : borderGreyColor),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("ID Number", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.idNumberTEC,
+                                                keyboardType: TextInputType.text,
+                                                enabled: false,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "ID Number",
+                                                  hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                            ? errorColor
+                                                            : borderGreyColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          // child: TextField(
+                                          //   controller: viewModel.idNumberTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: false,
+                                          //   decoration: InputDecoration(
+                                          //     labelText: "ID Number",
+                                          //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder: UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                          //               ? errorColor
+                                          //               : borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("ID Expiry", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.expiryDateTEC,
+                                                keyboardType: TextInputType.text,
+                                                enabled: false,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "ID Expiry",
+                                                  hintStyle: const TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                                            ? errorColor
+                                                            : borderGreyColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          // child: TextField(
+                                          //   controller: viewModel.expiryDateTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: false,
+                                          //   decoration: InputDecoration(
+                                          //     labelText: "ID Expiry",
+                                          //     labelStyle: const TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder: UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: viewModel.isEditable && viewModel.isCustomerIdExpired(customerName)
+                                          //               ? errorColor
+                                          //               : borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
                                     Row(
                                       children: [
                                         Expanded(
@@ -586,39 +739,82 @@ class CustomerProfileView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.mobileNumberTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: viewModel.isEditable,
-                                            decoration: const InputDecoration(
-                                              labelText: "Mobile Number",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Mobile Number", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.mobileNumberTEC,
+                                                keyboardType: TextInputType.text,
+                                                enabled: viewModel.isEditable,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Mobile Number",
+                                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
+                                          // child: TextField(
+                                          //   controller: viewModel.mobileNumberTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: viewModel.isEditable,
+                                          //   decoration: const InputDecoration(
+                                          //     labelText: "Mobile Number",
+                                          //     labelStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder:
+                                          //     UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.emailTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: viewModel.isEditable,
-                                            decoration: const InputDecoration(
-                                              labelText: "Email",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Email", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.emailTEC,
+                                                enabled: viewModel.isEditable,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Email",
+                                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
+                                          // child: TextField(
+                                          //   controller: viewModel.emailTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: viewModel.isEditable,
+                                          //   decoration: const InputDecoration(
+                                          //     labelText: "Email",
+                                          //     labelStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder:
+                                          //     UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ),
                                       ],
                                     ),
@@ -656,57 +852,138 @@ class CustomerProfileView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.employmentStatusTEC,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: viewModel.isEditable,
-                                            decoration: const InputDecoration(
-                                              labelText: "Employment Status",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text("Employment status", style: TextStyle(color: darkGreyColor),),
+                                              PopupMenuButton<String>(
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                                offset: const Offset(0, 40),
+                                                enabled: viewModel.isEditable,
+                                                itemBuilder: (context) => viewModel.dropdownEmployeeTypeList.map(
+                                                      (e) => PopupMenuItem<String>(
+                                                        value: e,
+                                                        child: Text(e),
+                                                      ),
+                                                ).toList(),
+                                                onSelected: (String value) {
+                                                  viewModel.selectStatus(value);
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 7),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          viewModel.dropdownEmployeeValue,
+                                                          style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 10),
+                                                      const Icon(
+                                                        Icons.keyboard_arrow_down,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              Container(height: 1, color: idleGreyColor,),
+                                            ],
                                           ),
+                                          // child: TextField(
+                                          //   controller: viewModel.employmentStatusTEC,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                          //   enabled: viewModel.isEditable,
+                                          //   decoration: const InputDecoration(
+                                          //     labelText: "Employment Status",
+                                          //     labelStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder:
+                                          //     UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ),
                                         const SizedBox(width: 20),
                                         Expanded(
-                                          child: TextField(
-                                            controller: viewModel.employmentName,
-                                            style: const TextStyle(
-                                                color: blackColorMono),
-                                            enabled: viewModel.isEditable,
-                                            decoration: const InputDecoration(
-                                              labelText: "Employment Name",
-                                              labelStyle: TextStyle(color: darkGreyColor),
-                                              disabledBorder:
-                                              UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: borderGreyColor),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Employment Name", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.employmentName,
+                                                enabled: viewModel.isEditable,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Employment Name",
+                                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  disabledBorder: UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: borderGreyColor),
+                                                  ),
+                                                ),
                                               ),
+                                            ],
+                                          ),
+                                          // child: TextField(
+                                          //   controller: viewModel.employmentName,
+                                          //   style: const TextStyle(
+                                          //       color: blackColorMono, fontWeight: FontWeight.w700),
+                                          //   enabled: viewModel.isEditable,
+                                          //   decoration: const InputDecoration(
+                                          //     labelText: "Employment Name",
+                                          //     labelStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                          //     disabledBorder:
+                                          //     UnderlineInputBorder(
+                                          //       borderSide: BorderSide(
+                                          //           color: borderGreyColor),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text("Monthly Salary", style: Theme.of(context).textTheme.bodyText1,),
+                                        TextField(
+                                          controller: viewModel.monthlySalary,
+                                          enabled: viewModel.isEditable,
+                                          style: const TextStyle(fontWeight: FontWeight.w700),
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            hintText: "Monthly Salary",
+                                            hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                            disabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: borderGreyColor),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(width: 20),
-                                    TextField(
-                                      controller: viewModel.monthlySalary,
-                                      style: const TextStyle(
-                                          color: blackColorMono),
-                                      enabled: viewModel.isEditable,
-                                      decoration: const InputDecoration(
-                                        labelText: "Monthly Salary",
-                                        labelStyle: TextStyle(color: darkGreyColor),
-                                        disabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: borderGreyColor),
-                                        ),
-                                      ),
-                                    ),
+                                    // TextField(
+                                    //   controller: viewModel.monthlySalary,
+                                    //   style: const TextStyle(
+                                    //       color: blackColorMono, fontWeight: FontWeight.w900),
+                                    //   enabled: viewModel.isEditable,
+                                    //   decoration: const InputDecoration(
+                                    //     labelText: "Monthly Salary",
+                                    //     labelStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+                                    //     disabledBorder: UnderlineInputBorder(
+                                    //       borderSide: BorderSide(
+                                    //           color: borderGreyColor),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),

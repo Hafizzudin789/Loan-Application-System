@@ -533,11 +533,7 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           onSubmitted: (value) {
             applicationsViewModel.searchCustomerApplications();
           },
-          // textAlign: TextAlign.center,
-          // textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            // filled: true,
-            // fillColor: Colors.red,
             hintText: "Search",
             hintStyle: const TextStyle(color: greyColor, fontWeight: FontWeight.w700),
             suffixIcon: InkWell(
@@ -566,42 +562,43 @@ class ApplicationsView extends ViewModelWidget<LayoutViewModel> {
           },
         ),
         const SizedBox(width: 15),
-        ElevatedButton(
-          onPressed: () {},
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-                side: const BorderSide(color: borderGreyColor))),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(blackColorMono),
-          ),
-          child: Row(
-            children: [
-              const Text(
-                "Download",
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(width: 10),
-              SvgPicture.asset("assets/downloadIcon.svg")
-            ],
-          ),
-        ),
-        const SizedBox(width: 20),
         Container(
-          decoration: const BoxDecoration(
-            color: primaryColor,
-            shape: BoxShape.circle,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              border: Border.all(color: borderGreyColor, width: 1)
           ),
           alignment: Alignment.center,
           child: IconButton(
-            onPressed: () {
-              showApplyApplicationsPopUp(context, viewModel);
-            },
+            onPressed: () {},
             tooltip: "Request application",
-            icon: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
+            icon: SvgPicture.asset("assets/downloadIcon.svg", color: blackColorMono,),
+          ),
+        ),
+        const SizedBox(width: 10),
+        TextButton(
+          onPressed: () {
+            showApplyApplicationsPopUp(context, viewModel);
+          },
+          style: ButtonStyle(
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),)),
+              backgroundColor: MaterialStateProperty.all(primaryColor),
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 10, horizontal: 15))
+          ),
+          child: Row(
+            children: const [
+              Text(
+                "New Application",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              SizedBox(width: 10),
+              Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ],
           ),
         ),
       ],

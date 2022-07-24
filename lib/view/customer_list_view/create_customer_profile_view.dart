@@ -465,7 +465,7 @@ class CreateCustomerProfileView extends StatelessWidget {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child:  Column(
+                                          child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const Text("Employment status", style: TextStyle(color: darkGreyColor),),
@@ -569,6 +569,9 @@ class CreateCustomerProfileView extends StatelessWidget {
                                                   color: borderGreyColor),
                                             ),
                                           ),
+                                          onTap: () {
+                                            viewModel.addCurrencyText();
+                                          },
                                         ),
                                       ],
                                     )

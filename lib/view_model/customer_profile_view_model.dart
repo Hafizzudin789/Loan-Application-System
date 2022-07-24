@@ -10,13 +10,14 @@ import 'package:stacked/stacked.dart';
 class CustomerProfileViewModel extends BaseViewModel {
 
   initialize(String customerName) {
+    profileImagePathForExisting = "assets/profile.jpeg";
     fullNameTEC.text = customerName;
 
     //For viewing customer profile
     mobileNumberTEC.text = "d+971 29384902";
     emailTEC.text = "dias@test.com";
 
-    employmentStatusTEC.text = "Full-Time Employee";
+    // employmentStatusTEC.text = "Full-Time Employee";
     employmentName.text = "ABC Group";
     monthlySalary.text = "BHD 3,440.00";
     notifyListeners();
@@ -30,6 +31,19 @@ class CustomerProfileViewModel extends BaseViewModel {
     }
   }
 
+  String dropdownEmployeeValue = "Full-Time Employee";
+  var dropdownEmployeeTypeList = [
+    'Employed',
+    'Full-Time Employee',
+    'Retired',
+    'Self Employed',
+  ];
+
+  selectStatus(String value) {
+    dropdownEmployeeValue = value;
+    notifyListeners();
+  }
+
   final fullNameTEC = TextEditingController(text: "Faisal Saeed Ahmed Mohamed Qamar Alzaman");
   final nationalityTEC = TextEditingController(text: "Bahrainian");
   final birthDateTEC = TextEditingController(text: "14 / 02 / 89");
@@ -40,7 +54,7 @@ class CustomerProfileViewModel extends BaseViewModel {
   final mobileNumberTEC = TextEditingController();
   final emailTEC = TextEditingController();
 
-  final employmentStatusTEC = TextEditingController();
+  // final employmentStatusTEC = TextEditingController();
   final employmentName = TextEditingController();
   final monthlySalary = TextEditingController();
 
@@ -62,6 +76,69 @@ class CustomerProfileViewModel extends BaseViewModel {
   changeState(CustomerProfileViewState value) {
     customerProfileViewState = value;
     notifyListeners();
+  }
+
+  String? profileImagePathForExisting;
+  pickAndUploadForExisting(BuildContext context) async{
+    try {
+      if(profileImagePathForExisting != null) {
+        profileImagePathForExisting = null;
+        notifyListeners();
+        return;
+      }
+      ImagePicker picker = ImagePicker();
+      XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
+      if(imageFile!=null) {
+        profileImagePathForExisting = imageFile.path;
+        showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              backgroundColor: successColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              alignment: Alignment.bottomLeft,
+              insetPadding: const EdgeInsets.only(bottom: 60, left: 60),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: const Icon(Icons.done, color: successColor, size: 18,),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Text("Profile Picture Updated", style: TextStyle(color: Colors.white, fontSize: l, fontWeight: FontWeight.w700),),
+                    const SizedBox(width: 50),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(Icons.close,
+                          color: Colors.white, size: 18),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+        notifyListeners();
+      }
+
+    } catch(e) {
+      toastMessage(message: e.toString());
+    }
   }
 
   String? profileImagePath;
@@ -135,6 +212,14 @@ class CustomerProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+
+  addCurrencyText() {
+    if(monthlySalary.text.isEmpty) {
+      monthlySalary.text = "BHD ";
+      monthlySalary.selection = TextSelection.fromPosition(TextPosition(offset: monthlySalary.text.length));
+    }
+  }
+
   disposeResource() {
     fullNameTEC.dispose();
     emailTEC.dispose();
@@ -144,7 +229,7 @@ class CustomerProfileViewModel extends BaseViewModel {
     idNumberTEC.dispose();
     expiryDateTEC.dispose();
     mobileNumberTEC.dispose();
-    employmentStatusTEC.dispose();
+    // employmentStatusTEC.dispose();
     employmentName.dispose();
     monthlySalary.dispose();
 

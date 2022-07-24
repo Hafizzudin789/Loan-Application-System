@@ -86,89 +86,109 @@ class ProductDetailsView extends ViewModelWidget<CustomerProfileViewModel> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            child: DataTable(
-              headingTextStyle: const TextStyle(
-                color: darkGreyColor,
-                fontWeight: FontWeight.w400,
-                fontSize: s + 1,
-              ),
-              showBottomBorder: true,
-              columns: const [
-                DataColumn(
-                    label: Text("Product")),
-                DataColumn(
-                    label: Text("Type")),
-                DataColumn(
-                    label: Text("Application No.")),
-                DataColumn(label: Text("Status")),
-              ],
-              rows: viewModel.productsModel.map(
-                    (e) => DataRow(
-                  cells: [
-                    DataCell(Text(
-                      e.name,
-                      style: const TextStyle(
-                          color: blackColorMono,
-                          fontWeight:
-                          FontWeight.w700,
-                          fontSize: m),
-                    )),
-                    DataCell(Text(
-                      e.type,
-                      style: const TextStyle(
-                          color: darkGreyColor,
-                          fontWeight:
-                          FontWeight.w500,
-                          fontSize: m),
-                    )),
-                    DataCell(Text(
-                      e.applicationNumber,
-                      style: const TextStyle(
-                          color: darkGreyColor,
-                          fontWeight:
-                          FontWeight.w500,
-                          fontSize: m),
-                    )),
-                    DataCell(
-                      Container(
-                        padding:
-                        const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(
-                              100),
-                          color: e.status ==
-                              CustomerApplicationStatus
-                                  .newA
-                              ? const Color(0XFF0590FF)
-                              : e.status ==
-                              CustomerApplicationStatus
-                                  .processing
-                              ? yellowColor
-                              : e.status ==
-                              CustomerApplicationStatus
-                                  .complete
-                              ? greenColor
-                              : e.status ==
-                              CustomerApplicationStatus
-                                  .accepted
-                              ? const Color(
-                              0XFF5CD2D0)
-                              : e.status ==
-                              CustomerApplicationStatus
-                                  .delivery
-                              ? orangeColor
-                              : warningColor,
-                        ),
-                        child: Row(
-                          mainAxisSize:
-                          MainAxisSize.min,
-                          children: [
-                            Text(
-                              e.status.label,
-                              style: TextStyle(
+            child: Theme(
+              data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: DataTable(
+                headingTextStyle: const TextStyle(
+                  color: darkGreyColor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: s + 1,
+                ),
+                showBottomBorder: true,
+                columns: const [
+                  DataColumn(
+                      label: Text("Product")),
+                  DataColumn(
+                      label: Text("Type")),
+                  DataColumn(
+                      label: Text("Application No.")),
+                  DataColumn(label: Text("Status")),
+                ],
+                rows: viewModel.productsModel.map(
+                      (e) => DataRow(
+                    cells: [
+                      DataCell(Text(
+                        e.name,
+                        style: const TextStyle(
+                            color: blackColorMono,
+                            fontWeight:
+                            FontWeight.w700,
+                            fontSize: m),
+                      )),
+                      DataCell(Text(
+                        e.type,
+                        style: const TextStyle(
+                            color: darkGreyColor,
+                            fontWeight:
+                            FontWeight.w500,
+                            fontSize: m),
+                      )),
+                      DataCell(Text(
+                        e.applicationNumber,
+                        style: const TextStyle(
+                            color: darkGreyColor,
+                            fontWeight:
+                            FontWeight.w500,
+                            fontSize: m),
+                      )),
+                      DataCell(
+                        Container(
+                          padding:
+                          const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(
+                                100),
+                            color: e.status ==
+                                CustomerApplicationStatus
+                                    .newA
+                                ? const Color(0XFF0590FF)
+                                : e.status ==
+                                CustomerApplicationStatus
+                                    .processing
+                                ? yellowColor
+                                : e.status ==
+                                CustomerApplicationStatus
+                                    .complete
+                                ? greenColor
+                                : e.status ==
+                                CustomerApplicationStatus
+                                    .accepted
+                                ? const Color(
+                                0XFF5CD2D0)
+                                : e.status ==
+                                CustomerApplicationStatus
+                                    .delivery
+                                ? orangeColor
+                                : warningColor,
+                          ),
+                          child: Row(
+                            mainAxisSize:
+                            MainAxisSize.min,
+                            children: [
+                              Text(
+                                e.status.label,
+                                style: TextStyle(
+                                  color: e.status ==
+                                      CustomerApplicationStatus
+                                          .newA ||
+                                      e.status ==
+                                          CustomerApplicationStatus
+                                              .declined
+                                      ? Colors.white
+                                      : blackColorMono,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: s,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Icon(
+                                Icons
+                                    .info_outline_rounded,
+                                size: 15,
                                 color: e.status ==
                                     CustomerApplicationStatus
                                         .newA ||
@@ -177,33 +197,16 @@ class ProductDetailsView extends ViewModelWidget<CustomerProfileViewModel> {
                                             .declined
                                     ? Colors.white
                                     : blackColorMono,
-                                fontWeight:
-                                FontWeight.w700,
-                                fontSize: s,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Icon(
-                              Icons
-                                  .info_outline_rounded,
-                              size: 15,
-                              color: e.status ==
-                                  CustomerApplicationStatus
-                                      .newA ||
-                                  e.status ==
-                                      CustomerApplicationStatus
-                                          .declined
-                                  ? Colors.white
-                                  : blackColorMono,
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-                  .toList(),
+                    ],
+                  ),
+                )
+                    .toList(),
+              ),
             ),
           ),
         ),

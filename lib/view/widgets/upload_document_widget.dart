@@ -49,7 +49,8 @@ class UploadDocumentWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     viewModel.frontIdImagePath!=null
-                        ? Padding(
+                        ? Container(
+                            width: label == "Please scan your New ID"? 100:200,
                             padding: const EdgeInsets.only(right: 10.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
@@ -168,7 +169,8 @@ class UploadDocumentWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     viewModel.backIdImagePath!=null
-                        ? Padding(
+                        ? Container(
+                            width: label == "Please scan your New ID"? 100:200,
                             padding: const EdgeInsets.only(right: 10.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
