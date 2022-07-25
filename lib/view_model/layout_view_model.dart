@@ -114,13 +114,19 @@ class LayoutViewModel extends BaseViewModel {
 
   ///////add application pop up view state/////////////////////
   final monthlyIncomeTEC = TextEditingController();
+  final customerIdNumberTEC = TextEditingController();
 
-  CustomerType? customerType;
+  CustomerType customerType = CustomerType.newCustomer;
   selectCustomerType(CustomerType? value) {
-    if(value == null) {
+    if(value == null || customerType == value) {
       return;
     }
     customerType = value;
+
+    selectAllCardPref(false);
+    monthlyIncomeTEC.clear();
+    customerIdNumberTEC.clear();
+    customerIdType = null;
   }
 
   bool allCardPrefSelected = false;
@@ -155,11 +161,18 @@ class LayoutViewModel extends BaseViewModel {
     '100 %',
   ];
 
+  String? customerIdType;
+  var customerIdTypeList = [
+    'National ID',
+    'License',
+    'Citizenship',
+  ];
+
   disposeCardResource() {
-    dropdownValue = '25 %';
-    customerType = null;
-    selectAllCardPref(false);
     monthlyIncomeTEC.clear();
+    customerIdNumberTEC.clear();
+    customerType = CustomerType.newCustomer;
+    customerIdType = null;
   }
   //add application pop up view state end/////////////////////////////////////
 

@@ -146,8 +146,142 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const SizedBox(height: 20),
                           SizedBox(height: MediaQuery.of(context).size.height*0.02),
+
+                          Text("Type of Customer", style: Theme.of(context).textTheme.bodyText1,),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap:
+                                  // viewModel.monthlyIncomeTEC.text.isEmpty
+                                  //     ? null
+                                  //     :
+                                      () {
+                                    setState((){
+                                      viewModel.selectCustomerType(CustomerType.newCustomer);
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
+                                    child: Row(
+                                      children: [
+                                        SelectedWidget(isSelected: viewModel.customerType == CustomerType.newCustomer),
+                                        const SizedBox(width: 15),
+                                        Text("New Customer", style: Theme.of(context).textTheme.headline3,),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                  onTap:
+                                  // viewModel.monthlyIncomeTEC.text.isEmpty
+                                  //     ? null
+                                  //     :
+                                      () {
+                                    setState((){
+                                      viewModel.selectCustomerType(CustomerType.existing);
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
+                                    child: Row(
+                                      children: [
+                                        SelectedWidget(isSelected: viewModel.customerType == CustomerType.existing),
+                                        const SizedBox(width: 15),
+                                        Text("Existing", style: Theme.of(context).textTheme.headline3,),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          viewModel.customerType == CustomerType.existing
+                              ? Column(
+                                  children: [
+                                    SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Customer ID Type", style: Theme.of(context).textTheme.bodyText1,),
+                                              const SizedBox(height: 4),
+                                              PopupMenuButton<String>(
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                                offset: const Offset(0, 40),
+                                                itemBuilder: (context) => viewModel.customerIdTypeList.map(
+                                                      (e) => PopupMenuItem<String>(
+                                                      value: e,
+                                                      child: Text(e),
+                                                    ),
+                                                ).toList(),
+                                                onSelected: (String value) {
+                                                  setState(() {
+                                                    viewModel.customerIdType = value;
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(bottom: 6.0, top: 4),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          viewModel.customerIdType??"Please select",
+                                                          style: const TextStyle(fontWeight: FontWeight.w700, color: blackColorMono),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 10),
+                                                      const Icon(
+                                                        Icons.keyboard_arrow_down,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(height: 1, color: idleGreyColor,),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Customer ID number", style: Theme.of(context).textTheme.bodyText1,),
+                                              TextField(
+                                                controller: viewModel.customerIdNumberTEC,
+                                                keyboardType: TextInputType.number,
+                                                style: const TextStyle(fontWeight: FontWeight.w700),
+                                                decoration: const InputDecoration(
+                                                  isDense: true,
+                                                  hintText: "Enter ID number",
+                                                  hintStyle: TextStyle(color: greyColor, fontSize: m, fontWeight: FontWeight.w700,),
+                                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: idleGreyColor, width: 1),),
+                                                ),
+                                                onChanged: (value) {
+                                                  setState((){});
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
+
+                          SizedBox(height: MediaQuery.of(context).size.height*0.02),
+
                           Row(
                             children: [
                               Expanded(
@@ -169,15 +303,11 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                         }
                                       },
                                       onChanged: (value){
-                                        // if(value.length == 1) {
-                                        //   setState(() {
-                                        //     viewModel.monthlyIncomeTEC.text = "BHD ";
-                                        //     viewModel.monthlyIncomeTEC.selection = TextSelection.fromPosition(TextPosition(offset: viewModel.monthlyIncomeTEC.text.length));
-                                        //   });
-                                        // }
                                         if(value.isEmpty) {
                                           setState(() {
-                                            viewModel.disposeCardResource();
+                                            // viewModel.disposeCardResource();
+                                            viewModel.dropdownValue = '25 %';
+                                            viewModel.selectAllCardPref(false);
                                           });
                                         }
                                       },
@@ -205,9 +335,9 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                       offset: const Offset(0, 40),
                                       itemBuilder: (context) => viewModel.items.map(
                                             (e) => PopupMenuItem<String>(
-                                                value: e,
-                                                child: Text(e),
-                                              ),
+                                          value: e,
+                                          child: Text(e),
+                                        ),
                                       ).toList(),
                                       onSelected: (String value) {
                                         setState(() {
@@ -239,87 +369,9 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                               ),
                             ],
                           ),
+
                           // const SizedBox(height: 30),
                           SizedBox(height: MediaQuery.of(context).size.height*0.04),
-
-                          Text("Type of Customer", style: Theme.of(context).textTheme.bodyText1,),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: viewModel.monthlyIncomeTEC.text.isEmpty
-                                      ? null
-                                      : () {
-                                    setState((){
-                                      viewModel.selectCustomerType(CustomerType.existing);
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
-                                    child: Row(
-                                      children: [
-                                        SelectedWidget(isSelected: viewModel.customerType == CustomerType.existing),
-                                        const SizedBox(width: 15),
-                                        Text("Existing", style: Theme.of(context).textTheme.headline3,),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                // child: RadioListTile(
-                                //   value: CustomerType.existing,
-                                //   groupValue: viewModel.customerType,
-                                //   contentPadding: EdgeInsets.zero,
-                                //   dense: true,
-                                //   onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
-                                //       ? null
-                                //       : (CustomerType? value) {
-                                //           setState(() {
-                                //             viewModel.selectCustomerType(value);
-                                //           });
-                                //         },
-                                //   title: Text("Existing", style: Theme.of(context).textTheme.headline3,),
-                                // ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap:
-                                  viewModel.monthlyIncomeTEC.text.isEmpty
-                                      ? null
-                                      : () {
-                                    setState((){
-                                      viewModel.selectCustomerType(CustomerType.newCustomer);
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.02),
-                                    child: Row(
-                                      children: [
-                                        SelectedWidget(isSelected: viewModel.customerType == CustomerType.newCustomer),
-                                        const SizedBox(width: 15),
-                                        Text("New Customer", style: Theme.of(context).textTheme.headline3,),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                // child: RadioListTile(
-                                //   value: CustomerType.newCustomer,
-                                //   contentPadding: EdgeInsets.zero,
-                                //   dense: true,
-                                //   groupValue: viewModel.customerType,
-                                //   onChanged: viewModel.monthlyIncomeTEC.text.isEmpty
-                                //       ? null:(CustomerType? value) {
-                                //     setState(() {
-                                //       viewModel.selectCustomerType(value);
-                                //     });
-                                //   },
-                                //   title: Text("New Customer", style: Theme.of(context).textTheme.headline3,),
-                                // ),
-                              ),
-                            ],
-                          ),
-
-                          // const SizedBox(height: 30),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.02),
 
                           Text("Card Preferences", style: Theme.of(context).textTheme.bodyText1,),
                           SizedBox(height: MediaQuery.of(context).size.height*0.01),
@@ -363,15 +415,22 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               ElevatedButton(
-                                onPressed: viewModel.monthlyIncomeTEC.text.isNotEmpty? null: () {
-                                  Navigator.pop(context);
-                                  locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
-                                  // viewModel.disposeCardResource();
-                                },
+                                onPressed: (viewModel.customerType == CustomerType.newCustomer && viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.cardPrefList.contains(true))
+                                    ||(viewModel.customerType == CustomerType.existing && (viewModel.customerIdType == null || viewModel.customerIdNumberTEC.text.isEmpty))
+                                    || (viewModel.customerType == CustomerType.existing && viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.cardPrefList.contains(true) &&  viewModel.customerIdType != null && viewModel.customerIdNumberTEC.text.isNotEmpty)
+                                    ? null
+                                    : () {
+                                        Navigator.pop(context);
+                                        locator<NavigationService>().navigateToAndBack(applicationFormView, arguments: Data.cardTypeData);
+                                        // viewModel.disposeCardResource();
+                                      },
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25), side: const BorderSide(color: borderGreyColor))),
                                   backgroundColor: MaterialStateProperty.all(Colors.white),
-                                  foregroundColor: MaterialStateProperty.all(viewModel.monthlyIncomeTEC.text.isNotEmpty? greyColor:blackColorMono),
+                                  foregroundColor: MaterialStateProperty.all((viewModel.customerType == CustomerType.newCustomer && viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.cardPrefList.contains(true))
+                                      ||(viewModel.customerType == CustomerType.existing && (viewModel.customerIdType == null || viewModel.customerIdNumberTEC.text.isEmpty))
+                                      ||(viewModel.customerType == CustomerType.existing && viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.cardPrefList.contains(true) &&  viewModel.customerIdType != null && viewModel.customerIdNumberTEC.text.isNotEmpty)
+                                      ? greyColor:blackColorMono),
                                   padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                                 ),
                                 child: const Text("View all card", style: TextStyle(fontWeight: FontWeight.w700),),
@@ -388,7 +447,7 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),)),
                                   backgroundColor: MaterialStateProperty.all(
-                                    viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.customerType != null && viewModel.cardPrefList.contains(true)
+                                    viewModel.monthlyIncomeTEC.text.isNotEmpty  && viewModel.cardPrefList.contains(true)
                                         ? successColor
                                         : idleGreyColor,
                                   ),
@@ -396,7 +455,7 @@ void showCardOptionsDetail(BuildContext context, LayoutViewModel viewModel) {
                                   padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20)),
                                 ),
                                 child: Text(
-                                  viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.customerType != null && viewModel.cardPrefList.contains(true)
+                                  viewModel.monthlyIncomeTEC.text.isNotEmpty && viewModel.cardPrefList.contains(true)
                                       ? "Show 2 Card"
                                       : "Show Card",
                                   style: const TextStyle(
